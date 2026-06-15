@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --dark-bg: #030712;
-            --panel-bg: rgba(17, 24, 39, 0.7);
-            --border-glow: rgba(56, 189, 248, 0.2);
+            --dark-bg: #0b0f19;
+            --panel-bg: rgba(21, 31, 50, 0.8);
+            --border-glow: rgba(6, 182, 212, 0.3);
             --neon-cyan: #06b6d4;
             --neon-blue: #3b82f6;
-            --text-gold: #f59e0b;
+            --text-gold: #fbbf24;
             --text-white: #f3f4f6;
             --text-gray: #9ca3af;
             --crypto-green: #10b981;
+            --card-gradient: linear-gradient(145deg, #1e293b, #0f172a);
             --glass: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -30,18 +31,18 @@
         body {
             background-color: var(--dark-bg);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
             color: var(--text-white);
-            padding-bottom: 90px;
+            padding-bottom: 95px;
             overflow-x: hidden;
         }
 
         /* Ultimate Premium Header */
         .premium-header {
-            background: rgba(3, 7, 18, 0.8);
+            background: rgba(11, 15, 25, 0.9);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding: 18px 20px;
             display: flex;
             justify-content: space-between;
@@ -52,12 +53,12 @@
         }
 
         .brand-logo {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 900;
             background: linear-gradient(135deg, #06b6d4, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
         }
 
         .header-icon {
@@ -70,7 +71,7 @@
         .app-page {
             display: none;
             padding: 20px;
-            animation: slideUp 0.35s var(--glass);
+            animation: slideUp 0.4s var(--glass);
         }
 
         .app-page.active {
@@ -78,94 +79,79 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 10x Better Glassmorphism Card */
+        /* 10x Better Glassmorphism Card (Inspired by 46328.jpg) */
         .glass-wallet-card {
-            background: linear-gradient(135deg, rgba(30, 27, 75, 0.6), rgba(15, 23, 42, 0.8));
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
             padding: 25px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1);
+            box-shadow: 0 15px 35px rgba(217, 119, 6, 0.3);
             margin-bottom: 25px;
-        }
-
-        .glass-wallet-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 60%);
-            pointer-events: none;
         }
 
         .wallet-label {
             font-size: 13px;
-            color: var(--text-gray);
+            color: rgba(0, 0, 0, 0.7);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 6px;
+            font-weight: 700;
         }
 
         .wallet-balance {
-            font-size: 38px;
-            font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 40px;
+            font-weight: 900;
+            color: #000000;
         }
 
         /* Luxury Quick Menu Buttons */
         .action-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
             margin-bottom: 25px;
         }
 
         .luxury-btn {
-            background: rgba(15, 23, 42, 0.6);
+            background: #1e293b;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 18px 10px;
+            border-radius: 18px;
+            padding: 15px 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
             transition: all 0.25s var(--glass);
         }
 
         .luxury-btn:active {
-            transform: scale(0.92);
+            transform: scale(0.9);
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan));
-            border-color: transparent;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
         }
 
         .luxury-btn i {
-            font-size: 26px;
-            background: linear-gradient(135deg, #38bdf8, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 22px;
+            color: var(--text-gold);
         }
 
         .luxury-btn:active i {
-            -webkit-text-fill-color: #ffffff;
+            color: #ffffff;
         }
 
         .luxury-btn span {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-white);
         }
@@ -174,27 +160,30 @@
         .premium-container {
             background: var(--panel-bg);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
             padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .premium-title {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 22px;
+            font-weight: 800;
             color: var(--text-white);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 10px;
         }
 
         .input-wrapper {
             background: rgba(3, 7, 18, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -214,88 +203,90 @@
             font-size: 15px;
         }
 
-        /* Futuristic Luxury Vehicle Investment Cards (As requested from screenshots) */
+        /* Futuristic Luxury Vehicle Investment Cards (Inspired by 46329.jpg) */
         .vehicle-card {
-            background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(3, 7, 18, 0.9));
+            background: #151f32;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 28px;
-            margin-bottom: 25px;
+            border-radius: 24px;
+            margin-bottom: 20px;
             overflow: hidden;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .vehicle-card-header {
-            padding: 16px 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .vip-tag {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #000;
-            font-weight: 800;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 11px;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
-        }
-
-        .vehicle-display {
-            padding: 30px 20px;
-            text-align: center;
+            flex-direction: column;
             position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .vehicle-card-inner {
+            display: flex;
+            padding: 20px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .vehicle-img-box {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(#24334d, #0f172a);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .vehicle-glow-icon {
-            font-size: 65px;
-            color: var(--text-white);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 10px 15px rgba(59, 130, 246, 0.6));
+            font-size: 45px;
+            color: var(--text-gold);
+            filter: drop-shadow(0 4px 10px rgba(251, 191, 36, 0.5));
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .vehicle-details {
+            flex: 1;
         }
 
         .vehicle-name {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 800;
-            letter-spacing: 0.5px;
             color: var(--text-white);
+            margin-bottom: 8px;
         }
 
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 20px 20px 20px;
-        }
-
-        .spec-box {
-            background: rgba(3, 7, 18, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .spec-lbl {
-            font-size: 11px;
+        .mini-specs {
+            font-size: 12px;
             color: var(--text-gray);
-            margin-bottom: 4px;
+            line-height: 1.6;
         }
 
-        .spec-val {
+        .mini-specs span {
+            color: var(--neon-cyan);
+            font-weight: 700;
+        }
+
+        .invest-action-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 14px;
             font-size: 15px;
             font-weight: 700;
-            color: var(--neon-cyan);
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .invest-action-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
         }
 
         /* Solid Action Neon Buttons */
@@ -315,21 +306,21 @@
 
         .neon-submit-btn:active {
             transform: scale(0.96);
-            box-shadow: 0 2px 5px rgba(6, 182, 212, 0.2);
         }
 
         .back-nav-btn {
-            background: transparent;
+            background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-gray);
-            padding: 8px 16px;
+            color: var(--text-white);
+            padding: 10px 18px;
             border-radius: 30px;
             font-size: 13px;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 20px;
             cursor: pointer;
+            font-weight: 600;
         }
 
         /* Premium Bottom Tab Bar Navigator */
@@ -339,9 +330,9 @@
             left: 0;
             right: 0;
             height: 75px;
-            background: rgba(3, 7, 18, 0.85);
+            background: rgba(11, 15, 25, 0.9);
             backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -366,42 +357,93 @@
 
         .tab-trigger span {
             font-size: 11px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .tab-trigger.active {
-            color: var(--neon-cyan);
-            filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
+            color: var(--text-gold);
             transform: translateY(-2px);
         }
 
-        /* Affiliate styling */
-        .referral-link-box {
-            background: rgba(3, 7, 18, 0.8);
-            border: 1px dashed var(--neon-cyan);
-            padding: 16px;
-            border-radius: 14px;
+        /* Referral System Styling (Inspired by 46328.jpg) */
+        .referral-card {
+            background: #151f32;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .ref-commission-box {
             font-size: 13px;
-            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .ref-commission-box span {
+            color: var(--text-gold);
+            font-weight: 700;
+        }
+
+        .referral-link-box {
+            background: #0b0f19;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: left;
             color: var(--neon-cyan);
             word-break: break-all;
-            margin: 15px 0;
+            margin-bottom: 12px;
+        }
+
+        .copy-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #000000;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.97);
+        }
+
+        .done-badge {
+            background: var(--text-gold);
+            color: black;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Block -->
     <div class="premium-header">
         <div class="brand-logo">ORS VISION</div>
         <div class="header-icon"><i class="fa-solid fa-bolt"></i></div>
     </div>
 
+    <!-- 1. HOME VIEW -->
     <div id="view-home" class="app-page active">
         <div class="glass-wallet-card">
-            <div class="wallet-label"><i class="fa-solid fa-wallet"></i> Total Assets Balance</div>
-            <div class="wallet-balance" id="display-balance">300.00 ETB</div>
+            <div class="wallet-label"><i class="fa-solid fa-wallet"></i> Available for withdrawal</div>
+            <div class="wallet-balance" id="display-balance">320.00 ETB</div>
         </div>
 
+        <!-- Luxury Quick Nav Grid (Fixed Routing) -->
         <div class="action-grid">
             <div class="luxury-btn" onclick="switchView('view-deposit')">
                 <i class="fa-solid fa-circle-plus"></i>
@@ -411,193 +453,178 @@
                 <i class="fa-solid fa-money-bill-transfer"></i>
                 <span>Withdraw</span>
             </div>
-            <div class="luxury-btn" onclick="switchView('view-support')">
-                <i class="fa-solid fa-headset"></i>
-                <span>Support</span>
-            </div>
             <div class="luxury-btn" onclick="switchView('view-history')">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <span>History</span>
             </div>
-            <div class="luxury-btn" onclick="switchView('view-checkin')">
-                <i class="fa-solid fa-calendar-check"></i>
-                <span>Check In</span>
+            <div class="luxury-btn" onclick="switchView('view-referral')">
+                <i class="fa-solid fa-users"></i>
+                <span>Referral</span>
             </div>
-            <div class="luxury-btn" onclick="switchView('view-promo')">
-                <i class="fa-solid fa-gift"></i>
-                <span>Promo</span>
+        </div>
+
+        <!-- Daily Checkin Showcase Banner -->
+        <div style="background:#151f32; padding:16px; border-radius:16px; display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; border:1px solid rgba(255,255,255,0.05);">
+            <div>
+                <div style="font-size:14px; font-weight:700;">Daily Check-in</div>
+                <div style="font-size:13px; color:var(--text-gold); margin-top:2px;">+20 ETB</div>
             </div>
+            <button id="home-checkin-btn" class="done-badge" style="border:none; cursor:pointer;" onclick="execCheckIn()">Claim <i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 
+    <!-- 2. DEPOSIT VIEW -->
     <div id="view-deposit" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
+        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</div>
         <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-wallet"></i> Deposit Money</div>
-            <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 18px;">
-                Telebirr Number: <strong style="color: var(--neon-cyan); font-size: 15px;">0945221136</strong> (EMAWAYIT)
+            <div class="premium-title"><i class="fa-solid fa-wallet"></i> Deposit System</div>
+            <p style="font-size: 14px; color: var(--text-gray); margin-bottom: 20px; line-height: 1.5;">
+                የቴሌብር ቁጥር: <strong style="color: var(--text-gold); font-size: 16px;">0945221136</strong> (EMAWAYIT)<br>
+                <span style="font-size: 12px; color: #ef4444;">* እባክዎ በትክክለኛው ስም መላክዎን ያረጋግጡ!</span>
             </p>
+            
+            <label style="font-size: 12px; color: var(--text-gray); display:block; margin-bottom:6px;">Select Amount</label>
             <div class="input-wrapper">
-                <i class="fa-solid fa-money-bill"></i>
+                <i class="fa-solid fa-money-bill-wave"></i>
                 <select id="deposit-amt">
                     <option value="900">900 ETB</option>
                     <option value="1800">1800 ETB</option>
                     <option value="5000">5000 ETB</option>
                 </select>
             </div>
-            <div class="input-wrapper">
-                <i class="fa-solid fa-message"></i>
-                <textarea id="deposit-sms" rows="3" placeholder="Paste full Telebirr Transaction SMS here..." style="background:transparent; border:none; color:white; width:100%; outline:none; font-size:14px;"></textarea>
+
+            <label style="font-size: 12px; color: var(--text-gray); display:block; margin-bottom:6px;">Paste Full Transaction SMS</label>
+            <div class="input-wrapper" style="align-items: flex-start;">
+                <i class="fa-solid fa-envelope-open-text" style="margin-top: 4px;"></i>
+                <textarea id="deposit-sms" rows="5" placeholder="ከቴሌብር የደረሰዎትን ሙሉ ማረጋገጫ አጭር መልእክት (SMS) እዚህ ላይ ሙሉ በሙሉ ገልብጠው ያስገቡ..." style="resize: none;"></textarea>
             </div>
-            <button class="neon-submit-btn" onclick="alert('Transaction submitted for VIP verification!')">VERIFY PAYMENT</button>
+            <button class="neon-submit-btn" onclick="alert('የላኩት የክፍያ መረጃ ደርሶናል! በቅርቡ ተረጋግጦ ይገባል!')">VERIFY PAYMENT</button>
         </div>
     </div>
 
+    <!-- 3. WITHDRAW VIEW -->
     <div id="view-withdraw" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
+        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</div>
         <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-money-bill-wave"></i> Cashout Request</div>
+            <div class="premium-title"><i class="fa-solid fa-money-bill-transfer"></i> Cashout Portal</div>
             <div class="input-wrapper">
                 <i class="fa-solid fa-calculator"></i>
-                <input type="number" placeholder="Enter amount (Min: 100 ETB)">
+                <input type="number" placeholder="Enter Cashout Amount (Min: 100 ETB)">
             </div>
             <div class="input-wrapper">
-                <i class="fa-solid fa-phone"></i>
-                <input type="tel" placeholder="Telebirr Number (09xxxxxxxx)">
+                <i class="fa-solid fa-mobile-button"></i>
+                <input type="tel" placeholder="Telebirr Receiver Number (09xxxxxxxx)">
             </div>
-            <button class="neon-submit-btn" onclick="alert('Withdrawal request successfully queued.')">SUBMIT REQUEST</button>
+            <button class="neon-submit-btn" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);" onclick="alert('የመውጫ ጥያቄዎ በተሳካ ሁኔታ ተመዝግቧል።')">SUBMIT REQUEST</button>
         </div>
     </div>
 
-    <div id="view-support" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
-        <div class="premium-container" style="text-align: center;">
-            <div class="premium-title" style="justify-content: center;"><i class="fa-solid fa-headset"></i> VIP Support</div>
-            <p style="color: var(--text-gray); font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
-                ማንኛውም አይነት እገዛ ወይም ጥያቄ ካለዎት የፕላትፎርማችንን የ24 ሰዓት ቀጥታ የቴሌግራም ሲስተም ያነጋግሩ።
-            </p>
-            <button class="neon-submit-btn" onclick="window.open('https://t.me/your_support_bot', '_blank')"><i class="fa-brands fa-telegram"></i> Launch Telegram Chat</button>
-        </div>
-    </div>
-
-    <div id="view-history" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
-        <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-list-check"></i> Statement Logs</div>
-            <div style="background: rgba(3,7,18,0.5); padding: 14px; border-radius: 14px; border-left: 4px solid var(--crypto-green); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-size: 14px; font-weight:700;">Daily Login Reward</div>
-                    <div style="font-size: 11px; color: var(--text-gray);">Today</div>
-                </div>
-                <div style="color: var(--crypto-green); font-weight: 800;">+20.00 ETB</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="view-checkin" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
-        <div class="premium-container" style="text-align: center; padding: 40px 20px;">
-            <i class="fa-solid fa-gift" style="font-size: 60px; color: var(--text-gold); margin-bottom: 15px; filter: drop-shadow(0 0 15px var(--text-gold));"></i>
-            <div class="premium-title" style="justify-content: center;">Daily Check-In Bonus</div>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 25px;">የ 20 የኢትዮጵያ ብር የዕለታዊ ስጦታዎን አሁኑኑ ይቀበሉ!</p>
-            <button id="bonus-action-btn" class="neon-submit-btn" onclick="execCheckIn()">CLAIM DAILY 20 ETB</button>
-        </div>
-    </div>
-
-    <div id="view-promo" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
-        <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-ticket"></i> Redeem Voucher</div>
-            <div class="input-wrapper">
-                <i class="fa-solid fa-key"></i>
-                <input type="text" id="voucher-node" placeholder="Enter Secret Promo Code">
-            </div>
-            <button class="neon-submit-btn" style="background: linear-gradient(135deg, #a855f7, #ec4899);" onclick="alert('Voucher processing triggered...')">REDEEM NOW</button>
-        </div>
-    </div>
-
+    <!-- 4. PRODUCTS (FLEETS) VIEW -->
     <div id="view-products" class="app-page">
-        <div class="premium-title" style="margin-bottom: 25px;"><i class="fa-solid fa-car-rear"></i> Luxury Investment Fleets</div>
+        <div class="premium-title" style="margin-bottom: 25px;"><i class="fa-solid fa-car-side"></i> Premium Luxury Fleets</div>
 
+        <!-- Vehicle Fleet Item 1 -->
         <div class="vehicle-card">
-            <div class="vehicle-card-header">
-                <span class="vehicle-name">Audi A6 Sedan</span>
-                <span class="vip-tag">VIP 1</span>
+            <div class="vehicle-card-inner">
+                <div class="vehicle-img-box">
+                    <i class="fa-solid fa-car-rear vehicle-glow-icon"></i>
+                </div>
+                <div class="vehicle-details">
+                    <div class="vehicle-name">Audi A6 Sedan (VIP 1)</div>
+                    <div class="mini-specs">
+                        Price: <span>900 ETB</span><br>
+                        Daily Profit: <span>100 ETB</span><br>
+                        Period: <span>150 Days</span><br>
+                        Total Income: <span>15,000 ETB</span>
+                    </div>
+                </div>
             </div>
-            <div class="vehicle-display">
-                <div class="vehicle-glow-icon"><i class="fa-solid fa-car"></i></div>
-            </div>
-            <div class="specs-grid">
-                <div class="spec-box"><div class="spec-lbl">Fleet Price</div><div class="spec-val">900 ETB</div></div>
-                <div class="spec-box"><div class="spec-lbl">Daily Return</div><div class="spec-val">100 ETB</div></div>
-                <div class="spec-box"><div class="spec-lbl">Total Days</div><div class="spec-val">150 Days</div></div>
-                <div class="spec-box"><div class="spec-lbl">Total Profit</div><div class="spec-val">15,000 ETB</div></div>
-            </div>
-            <div style="padding: 0 20px 20px 20px;">
-                <button class="neon-submit-btn" style="background: linear-gradient(135deg, #0284c7, #06b6d4);" onclick="alert('VIP 1 Fleet investment complete!')">BUY FLEET NOW</button>
-            </div>
+            <button class="invest-action-btn" onclick="alert('VIP 1 Fleet Activation Complete!')">Invest Now <i class="fa-solid fa-angle-right"></i></button>
         </div>
 
+        <!-- Vehicle Fleet Item 2 -->
         <div class="vehicle-card">
-            <div class="vehicle-card-header">
-                <span class="vehicle-name">BMW X5 M-Sport</span>
-                <span class="vip-tag" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">VIP 2</span>
+            <div class="vehicle-card-inner">
+                <div class="vehicle-img-box">
+                    <i class="fa-solid fa-truck-pickup vehicle-glow-icon" style="color: var(--neon-cyan); filter: drop-shadow(0 4px 10px rgba(6,182,212,0.5));"></i>
+                </div>
+                <div class="vehicle-details">
+                    <div class="vehicle-name">BMW X5 M-Sport (VIP 2)</div>
+                    <div class="mini-specs">
+                        Price: <span>1800 ETB</span><br>
+                        Daily Profit: <span>300 ETB</span><br>
+                        Period: <span>150 Days</span><br>
+                        Total Income: <span>45,000 ETB</span>
+                    </div>
+                </div>
             </div>
-            <div class="vehicle-display">
-                <div class="vehicle-glow-icon" style="filter: drop-shadow(0 10px 15px rgba(6, 182, 212, 0.6));"><i class="fa-solid fa-truck-pickup"></i></div>
-            </div>
-            <div class="specs-grid">
-                <div class="spec-box"><div class="spec-lbl">Fleet Price</div><div class="spec-val">1800 ETB</div></div>
-                <div class="spec-box"><div class="spec-lbl">Daily Return</div><div class="spec-val">300 ETB</div></div>
-                <div class="spec-box"><div class="spec-lbl">Total Days</div><div class="spec-val">150 Days</div></div>
-                <div class="spec-box"><div class="spec-lbl">Total Profit</div><div class="spec-val">45,000 ETB</div></div>
-            </div>
-            <div style="padding: 0 20px 20px 20px;">
-                <button class="neon-submit-btn" style="background: linear-gradient(135deg, #0284c7, #06b6d4);" onclick="alert('VIP 2 Fleet investment complete!')">BUY FLEET NOW</button>
-            </div>
+            <button class="invest-action-btn" onclick="alert('VIP 2 Fleet Activation Complete!')">Invest Now <i class="fa-solid fa-angle-right"></i></button>
         </div>
     </div>
 
+    <!-- 5. REFERRAL VIEW -->
     <div id="view-referral" class="app-page">
         <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-users"></i> Affiliate Ecosystem</div>
-            <div class="referral-link-box">https://jersey-platform-11.onrender.com/?ref=user123</div>
+            <div class="premium-title"><i class="fa-solid fa-share-nodes"></i> Referral Ecosystem</div>
             
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 15px;">
-                <div style="background: rgba(3,7,18,0.5); padding: 16px; border-radius: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.02);">
+            <div class="referral-card">
+                <div class="ref-commission-box">
+                    Earn dynamic instant commissions when your referrals buy VIP packages:<br>
+                    <span>Level 1: 20%</span> | <span>Level 2: 2%</span> | <span>Level 3: 1%</span>
+                </div>
+                
+                <!-- Active Dynamic Link Field -->
+                <div class="referral-link-box" id="ref-link">https://jersey-platform-11.onrender.com/?ref=0984122041</div>
+                
+                <!-- Functional Copy Button -->
+                <button class="copy-btn" onclick="copyReferralLink()">
+                    <i class="fa-solid fa-copy"></i> <span id="copy-text">Copy Referral Link</span>
+                </button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px;">
+                <div style="background: rgba(3,7,18,0.5); padding: 16px; border-radius: 16px; text-align: center;">
                     <div style="font-size: 11px; color: var(--text-gray);">Total Invited</div>
                     <div style="font-size: 24px; font-weight: 800; color: var(--crypto-green); margin-top: 6px;">0</div>
                 </div>
-                <div style="background: rgba(3,7,18,0.5); padding: 16px; border-radius: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.02);">
-                    <div style="font-size: 11px; color: var(--text-gray);">Active Fleets</div>
+                <div style="background: rgba(3,7,18,0.5); padding: 16px; border-radius: 16px; text-align: center;">
+                    <div style="font-size: 11px; color: var(--text-gray);">Active Teams</div>
                     <div style="font-size: 24px; font-weight: 800; color: var(--neon-cyan); margin-top: 6px;">0</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="view-profile" class="app-page">
-        <div class="premium-container" style="text-align: center; padding: 30px 20px;">
-            <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);">
-                <i class="fa-solid fa-user-tie" style="font-size: 35px; color: white;"></i>
-            </div>
-            <h3 style="font-size: 20px; font-weight: 800;">UID: #584920</h3>
-            <p style="color: var(--crypto-green); font-size: 13px; font-weight: 700; margin-top: 5px;">Verified Account</p>
-            
-            <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; text-align: left;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:14px; color:var(--text-gray);">
-                    <span>Node Server Status</span><span style="color:var(--crypto-green);">Online</span>
+    <!-- 6. HISTORY VIEW -->
+    <div id="view-history" class="app-page">
+        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
+        <div class="premium-container">
+            <div class="premium-title"><i class="fa-solid fa-list-check"></i> Statement Logs</div>
+            <div style="background: rgba(3,7,18,0.5); padding: 14px; border-radius: 14px; border-left: 4px solid var(--crypto-green); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 14px; font-weight:700;">Daily Account Checkin</div>
+                    <div style="font-size: 11px; color: var(--text-gray);">System Auto Processed</div>
                 </div>
-                <div style="display:flex; justify-content:space-between; font-size:14px; color:var(--text-gray);">
-                    <span>Security Protocol</span><span style="color:var(--neon-cyan);">SSL-Encrypted</span>
-                </div>
+                <div style="color: var(--crypto-green); font-weight: 800;">+20.00 ETB</div>
             </div>
         </div>
     </div>
 
+    <!-- 7. PROFILE VIEW -->
+    <div id="view-profile" class="app-page">
+        <div class="premium-container" style="text-align: center; padding: 30px 20px;">
+            <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;">
+                <i class="fa-solid fa-user-tie" style="font-size: 35px; color: white;"></i>
+            </div>
+            <h3 style="font-size: 20px; font-weight: 800;">UID: #584920</h3>
+            <p style="color: var(--crypto-green); font-size: 13px; font-weight: 700; margin-top: 5px;">Verified Member Account</p>
+        </div>
+    </div>
+
+    <!-- Bottom App Navigation Tab Bar -->
     <div class="neon-tab-bar">
         <div class="tab-trigger active" id="trigger-home" onclick="switchView('view-home')">
-            <i class="fa-solid fa-cubes"></i>
+            <i class="fa-solid fa-house"></i>
             <span>Home</span>
         </div>
         <div class="tab-trigger" id="trigger-products" onclick="switchView('view-products')">
@@ -606,32 +633,30 @@
         </div>
         <div class="tab-trigger" id="trigger-referral" onclick="switchView('view-referral')">
             <i class="fa-solid fa-share-nodes"></i>
-            <span>Affiliate</span>
+            <span>Share</span>
         </div>
         <div class="tab-trigger" id="trigger-profile" onclick="switchView('view-profile')">
-            <i class="fa-solid fa-id-card"></i>
-            <span>Profile</span>
+            <i class="fa-solid fa-user"></i>
+            <span>My</span>
         </div>
     </div>
 
+    <!-- JavaScript Control Block -->
     <script>
         // High Performance Router View Engine
         function switchView(targetId) {
-            // Drop view states
             document.querySelectorAll('.app-page').forEach(view => {
                 view.classList.remove('active');
             });
             
-            // Trigger animation on live layout
             document.getElementById(targetId).classList.add('active');
 
-            // Reset tab highlights
             document.querySelectorAll('.tab-trigger').forEach(trigger => {
                 trigger.classList.remove('active');
             });
 
-            // Map sub-views back to parental nodes
-            if(['view-home', 'view-deposit', 'view-withdraw', 'view-support', 'view-history', 'view-checkin', 'view-promo'].includes(targetId)) {
+            // Tab Item Binding Logic
+            if(['view-home', 'view-deposit', 'view-withdraw', 'view-history'].includes(targetId)) {
                 document.getElementById('trigger-home').classList.add('active');
             } else if(targetId === 'view-products') {
                 document.getElementById('trigger-products').classList.add('active');
@@ -644,6 +669,20 @@
             window.scrollTo(0, 0);
         }
 
+        // Clip API Copy Executor
+        function copyReferralLink() {
+            const linkText = document.getElementById('ref-link').innerText;
+            navigator.clipboard.writeText(linkText).then(() => {
+                const copyBtnSpan = document.getElementById('copy-text');
+                copyBtnSpan.innerText = "Copied!";
+                setTimeout(() => {
+                    copyBtnSpan.innerText = "Copy Referral Link";
+                }, 2000);
+            }).catch(err => {
+                alert("ኮፒ ማድረግ አልተሳካም፣ እባክዎ ሊንኩን በመጫን ኮፒ ያድርጉት።");
+            });
+        }
+
         // Live check-in flow state
         let hasClaimed = false;
         function execCheckIn() {
@@ -652,9 +691,11 @@
                 return;
             }
             alert("Daily check-in successful! +20.00 ETB credited.");
-            document.getElementById('display-balance').innerText = "320.00 ETB";
-            document.getElementById('bonus-action-btn').innerText = "CLAIMED TODAY";
-            document.getElementById('bonus-action-btn').style.background = "#374151";
+            document.getElementById('display-balance').innerText = "340.00 ETB";
+            const homeBtn = document.getElementById('home-checkin-btn');
+            homeBtn.innerText = "Done ✓";
+            homeBtn.style.background = "#374151";
+            homeBtn.style.color = "#9ca3af";
             hasClaimed = true;
         }
     </script>
