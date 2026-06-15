@@ -8,7 +8,6 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // የዳታቤዝ ግንኙነት መስመር
 const MONGODB_URI = "mongodb+srv://Alpha:406976aaa@cluster0.sgcjmyi.mongodb.net/ors_platform?retryWrites=true&w=majority&appName=Cluster0";
@@ -21,7 +20,7 @@ mongoose.connect(MONGODB_URI)
 const UserSchema = new mongoose.Schema({
     phone: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    promoCode: { type: String, unique: true }, // የሪፈራል ኮድ
+    promoCode: { type: String, unique: true }, 
     referredBy: { type: String, default: null },
     balance: { type: Number, default: 300 }, 
     isBanned: { type: Boolean, default: false },
@@ -49,12 +48,11 @@ const TransactionSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// ለአድሚን የሚሆኑ አዳዲስ የፕሮሞ ኮዶች ማስቀመጫ Schema
 const AdminPromoSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     createdAt: { type: Date, default: Date.now },
     expiresAt: { type: Date, required: true },
-    redeemedUsers: [String] // ኮዱን የተጠቀሙ ሰዎችን ስልክ ቁጥር ይይዛል
+    redeemedUsers: [String] 
 });
 
 const SystemConfigSchema = new mongoose.Schema({
@@ -87,6 +85,11 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
+
+// --- SERVE HOMEPAGE DIRECTLY ---
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // --- AUTH ROUTES ---
 app.post('/api/register', async (req, res) => {
@@ -166,31 +169,25 @@ app.post('/api/checkin', authenticateToken, async (req, res) => {
     res.json({ message: 'Checked in successfully! +20 Birr', newBalance: req.user.balance });
 });
 
-// ተጠቃሚው በአድሚን የተፈጠረውን ፕሮሞ ኮድ የሚያስገባበት ህግ
 app.post('/api/promo-bonus', authenticateToken, async (req, res) => {
     const { code } = req.body;
     if (!code || code.trim() === "") return res.status(400).json({ message: 'Please enter a valid code' });
 
-    // ኮዱ በአድሚን የተፈጠረ መሆኑንና አለማለፉን ቼክ ያደርጋል
     const activePromo = await AdminPromo.findOne({ code: code.trim().toUpperCase() });
-    if (!activePromo) {
-        return res.status(400).json({ message: 'Invalid Promo Code!' });
-    }
+    if (!activePromo) { return res.status(400).json({ message: 'Invalid Promo Code!' }); }
 
     if (new Date() > activePromo.expiresAt) {
-        return res.status(400).json({ message: 'This Promo Code has expired (24 Hours limit reached)!' });
+        return res.status(400).json({ message: 'This Promo Code has expired!' });
     }
 
     if (activePromo.redeemedUsers.includes(req.user.phone)) {
         return res.status(400).json({ message: 'You have already used this Promo Code!' });
     }
 
-    // ከ 1 እስከ 10 ብር በዘፈቀደ (Random) መውሰድ
     const bonus = Math.floor(Math.random() * 10) + 1;
     req.user.balance += bonus;
     await req.user.save();
 
-    // ይህ ሰው በድጋሚ እንዳይጠቀም ስሙን መዝግብ
     activePromo.redeemedUsers.push(req.user.phone);
     await activePromo.save();
 
@@ -343,7 +340,6 @@ app.get('/api/admin/dashboard', verifyAdmin, async (req, res) => {
     });
 });
 
-// አድሚን በራስ-ሰር 8 ፊደል የእንግሊዘኛ ፕሮሞ ኮድ የሚያመነጭበት ህግ (24 ሰዓት ብቻ የሚቆይ)
 app.post('/api/admin/generate-promo', verifyAdmin, async (req, res) => {
     try {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -351,9 +347,8 @@ app.post('/api/admin/generate-promo', verifyAdmin, async (req, res) => {
         for (let i = 0; i < 8; i++) {
             generatedCode += letters.charAt(Math.floor(Math.random() * letters.length));
         }
-
         const expires = new Date();
-        expires.setHours(expires.getHours() + 24); // ከ 24 ሰዓት በኋላ ኤክስፓየር እንዲሆን መመደብ
+        expires.setHours(expires.getHours() + 24); 
 
         const newPromo = new AdminPromo({
             code: generatedCode,
@@ -361,8 +356,7 @@ app.post('/api/admin/generate-promo', verifyAdmin, async (req, res) => {
             redeemedUsers: []
         });
         await newPromo.save();
-
-        res.json({ message: '8-Digit English Letter Promo Code generated!', code: generatedCode });
+        res.json({ message: 'Promo Code generated!', code: generatedCode });
     } catch (err) {
         res.status(500).json({ message: 'Error generating promo code' });
     }
@@ -400,7 +394,7 @@ app.post('/api/admin/update-links', verifyAdmin, async (req, res) => {
     res.json({ message: 'Official structural Links reconfigured.' });
 });
 
-// Passive VIP Daily Income Automation Simulator
+// Passive VIP Daily Income Automation Simulator (Every 24h)
 setInterval(async () => {
     const users = await User.find({ "products.0": { $exists: true } });
     for (let u of users) {
@@ -416,5 +410,5 @@ setInterval(async () => {
     }
 }, 1000 * 60 * 60 * 24);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000; // Render preferred port configuration
 app.listen(PORT, () => console.log(`ORS cluster active on port ${PORT}`));
