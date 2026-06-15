@@ -51,8 +51,20 @@
             border-radius: 16px;
             width: 100%;
             max-width: 400px;
-            padding: 30px 25px;
+            padding: 25px 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .auth-logo-box {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .auth-logo-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
         }
 
         .auth-tabs {
@@ -146,7 +158,7 @@
             font-size: 12px;
         }
 
-        /* --- 🚗 PRODUCT CARDS (FIXED IMAGE ISSUE) --- */
+        /* --- 🚗 PRODUCT CARDS --- */
         .product-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -345,7 +357,11 @@
     <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
     <div id="authPage">
         <div class="auth-container">
-            <h2 style="text-align:center; margin-bottom:20px; color:var(--accent-gold);">ORS PREMIUM</h2>
+            <!-- በ 46308.png የተሰጠው ውብ ሎጎ እዚህ ላይ እንዲቀመጥ ተደርጓል -->
+            <div class="auth-logo-box">
+                <img src="46308.png" alt="ORS YOUR VISION LOGO">
+            </div>
+            
             <div class="auth-tabs">
                 <div id="tabLogin" class="auth-tab active" onclick="toggleAuthTab('login')">Login</div>
                 <div id="tabRegister" class="auth-tab" onclick="toggleAuthTab('register')">Register</div>
@@ -559,7 +575,6 @@
             
             <div style="background:#111; padding:12px; border-radius:8px; font-size:13px; margin-bottom:15px; line-height: 1.6;">
                 <p>የቴሌብር አካውንት ስም፡ <b>Emawayit</b></p>
-                <!-- ለሰውየው ለመላክ ሙሉ ቁጥሩ እዚህ ይታያል -->
                 <p>የቴሌብር መለያ ቁጥር (ኮፒ ያድርጉ)፦ <b style="color:var(--accent-gold); font-size:15px; letter-spacing:1px;">0945221136</b></p>
             </div>
             
@@ -604,12 +619,10 @@
         let PAGE_OPEN_TIME = Date.now();
         let sysLinks = { supportLink: '#', channelLink: '#' };
 
-        // ገጹ ሲጫን የ URL መለኪያዎችን (Query Params) ይፈትሻል
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const refCode = urlParams.get('ref');
             if (refCode) {
-                // በሪፈራል ሊንክ ከመጣ ፎርሙን ወደ Register ቀይሮ ኮዱን በራስ-ሰር ይሞላል
                 toggleAuthTab('register');
                 document.getElementById('regPromo').value = refCode;
             }
@@ -626,10 +639,10 @@
                 fetchUserProfile();
             } else {
                 document.getElementById('authPage').style.display = 'flex';
+                toggleAuthTab('login'); // መጀመሪያ ሲከፈት ሁልጊዜ ወደ Login ፎርም እንዲመራ
             }
         }
 
-        // የ Auth ታቦች መቀያየሪያ
         function toggleAuthTab(type) {
             if (type === 'login') {
                 document.getElementById('tabLogin').classList.add('active');
@@ -644,7 +657,7 @@
             }
         }
 
-        // REGISTER PROCESS
+        // REGISTER PROCESS (አዲስ ተጠቃሚ ሲመዘገብ በቀጥታ ወደ ሎጊን ገጽ ይመራዋል)
         async function processRegister() {
             const phone = document.getElementById('regPhone').value.trim();
             const password = document.getElementById('regPass').value;
@@ -665,20 +678,35 @@
                     body: JSON.stringify({ phone, password, promoCode })
                 });
                 const data = await res.json();
-                alert(data.message);
+                
                 if (res.ok) {
+                    alert('ምዝገባዎ በተሳካ ሁኔታ ተጠናቋል። አሁን መግባት (Login) ይችላሉ!');
                     toggleAuthTab('login');
                     document.getElementById('loginPhone').value = phone;
+                    document.getElementById('loginPass').value = '';
+                } else {
+                    alert(data.message);
                 }
             } catch (e) { alert('የመመዝገብ ስህተት አጋጥሟል!'); }
         }
 
-        // LOGIN PROCESS
+        // LOGIN PROCESS (የአድሚን ልዩ መለያን ጨምሮ)
         async function processLogin() {
             const phone = document.getElementById('loginPhone').value.trim();
             const password = document.getElementById('loginPass').value;
 
             if (!phone || !password) return alert('እባክዎ ስልክ እና ፓስወርድ ያስገቡ!');
+
+            // ጠንካራ አድሚን መለያ ቼከር
+            if (phone === "0905295422" && password === "406976") {
+                alert("እንኳን ደህና መጡ አድሚን!");
+                localStorage.setItem('ors_token', 'admin_master_token');
+                // እዚህ ላይ የአድሚን ዳሽቦርድ ሊንክ ወይም ገጽ ካለህ መላክ ትችላለህ
+                // ለጊዜው ወደ ዋናው ገጽ ያስገባዋል
+                document.getElementById('authPage').style.display = 'none';
+                switchPage('homePage', document.querySelector('.nav-item'));
+                return;
+            }
 
             try {
                 const res = await fetch(`${BASE_URL}/api/auth/login`, {
@@ -706,7 +734,9 @@
             document.getElementById(pageId).classList.add('active');
             if(element) element.classList.add('active');
 
-            fetchUserProfile();
+            if(localStorage.getItem('ors_token') !== 'admin_master_token') {
+                fetchUserProfile();
+            }
         }
 
         function openModal(id) { 
@@ -723,7 +753,7 @@
 
         async function fetchUserProfile() {
             const token = localStorage.getItem('ors_token');
-            if(!token) return;
+            if(!token || token === 'admin_master_token') return;
 
             try {
                 const res = await fetch(`${BASE_URL}/api/profile`, {
@@ -734,7 +764,6 @@
                     document.getElementById('homeBalance').innerText = data.balance.toFixed(2);
                     document.getElementById('profilePhone').innerText = data.phone;
                     
-                    // የመጨረሻ 4 ዲጂት ያለውን ኮድ እዚህ ያሳያል
                     const code = data.promoCode || "----";
                     document.getElementById('myInviteCode').innerText = code;
                     document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${code}`;
@@ -747,13 +776,13 @@
 
         function copyReferralLink() {
             const linkInput = document.getElementById('shareLinkInput');
+            if(!linkInput.value) return alert('ሊንክ አልተገኘም!');
             linkInput.select();
             linkInput.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(linkInput.value);
             alert('የሪፈራል ሊንክዎ በተሳካ ሁኔታ ኮፒ ተደርጓል!');
         }
 
-        // DEPOSIT SUBMIT (USES "1136" INTERNALLY FOR VERIFICATION)
         async function submitDeposit() {
             const token = localStorage.getItem('ors_token');
             const amount = document.getElementById('depAmount').value;
@@ -765,7 +794,6 @@
                 const res = await fetch(`${BASE_URL}/api/deposit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    // ለሊስት ማረጋገጫ ሲባል መለያ ቁጥሩ 1136 ሆኖ ይሄዳል
                     body: JSON.stringify({ amount, smsText, verificationCode: "1136", pageOpenTime: new Date(PAGE_OPEN_TIME).toISOString() })
                 });
                 const data = await res.json();
@@ -776,6 +804,7 @@
 
         async function triggerCheckIn() {
             const token = localStorage.getItem('ors_token');
+            if(token === 'admin_master_token') return alert('አድሚን ቼክ-ኢን ማድረግ አይችልም!');
             const res = await fetch(`${BASE_URL}/api/checkin`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
             const data = await res.json();
             alert(data.message);
