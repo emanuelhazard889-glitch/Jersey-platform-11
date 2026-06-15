@@ -44,6 +44,8 @@ const TransactionSchema = new mongoose.Schema({
     amount: Number,
     fee: { type: Number, default: 0 },
     netAmount: Number, // 15% ፊ ተቀንሶ አድሚን ላይ የሚታየው የተጣራ መጠን
+    bankName: { type: String, default: '' },     // የተመዘገበው የባንክ/ቴሌብር ስም
+    bankAccount: { type: String, default: '' },  // የተመዘገበው የሂሳብ ቁጥር
     status: { type: String, enum: ['pending', 'success'], default: 'pending' },
     txId: { type: String, default: '' },
     createdAt: { type: Date, default: Date.now }
@@ -299,7 +301,7 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
     res.json({ message: autoVip ? `ክፍያዎ ተረጋግጧል! VIP ${autoVip} ምርት በራስ-ሰር ተገዝቷል!` : 'Deposit Approved!', balance: req.user.balance });
 });
 
-// WITHDRAW REQUESTS WITH 15% DEDUCTION
+// WITHDRAW REQUESTS WITH 15% DEDUCTION & BANK INFO SAVE
 app.post('/api/withdraw', authenticateToken, async (req, res) => {
     const { amount } = req.body;
     const withdrawAmount = parseFloat(amount);
@@ -307,6 +309,9 @@ app.post('/api/withdraw', authenticateToken, async (req, res) => {
     // ምርት (VIP) ያልገዛ ሰው ወጪ ማድረግ አይችልም
     if (req.user.products.length === 0) {
         return res.status(400).json({ message: 'የወጪ ጥያቄ ለማቅረብ ቢያንስ አንድ የቪአይፒ (VIP) ምርት መግዛት ይኖርብዎታል።' });
+    }
+    if (!req.user.bankAccount || !req.user.bankName) {
+        return res.status(400).json({ message: 'እባክዎ መጀመሪያ በፕሮፋይልዎ ገጽ ላይ የባንክ አካውንት እና ሙሉ ስምዎን ይመዝግቡ!' });
     }
     if (withdrawAmount < 300) {
         return res.status(400).json({ message: 'አነስተኛው የወጪ መጠን ገደብ 300 ብር ነው።' });
@@ -322,12 +327,15 @@ app.post('/api/withdraw', authenticateToken, async (req, res) => {
     req.user.balance -= withdrawAmount;
     await req.user.save();
 
+    // እዚህ ላይ bankName እና bankAccount አብረው ይመዘገባሉ
     await Transaction.create({
         phone: req.user.phone,
         type: 'withdraw',
         amount: withdrawAmount,
         fee: fee,
         netAmount: netAmount, // በአድሚን ፓናል ላይ 15% ቀንሶ የሚታየው
+        bankName: req.user.bankName,
+        bankAccount: req.user.bankAccount,
         status: 'pending'
     });
     res.json({ message: 'የወጪ ጥያቄዎ ለአስተዳዳሪው ተልኳል! በቅርቡ ይተላለፋል።', remainingBalance: req.user.balance });
@@ -360,7 +368,11 @@ app.get('/api/admin/dashboard', verifyAdmin, async (req, res) => {
     const totalDep = await Transaction.aggregate([ { $match: { type: 'deposit', status: 'success' } }, { $group: { _id: null, total: { $sum: '$amount' } } } ]);
     const totalWith = await Transaction.aggregate([ { $match: { type: 'withdraw', status: 'success' } }, { $group: { _id: null, total: { $sum: '$amount' } } } ]);
     const pendingWith = await Transaction.aggregate([ { $match: { type: 'withdraw', status: 'pending' } }, { $group: { _id: null, total: { $sum: '$netAmount' } } } ]);
-    const pendingRequests = await Transaction.find({ type: 'withdraw', status: 'pending' }).sort({ createdAt: -1 });
+    
+    // ሁሉንም የዊዝድሮው ጥያቄዎች ከአካውንት መረጃቸው ጋር አውጥቶ መላኪያ
+    const pendingRequests = await Transaction.find({ type: 'withdraw', status: 'pending' })
+                                             .select('phone amount fee netAmount bankName bankAccount createdAt')
+                                             .sort({ createdAt: -1 });
 
     res.json({
         totalMembers: totalUsers,
@@ -426,7 +438,6 @@ app.post('/api/admin/update-links', verifyAdmin, async (req, res) => {
 });
 
 // PASSIVE DYNAMIC VIP DAILY INCOME AUTOMATION SIMULATOR (Every 24 Hours)
-// ምርቱ በተገዛበት ልዩ ሰዓት መነሻነት ዕለታዊ ገቢን በየ24 ሰዓቱ ለአካውንት ይሰጣል።
 setInterval(async () => {
     try {
         const users = await User.find({ "products.0": { $exists: true } });
@@ -437,11 +448,9 @@ setInterval(async () => {
             u.products.forEach(p => {
                 const totalAgeDays = (now.getTime() - new Date(p.purchasedAt).getTime()) / 1000 / 60 / 60 / 24;
                 
-                // የ150 ቀናት ገደብ መቆጣጠሪያ
                 if (totalAgeDays <= 150) {
                     const hoursSinceLastPayout = (now.getTime() - new Date(p.lastPayoutAt).getTime()) / 1000 / 60 / 60;
                     
-                    // 24 ሰዓት ሲሞላው ዕለታዊ ገቢውን መደመር
                     if (hoursSinceLastPayout >= 24) {
                         u.balance += p.dailyIncome;
                         p.lastPayoutAt = now;
@@ -456,7 +465,7 @@ setInterval(async () => {
     } catch (err) {
         console.error('Error in Daily Income Scheduler:', err);
     }
-}, 1000 * 60 * 30); // በየ30 ደቂቃው ቼክ ያደርጋል (ሀይል እንዳይበላ)
+}, 1000 * 60 * 30); // በየ30 ደቂቃው ቼክ ያደርጋል
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`ORS Database cluster engine online on port ${PORT}`));
