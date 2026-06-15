@@ -9,7 +9,6 @@
         body { background: #0c0f12; color: #e2e8f0; font-size: 14px; padding-bottom: 70px; }
         .app-container { max-width: 480px; margin: 0 auto; background: #131920; min-height: 100vh; position: relative; border-left: 1px solid #232d38; border-right: 1px solid #232d38; }
         
-        /* Banner Header Styling */
         .brand-header { width: 100%; background: #1a120b; text-align: center; border-bottom: 2px solid #3a86ff; padding: 10px 0; }
         .brand-header img { width: 90%; max-height: 180px; object-fit: contain; border-radius: 8px; }
 
@@ -17,6 +16,7 @@
         .screen.active { display: block; }
 
         h2 { color: #3a86ff; margin-bottom: 15px; font-size: 1.3rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        h4 { color: #e2e8f0; margin-bottom: 10px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 6px; color: #a0aec0; font-size: 0.85rem; }
         input, select { width: 100%; padding: 12px; background: #1c242f; border: 1px solid #2d3748; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
@@ -28,7 +28,6 @@
         .btn-secondary:hover { background: #5c4432; }
         .btn-danger { background: #e53e3e; }
 
-        /* Grid elements home */
         .balance-card { background: linear-gradient(135deg, #1b263b, #4a3728); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #3a86ff; text-align: center; }
         .balance-card h3 { color: #a0aec0; font-size: 0.9rem; text-transform: uppercase; }
         .balance-card .amt { font-size: 2.2rem; font-weight: bold; color: #fff; margin-top: 5px; }
@@ -38,43 +37,36 @@
         .circle-item:hover { transform: scale(1.05); background: #232d38; border-color: #3a86ff; }
         .circle-item span { font-size: 0.75rem; margin-top: 4px; font-weight: 500; text-align: center; color: #e2e8f0; }
 
-        /* Product VIP Cards */
         .vip-card { background: #1c242f; border-radius: 12px; border: 1px solid #2d3748; margin-bottom: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         .vip-img-placeholder { width: 100%; height: 140px; background: #2d3748; display: flex; align-items: center; justify-content: center; color: #a0aec0; font-weight: bold; position: relative; overflow: hidden; }
-        .vip-img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
         .vip-badge { position: absolute; top: 10px; left: 10px; background: #3a86ff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
         .vip-details { padding: 15px; }
         .vip-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
         .vip-row span:last-child { color: #3a86ff; font-weight: bold; }
 
-        /* Navigation Bar Bottom */
         .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #131920; border-top: 1px solid #2d3748; display: flex; justify-content: space-around; padding: 10px 0; z-index: 999; }
         .nav-tab { color: #a0aec0; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; cursor: pointer; }
         .nav-tab.active { color: #3a86ff; font-weight: bold; }
-        .nav-tab i { font-size: 1.2rem; margin-bottom: 3px; }
+        .nav-tab span { margin-top: 3px; }
 
-        /* Admin Layout Specifics */
         .admin-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .stat-box { background: #1c242f; padding: 12px; border-radius: 8px; border-left: 4px solid #3a86ff; }
         .stat-box p { font-size: 0.8rem; color: #a0aec0; }
         .stat-box h4 { font-size: 1.2rem; margin-top: 4px; }
         .tx-item { background: #1c242f; padding: 10px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #2d3748; font-size: 0.85rem; }
     </style>
-    <!-- Simple Icon font replacement using letters for lightweight rendering -->
 </head>
 <body>
 
 <div class="app-container">
-    <!-- Unified Top Image Placement Across all spaces -->
     <div class="brand-header">
         <img src="46308_2.png" alt="ORS Logo Hierarchy Banner">
     </div>
 
-    <!-- 1. LOGIN / REGISTER SCREEN -->
     <div id="screen-auth" class="screen active">
         <div style="display:flex; justify-content: space-around; margin-bottom: 20px; background: #1c242f; padding: 5px; border-radius: 8px;">
             <button id="tab-login-btn" class="btn" style="background:transparent; color:#3a86ff;" onclick="toggleAuthMode('login')">SIGN IN</button>
-            <button id="tab-reg-btn" class="btn" onclick="toggleAuthMode('register')">REGISTER</button>
+            <button id="tab-reg-btn" class="btn" style="background:transparent; color:#fff;" onclick="toggleAuthMode('register')">REGISTER</button>
         </div>
 
         <div id="auth-fields">
@@ -98,7 +90,6 @@
         </div>
     </div>
 
-    <!-- 2. HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="balance-card">
             <h3>Current Wallet Balance</h3>
@@ -114,11 +105,9 @@
             <div class="circle-item" onclick="switchSubPage('promo')">🎁<span>Promo Code</span></div>
         </div>
 
-        <!-- SUB PAGES WRAPPER -->
         <div id="home-sub-content" style="margin-top:25px; border-top:1px solid #2d3748; padding-top:15px;"></div>
     </div>
 
-    <!-- 3. PRODUCTS SCREEN -->
     <div id="screen-product" class="screen">
         <h2>Investment Options</h2>
         <div id="my-products-section" style="margin-bottom:15px; background:#1b263b; padding:10px; border-radius:8px; display:none;">
@@ -127,80 +116,54 @@
         </div>
         
         <div id="vip-catalog">
-            <!-- VIP 1 -->
             <div class="vip-card">
-                <div class="vip-img-placeholder">
-                    <div class="vip-badge">VIP 1</div>
-                    <div style="text-align:center;">🚗 [Audi Sedan Class Car Photo Space]</div>
-                </div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 1</div>🚗 [Audi Sedan Class Car Photo]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>900 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>100 Birr</span></div>
                     <div class="vip-row"><span>Validity Cycle:</span> <span>150 Days</span></div>
-                    <button class="btn btn-secondary" onclick="simulateSelectAmount(900)">Select 900 for Auto-Purchase</button>
                 </div>
             </div>
-            <!-- VIP 2 -->
             <div class="vip-card">
-                <div class="vip-img-placeholder">
-                    <div class="vip-badge">VIP 2</div>
-                    <div style="text-align:center;">🚙 [BMW SUV Class Car Photo Space]</div>
-                </div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 2</div>🚙 [BMW SUV Class Car Photo]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>1800 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>300 Birr</span></div>
                     <div class="vip-row"><span>Validity Cycle:</span> <span>150 Days</span></div>
-                    <button class="btn btn-secondary" onclick="simulateSelectAmount(1800)">Select 1800 for Auto-Purchase</button>
                 </div>
             </div>
-            <!-- VIP 3 -->
             <div class="vip-card">
-                <div class="vip-img-placeholder">
-                    <div class="vip-badge">VIP 3</div>
-                    <div style="text-align:center;">🏎️ [Porsche Sports Class Car Photo Space]</div>
-                </div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 3</div>🏎️ [Porsche Sports Class Car Photo]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>3600 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>600 Birr</span></div>
                     <div class="vip-row"><span>Validity Cycle:</span> <span>150 Days</span></div>
-                    <button class="btn btn-secondary" onclick="simulateSelectAmount(3600)">Select 3600 for Auto-Purchase</button>
                 </div>
             </div>
-            <!-- VIP 4 -->
             <div class="vip-card">
-                <div class="vip-img-placeholder">
-                    <div class="vip-badge">VIP 4</div>
-                    <div style="text-align:center;">🏎️ [Lamborghini Supercar Class Photo Space]</div>
-                </div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 4</div>🏎️ [Lamborghini Supercar Class Photo]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>7200 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>1200 Birr</span></div>
                     <div class="vip-row"><span>Validity Cycle:</span> <span>150 Days</span></div>
-                    <button class="btn btn-secondary" onclick="simulateSelectAmount(7200)">Select 7200 for Auto-Purchase</button>
                 </div>
             </div>
-            <!-- VIP 5 -->
             <div class="vip-card">
-                <div class="vip-img-placeholder">
-                    <div class="vip-badge">VIP 5</div>
-                    <div style="text-align:center;">👑 [Rolls Royce Luxury Class Car Photo Space]</div>
-                </div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 5</div>👑 [Rolls Royce Luxury Class Car Photo]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>10000 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>1640 Birr</span></div>
                     <div class="vip-row"><span>Validity Cycle:</span> <span>150 Days</span></div>
-                    <button class="btn btn-secondary" onclick="simulateSelectAmount(10000)">Select 10000 for Auto-Purchase</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 4. REFERRALS SCREEN -->
     <div id="screen-referral" class="screen">
         <h2>Affiliate Program</h2>
         <div class="vip-card" style="padding:15px; margin-bottom:15px;">
             <p style="margin-bottom:8px; font-weight:bold; color:#a0aec0;">Your Exclusive Link</p>
-            <input type="text" id="referral-link-input" readonly value="https://ors-vision.net/join?code=1234">
+            <input type="text" id="referral-link-input" readonly value="">
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
@@ -216,13 +179,12 @@
 
         <div style="background:#1c242f; padding:15px; border-radius:8px; font-size:0.85rem; line-height:1.6;">
             <h4 style="color:#3a86ff; margin-bottom:8px;">Commission Multi-Tier Grid</h4>
-            <p>🟢 Level 1 (Direct Referral): <b>20% Commission</b> on asset deployment</p>
+            <p>🟢 Level 1 (Direct Referral): <b>20% Commission</b></p>
             <p>🔵 Level 2 (Sub Referral): <b>2% Commission</b></p>
             <p>🟤 Level 3 (Indirect Tier): <b>1% Commission</b></p>
         </div>
     </div>
 
-    <!-- 5. PROFILE SCREEN -->
     <div id="screen-profile" class="screen">
         <h2>Account Dashboard</h2>
         <div class="form-group">
@@ -234,7 +196,6 @@
         <div id="profile-sub-content" style="margin-top:15px;"></div>
     </div>
 
-    <!-- 6. MASTER ADMIN MANAGEMENT PANEL -->
     <div id="screen-admin" class="screen">
         <h2>System Control Console</h2>
         <div class="admin-stat-grid">
@@ -242,6 +203,13 @@
             <div class="stat-box"><p>Total Deposited</p><h4 id="adm-total-deposit">0 ETB</h4></div>
             <div class="stat-box"><p>Total Withdrawals</p><h4 id="adm-total-withdraw">0 ETB</h4></div>
             <div class="stat-box"><p>Pending Payouts</p><h4 id="adm-pending-withdraw">0 ETB</h4></div>
+        </div>
+
+        <div style="background:#1c242f; padding:15px; border-radius:8px; margin-bottom:15px; border: 1px solid #ecc94b;">
+            <h4 style="color:#ecc94b;">🎁 Manage Bonus Promo Codes</h4>
+            <p style="font-size:0.8rem; color:#a0aec0; margin-bottom:10px;">Generates an 8-digit English letter code valid for exactly 24 hours.</p>
+            <button class="btn" style="background:#ecc94b; color:#000;" onclick="adminGeneratePromo()">⚡ Generate New Promo Code</button>
+            <div id="adm-active-promos-box" style="margin-top:12px; font-size:0.85rem;"></div>
         </div>
 
         <div style="background:#1c242f; padding:15px; border-radius:8px; margin-bottom:15px;">
@@ -258,7 +226,7 @@
                 </div>
                 <div style="margin-top:10px;">
                     <input type="number" id="adm-add-amt" placeholder="Credit Amount (ETB)">
-                    <button class="btn" style="margin-top:5px; background:#ecc94b; color:#000;" onclick="adminUserAction('addbalance')">Inject Balance</button>
+                    <button class="btn" style="margin-top:5px; background:#48bb78;" onclick="adminUserAction('addbalance')">Inject Balance</button>
                 </div>
             </div>
         </div>
@@ -270,11 +238,10 @@
             <button class="btn btn-secondary" style="margin-top:5px;" onclick="adminUpdateLinks()">Save Changes</button>
         </div>
 
-        <h4>Pending Withdrawal Claims</h4>
+        <h4>Pending Withdrawal Claims (15% Fee Deducted)</h4>
         <div id="adm-withdraw-requests" style="margin-top:10px;"></div>
     </div>
 
-    <!-- PERSISTENT FOOTER METRIC NAVIGATION -->
     <div class="bottom-nav" id="app-footer-nav" style="display:none;">
         <div class="nav-tab active" onclick="navigate('home')">🏠<span>Home</span></div>
         <div class="nav-tab" onclick="navigate('product')">🏎️<span>Products</span></div>
@@ -322,6 +289,7 @@
             localStorage.setItem('ors_token', JWT_TOKEN);
             if(data.isAdmin) {
                 switchView('screen-admin');
+                loadAdminConsole();
             } else {
                 document.getElementById('app-footer-nav').style.display = 'flex';
                 navigate('home');
@@ -376,7 +344,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Paste the Complete Telebirr Confirmation SMS below:</label>
+                    <label>Paste the Complete Telebirr Confirmation SMS:</label>
                     <textarea id="dep-sms-input" rows="5" style="width:100%; background:#1c242f; color:#fff; border-radius:8px; padding:10px; border:1px solid #2d3748;"></textarea>
                 </div>
                 <button class="btn" onclick="executeDepositVerify()">Verify Deposit Instance</button>
@@ -406,13 +374,11 @@
                         `).join('');
                     }
                 });
-        } else if(sub === 'checkin') {
-            container.innerHTML = `<h3>Daily Check In Rewards</h3><button class="btn" onclick="handleCheckIn()">Claim 20 Birr Bonus</button>`;
         } else if(sub === 'promo') {
             container.innerHTML = `
-                <h3>Redeem Special Bonus Code</h3>
+                <h3>Redeem Admin Promo Code</h3>
                 <div class="form-group">
-                    <input type="text" id="promo-bonus-code-val" placeholder="Paste structural text code">
+                    <input type="text" id="promo-bonus-code-val" placeholder="Enter 8-digit English letters">
                 </div>
                 <button class="btn" onclick="executeRedeemBonus()">Claim Random Bonus (1-10 Birr)</button>
             `;
@@ -470,7 +436,7 @@
             document.getElementById('my-products-section').style.display = 'block';
             document.getElementById('my-products-list').innerHTML = data.products.map(p => `
                 <div style="font-size:0.85rem; padding:4px 0; border-bottom:1px solid #2d3748;">
-                    VIP ${p.vipLevel} Asset Asset Matrix - Purchased on: ${new Date(p.purchasedAt).toLocaleDateString()}
+                    VIP ${p.vipLevel} Car Asset Active - Purchased: ${new Date(p.purchasedAt).toLocaleDateString()}
                 </div>
             `).join('');
         }
@@ -479,7 +445,7 @@
     async function syncReferralMetrics() {
         const res = await fetch('/api/profile', { headers: {'Authorization': 'Bearer ' + JWT_TOKEN} });
         const data = await res.json();
-        document.getElementById('referral-link-input').value = window.location.origin + '/join?code=' + data.promoCode;
+        document.getElementById('referral-link-input').value = window.location.origin + "/index.html?promoCode=" + data.promoCode;
         document.getElementById('ref-total-count').innerText = `${data.referralsCount} Persons`;
         document.getElementById('ref-valid-count').innerText = `${data.validReferrals} Active`;
     }
@@ -488,7 +454,7 @@
         const container = document.getElementById('profile-sub-content');
         if(type === 'password') {
             container.innerHTML = `
-                <input type="password" id="p-new-pass" placeholder="Enter new password structure" style="margin-bottom:8px;">
+                <input type="password" id="p-new-pass" placeholder="Enter new password" style="margin-bottom:8px;">
                 <button class="btn" onclick="saveNewPassword()">Save Security Updates</button>
             `;
         } else if(type === 'bank') {
@@ -521,7 +487,7 @@
         const d = await res.json(); alert(d.message);
     }
 
-    // --- ADMIN SYSTEM PANEL METRICS ---
+    // --- ADMIN SYSTEM MANAGEMENT FUNCTIONS ---
     async function loadAdminConsole() {
         const res = await fetch('/api/admin/dashboard', { headers: {'Authorization': 'Bearer ' + JWT_TOKEN} });
         const data = await res.json();
@@ -530,13 +496,31 @@
         document.getElementById('adm-total-withdraw').innerText = data.totalWithdraw + ' ETB';
         document.getElementById('adm-pending-withdraw').innerText = data.pendingWithdraw + ' ETB';
 
+        // ንቁ የሆኑ አድሚን ፕሮሞ ኮዶችን ማሳያ
+        if (data.activePromos && data.activePromos.length > 0) {
+            document.getElementById('adm-active-promos-box').innerHTML = "<b>Active Codes:</b><br>" + 
+                data.activePromos.map(p => `<code>${p.code}</code> (Redeemed: ${p.redeemedUsers.length} times)`).join('<br>');
+        } else {
+            document.getElementById('adm-active-promos-box').innerHTML = "No active promo codes currently.";
+        }
+
         document.getElementById('adm-withdraw-requests').innerHTML = data.pendingRequests.map(r => `
             <div class="tx-item">
-                User Phone Reference: <b>${r.phone}</b> <br>
-                Gross Request: ${r.amount} ETB | Net after 15% System Fee: <b>${r.netAmount} ETB</b> <br>
+                User: <b>${r.phone}</b> <br>
+                Gross Request: ${r.amount} ETB | Net (After 15%): <b>${r.netAmount} ETB</b> <br>
                 <button class="btn" style="padding:6px; margin-top:5px; background:#48bb78;" onclick="approveWithdrawal('${r._id}')">Approve Request</button>
             </div>
         `).join('');
+    }
+
+    async function adminGeneratePromo() {
+        const res = await fetch('/api/admin/generate-promo', {
+            method: 'POST',
+            headers: {'Authorization': 'Bearer ' + JWT_TOKEN}
+        });
+        const data = await res.json();
+        alert(data.message + (data.code ? "\nCode: " + data.code : ""));
+        loadAdminConsole();
     }
 
     async function adminSearchUser() {
@@ -576,10 +560,31 @@
         loadAdminConsole();
     }
 
-    // Global Link Trackers Fetching
+    async function adminUpdateLinks() {
+        const supportLink = document.getElementById('adm-support-link').value;
+        const channelLink = document.getElementById('adm-channel-link').value;
+        const res = await fetch('/api/admin/update-links', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + JWT_TOKEN},
+            body: JSON.stringify({ supportLink, channelLink })
+        });
+        const d = await res.json(); alert(d.message);
+    }
+
+    // Auto load configs
     fetch('/api/system-links').then(r => r.json()).then(d => {
         SUPPORT_LINK = d.supportLink; CHANNEL_LINK = d.channelLink;
     });
+
+    // Check URL parameters for referral links automatically
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('promoCode');
+        if (refCode) {
+            toggleAuthMode('register');
+            document.getElementById('auth-promo').value = refCode;
+        }
+    }
 
     function openSupport() { window.open(SUPPORT_LINK, '_blank'); }
     function openChannel() { window.open(CHANNEL_LINK, '_blank'); }
