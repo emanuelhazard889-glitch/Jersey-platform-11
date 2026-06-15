@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORS Premium Fleet Platforms</title>
-    <!-- FontAwesome ለሚያምሩ አይኮኖች -->
+    <!-- FontAwesome አይኮኖች -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- 🎨 የዲዛይን ከለር እና ስታይል (Theme Setup) --- */
         :root {
-            --bg-main: #0d1117;       /* ጥልቅ የባህር ጥቁር ጀርባ */
-            --bg-card: #161b22;       /* የሳጥኖችና የካርዶች ቀለም */
-            --accent-gold: #ffea00;   /* ወርቃማ ቀለም */
-            --accent-green: #00e676;  /* ደማቅ አረንጓዴ ለገንዘብ */
-            --text-main: #ffffff;     /* ነጭ ፅሁፍ */
-            --text-muted: #8b949e;    /* ደብዛዛ ፅሁፍ */
-            --border-color: #30363d;  /* የካርድ መስመሮች */
+            --bg-main: #0d1117;
+            --bg-card: #161b22;
+            --accent-gold: #ffea00;
+            --accent-green: #00e676;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
         }
 
         * {
@@ -29,11 +28,63 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
-            padding-bottom: 80px; /* ለታችኛው ሜኑ ቦታ መተው */
+            padding-bottom: 80px;
             overflow-x: hidden;
         }
 
-        /* --- 📱 የገጾች መቆጣጠሪያ (Page Views) --- */
+        /* --- 🔐 AUTH PAGE (LOGIN/REGISTER) --- */
+        #authPage {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-main);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .auth-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .auth-tab.active {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        /* --- 📱 PAGES & NAVIGATION --- */
         .page {
             display: none;
             padding: 20px;
@@ -49,7 +100,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 💳 የባላንስ ትልቅ ካርድ (Wallet Card) --- */
+        /* --- 💳 WALLET CARD --- */
         .wallet-card {
             background: linear-gradient(135deg, #1f2937, #111827);
             border: 1px solid var(--border-color);
@@ -58,26 +109,6 @@
             text-align: center;
             margin-bottom: 25px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wallet-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,230,118,0.05) 0%, transparent 70%);
-        }
-
-        .wallet-card h3 {
-            color: var(--text-muted);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
         }
 
         .wallet-balance {
@@ -87,7 +118,7 @@
             margin-bottom: 15px;
         }
 
-        /* --- 🎛️ የሆም ገጽ ክብ በተኖች (Quick Actions Grid) --- */
+        /* --- 🎛️ ACTION GRID --- */
         .actions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -102,12 +133,6 @@
             padding: 15px 10px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .action-btn:active {
-            transform: scale(0.93);
-            background-color: #21262d;
         }
 
         .action-btn i {
@@ -119,11 +144,9 @@
 
         .action-btn span {
             font-size: 12px;
-            color: var(--text-main);
-            font-weight: 500;
         }
 
-        /* --- 🚗 የመኪና VIP ካርዶች (Product Items) --- */
+        /* --- 🚗 PRODUCT CARDS (FIXED IMAGE ISSUE) --- */
         .product-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -135,19 +158,19 @@
 
         .product-img-box {
             width: 100%;
-            height: 180px;
+            height: 200px;
             background-color: #0b0e14;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            padding: 10px;
         }
 
         .product-img-box img {
-            max-width: 85%;
-            max-height: 85%;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
         }
 
         .vip-tag {
@@ -160,6 +183,7 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
+            z-index: 10;
         }
 
         .product-details {
@@ -194,12 +218,9 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
-            transition: opacity 0.2s;
         }
 
-        .invest-btn:active { opacity: 0.8; }
-
-        /* --- 📥 የፋርሞችና የፖፕ-አፕ ዲዛይን (Forms & Inputs) --- */
+        /* --- 📥 FORMS & INPUTS --- */
         .form-group {
             margin-bottom: 15px;
         }
@@ -226,7 +247,24 @@
             border-color: var(--accent-gold);
         }
 
-        /* --- 👤 የፕሮፋይል ሊስት ሜኑ (Profile Settings List) --- */
+        /* --- 👥 LINK COPY BUTTON --- */
+        .copy-link-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .copy-btn {
+            background-color: var(--accent-gold);
+            color: #000;
+            border: none;
+            padding: 0 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* --- 👤 PROFILE MENU --- */
         .menu-list {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -245,17 +283,13 @@
         }
 
         .menu-item:last-child { border-bottom: none; }
-        .menu-item:active { background-color: #21262d; }
-
         .menu-left { display: flex; align-items: center; gap: 12px; }
-        .menu-left i { color: var(--accent-gold); font-size: 18px; }
+        .menu-left i { color: var(--accent-gold); }
 
-        /* --- 📱 የታችኛው ቋሚ ሜኑ (Sticky Bottom Navigation) --- */
+        /* --- 📱 BOTTOM STICKY MENU --- */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 0; left: 0; width: 100%;
             height: 65px;
             background-color: var(--bg-card);
             border-top: 1px solid var(--border-color);
@@ -264,7 +298,6 @@
             align-items: center;
             text-align: center;
             z-index: 1000;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
         }
 
         .nav-item {
@@ -273,19 +306,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             font-size: 11px;
-            font-weight: 500;
             gap: 4px;
-            height: 100%;
         }
 
         .nav-item i { font-size: 20px; }
-        .nav-item.active {
-            color: var(--accent-gold);
-        }
+        .nav-item.active { color: var(--accent-gold); }
 
-        /* ፖፕ አፕ ሰሌዳ (Modal) */
+        /* MODALS */
         .modal {
             display: none;
             position: fixed;
@@ -314,15 +342,60 @@
 </head>
 <body>
 
+    <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
+    <div id="authPage">
+        <div class="auth-container">
+            <h2 style="text-align:center; margin-bottom:20px; color:var(--accent-gold);">ORS PREMIUM</h2>
+            <div class="auth-tabs">
+                <div id="tabLogin" class="auth-tab active" onclick="toggleAuthTab('login')">Login</div>
+                <div id="tabRegister" class="auth-tab" onclick="toggleAuthTab('register')">Register</div>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <div id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label>ስልክ ቁጥር (Phone Number)</label>
+                    <input type="tel" id="loginPhone" class="form-control" placeholder="09xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label>የይለፍ ቃል (Password)</label>
+                    <input type="password" id="loginPass" class="form-control" placeholder="******">
+                </div>
+                <button class="invest-btn" onclick="processLogin()">ግባ (Login)</button>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label>ስልክ ቁጥር (Phone Number)</label>
+                    <input type="tel" id="regPhone" class="form-control" placeholder="09xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label>የይለፍ ቃል (Password)</label>
+                    <input type="password" id="regPass" class="form-control" placeholder="ቢያንስ 6 ዲጂት">
+                </div>
+                <div class="form-group">
+                    <label>የይለፍ ቃል አረጋግጥ (Confirm Password)</label>
+                    <input type="password" id="regConfirmPass" class="form-control" placeholder="ድጋሚ ያስገቡ">
+                </div>
+                <div class="form-group">
+                    <label>የእድል/ሪፈራል ፕሮሞ ኮድ (Promo/Referral Code)</label>
+                    <input type="text" id="regPromo" class="form-control" placeholder="የጋባዥ ኮድ (ከተገኘ)">
+                </div>
+                <button class="invest-btn" style="background:var(--accent-green);" onclick="processRegister()">ተመዝገብ (Register)</button>
+            </div>
+        </div>
+    </div>
+
+
     <!-- ================= 🏠 HOME PAGE ================= -->
-    <div id="homePage" class="page active">
+    <div id="homePage" class="page">
         <div class="wallet-card">
             <h3>ORS ዋና ባላንስ</h3>
-            <div class="wallet-balance"><span id="homeBalance">300.00</span> ETB</div>
+            <div class="wallet-balance"><span id="homeBalance">0.00</span> ETB</div>
             <p style="font-size: 12px; color: var(--text-muted);">እንኳን ደህና መጡ! ዕለታዊ ገቢዎ እዚህ ይደመራል</p>
         </div>
 
-        <!-- ክብ በተኖች ግሪድ -->
         <div class="actions-grid">
             <div class="action-btn" onclick="openModal('depositModal')">
                 <i class="fa-solid fa-money-bill-transfer"></i>
@@ -364,8 +437,7 @@
         <div class="product-card">
             <div class="product-img-box">
                 <div class="vip-tag">VIP 1</div>
-                <!-- የምስል ሊንክ ማስገቢያ ቦታ -->
-                <img src="https://purepng.com/public/uploads/large/purepng.com-yellow-lamborghini-carcarvehicletransportationlamborghini-961524661751q11be.png" alt="VIP 1 Car">
+                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500&auto=format&fit=crop&q=60" alt="VIP 1 Car">
             </div>
             <div class="product-details">
                 <div class="product-title">Suzuki Swift GT</div>
@@ -380,7 +452,7 @@
         <div class="product-card">
             <div class="product-img-box">
                 <div class="vip-tag">VIP 2</div>
-                <img src="https://purepng.com/public/uploads/large/purepng.com-audi-r8-red-caraudi-r8audicarssport-carred-audi-17015274191319qcl.png" alt="VIP 2 Car">
+                <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500&auto=format&fit=crop&q=60" alt="VIP 2 Car">
             </div>
             <div class="product-details">
                 <div class="product-title">Toyota Corolla Cross</div>
@@ -395,7 +467,7 @@
         <div class="product-card">
             <div class="product-img-box">
                 <div class="vip-tag">VIP 3</div>
-                <img src="https://purepng.com/public/uploads/large/purepng.com-chevrolet-camaro-carcarvehicletransportationchevrolet-9615246536093vbgx.png" alt="VIP 3 Car">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=500&auto=format&fit=crop&q=60" alt="VIP 3 Car">
             </div>
             <div class="product-details">
                 <div class="product-title">Mercedes-Benz C200</div>
@@ -403,36 +475,6 @@
                 <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+600 ETB</span></div>
                 <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
                 <button class="invest-btn" onclick="goToDepositFromProduct(3600)">በ 3,600 ብር ዲፖዚት አድርግ</button>
-            </div>
-        </div>
-
-        <!-- VIP 4 -->
-        <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 4</div>
-                <img src="https://purepng.com/public/uploads/large/purepng.com-porsche-911-gt3-rs-carcarvehicletransportationporsche-961524662451k1xha.png" alt="VIP 4 Car">
-            </div>
-            <div class="product-details">
-                <div class="product-title">Range Rover Velar</div>
-                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">7,200 ETB</span></div>
-                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+1,200 ETB</span></div>
-                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(7200)">በ 7,200 ብር ዲፖዚት አድርግ</button>
-            </div>
-        </div>
-
-        <!-- VIP 5 -->
-        <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 5</div>
-                <img src="https://purepng.com/public/uploads/large/purepng.com-sports-carcarvehicletransportationsports-car-961524654316bty4z.png" alt="VIP 5 Car">
-            </div>
-            <div class="product-details">
-                <div class="product-title">Tesla Model X Plaid</div>
-                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">10,000 ETB</span></div>
-                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+1,640 ETB</span></div>
-                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(10000)">በ 10,000 ብር ዲፖዚት አድርግ</button>
             </div>
         </div>
     </div>
@@ -443,7 +485,12 @@
         <div class="wallet-card" style="background: #111;">
             <h4 style="color:var(--text-muted)">የእርስዎ መጋበዣ ኮድ</h4>
             <div id="myInviteCode" style="font-size: 28px; color: var(--accent-gold); font-weight:800; margin: 10px 0;">------</div>
-            <p style="font-size: 13px; color:var(--text-muted)">ጓደኞችዎን ሲጋብዙ የ 3 ደረጃ የኮሚሽን ክፍያ ያገኛሉ!</p>
+            
+            <p style="font-size: 13px; color:var(--text-muted); margin-top:10px;">የእርስዎ የሪፈራል መጋበዣ ሊንክ፡</p>
+            <div class="copy-link-box">
+                <input type="text" id="shareLinkInput" class="form-control" readonly style="text-align:center; font-size:12px;">
+                <button class="copy-btn" onclick="copyReferralLink()">Copy</button>
+            </div>
         </div>
 
         <div class="menu-list">
@@ -456,13 +503,6 @@
                 <span id="validRefCount" class="info-val green">0 ሰው</span>
             </div>
         </div>
-
-        <div style="margin-top:20px; background:var(--bg-card); padding:15px; border-radius:12px; border:1px solid var(--border-color); font-size:13px;">
-            <p style="color:var(--accent-gold); font-weight:600; margin-bottom:8px;">🎁 የኮሚሽን ህግጋት፡</p>
-            <p>• ደረጃ 1 (ቀጥታ ተጋባዥ)፦ 20% የዲፖዚት ቦነስ</p>
-            <p>• ደረጃ 2 ፦ 2% የዲፖዚት ቦነስ</p>
-            <p>• ደረጃ 3 ፦ 1% የዲፖዚት ቦነስ</p>
-        </div>
     </div>
 
     <!-- ================= 👤 PROFILE PAGE ================= -->
@@ -472,24 +512,14 @@
                 <i class="fa-solid fa-user-gear" style="font-size:32px; color:var(--accent-gold);"></i>
             </div>
             <h3 id="profilePhone">09********</h3>
-            <p style="font-size:13px; color:var(--text-muted)">አባልነት፡ የተከበረ የ ORS ደንበኛ</p>
         </div>
 
         <div class="menu-list">
             <div class="menu-item" onclick="openModal('bankModal')">
-                <div class="menu-left"><i class="fa-solid fa-credit-card"></i><span>የባንክ/ቴሌብር መረጃ ማስተካከያ</span></div>
-                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-            </div>
-            <div class="menu-item" onclick="openModal('passModal')">
-                <div class="menu-left"><i class="fa-solid fa-lock"></i><span>የይለፍ ቃል መቀየሪያ</span></div>
-                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-            </div>
-            <div class="menu-item" onclick="openModal('historyModal'); fetchHistory();">
-                <div class="menu-left"><i class="fa-solid fa-clock-history"></i><span>የሂሳብ ታሪክ (History)</span></div>
-                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
+                <div class="menu-left"><i class="fa-solid fa-credit-card"></i><span>የባንክ/ቴሌብር መረጃ</span></div>
             </div>
             <div class="menu-item" onclick="logout()">
-                <div class="menu-left"><i class="fa-solid fa-right-from-bracket" style="color:#ff3b30"></i><span style="color:#ff3b30">ከአካውንት ውጣ (Logout)</span></div>
+                <div class="menu-left"><i class="fa-solid fa-right-from-bracket" style="color:#ff3b30"></i><span style="color:#ff3b30">ውጣ (Logout)</span></div>
             </div>
         </div>
     </div>
@@ -510,30 +540,29 @@
         </div>
     </div>
 
-    <!-- ================= 🚨 MODALS (የግብአት ፎርሞች ሰሌዳ) ================= -->
+    <!-- ================= 🚨 MODALS ================= -->
 
-    <!-- 1. DEPOSIT MODAL -->
+    <!-- DEPOSIT MODAL -->
     <div id="depositModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('depositModal')">&times;</span>
             <h3 style="margin-bottom:15px; text-align:center;">በቴሌብር ፈጣን ዲፖዚት</h3>
-            <p style="font-size:12px; color:var(--accent-gold); margin-bottom:12px; line-height:1.4;">
-                ⚠️ ህግ፡ የዲፖዚት ገጹ ክፍለ-ጊዜ 30 ደቂቃ ብቻ ነው። ከ 30 ደቂቃ በኋላ SMS ቢያስገቡ አይሰራም!
-            </p>
+            
             <div class="form-group">
                 <label>የዲፖዚት ፓኬጅ ይምረጡ</label>
                 <select id="depAmount" class="form-control">
                     <option value="900">VIP 1 - 900 ETB</option>
                     <option value="1800">VIP 2 - 1,800 ETB</option>
                     <option value="3600">VIP 3 - 3,600 ETB</option>
-                    <option value="7200">VIP 4 - 7,200 ETB</option>
-                    <option value="10000">VIP 5 - 10,000 ETB</option>
                 </select>
             </div>
-            <div style="background:#111; padding:10px; border-radius:8px; font-size:13px; margin-bottom:15px;">
+            
+            <div style="background:#111; padding:12px; border-radius:8px; font-size:13px; margin-bottom:15px; line-height: 1.6;">
                 <p>የቴሌብር አካውንት ስም፡ <b>Emawayit</b></p>
-                <p>የቴሌብር መለያ ቁጥር፡ <b>1136</b></p>
+                <!-- ለሰውየው ለመላክ ሙሉ ቁጥሩ እዚህ ይታያል -->
+                <p>የቴሌብር መለያ ቁጥር (ኮፒ ያድርጉ)፦ <b style="color:var(--accent-gold); font-size:15px; letter-spacing:1px;">0945221136</b></p>
             </div>
+            
             <div class="form-group">
                 <label>ከቴሌብር የመጣሎትን ሙሉ SMS እዚህ ይቅዱና ይለጥፉ</label>
                 <textarea id="depSms" class="form-control" rows="4" placeholder="Dear Customer, you have received..."></textarea>
@@ -542,12 +571,11 @@
         </div>
     </div>
 
-    <!-- 2. WITHDRAW MODAL -->
+    <!-- WITHDRAW MODAL -->
     <div id="withdrawModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('withdrawModal')">&times;</span>
             <h3 style="margin-bottom:15px; text-align:center;">የወጪ ጥያቄ ፎርም</h3>
-            <p style="font-size:12px; color:var(--accent-gold); margin-bottom:10px;">• አነስተኛ የወጪ መጠን 300 ብር ነው።<br>• የ 15% ሲስተም አገልግሎት ክፍያ ይቀነሳል።</p>
             <div class="form-group">
                 <label>የሚወጣው የብር መጠን (ETB)</label>
                 <input type="number" id="witAmount" class="form-control" placeholder="ከ 300 ብር በላይ ያስገቡ">
@@ -556,77 +584,129 @@
         </div>
     </div>
 
-    <!-- 3. PROMO CODE MODAL -->
+    <!-- PROMO CODE MODAL -->
     <div id="promoModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('promoModal')">&times;</span>
             <h3 style="margin-bottom:15px; text-align:center;">የቦነስ ፕሮሞ ኮድ</h3>
             <div class="form-group">
                 <label>የአድሚን ልዩ ቦነስ ኮድ ያስገቡ</label>
-                <input type="text" id="promoCodeInput" class="form-control" placeholder="ለምሳሌ: AB7X2K">
+                <input type="text" id="promoCodeInput" class="form-control">
             </div>
             <button class="invest-btn" onclick="submitPromo()">ቦነስ ተቀበል</button>
         </div>
     </div>
 
-    <!-- 4. BANK DATA MODAL -->
-    <div id="bankModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('bankModal')">&times;</span>
-            <h3 style="margin-bottom:15px; text-align:center;">የባንክ/ቴሌብር አካውንት መመዝገቢያ</h3>
-            <div class="form-group">
-                <label>የባንክ ወይም የቴሌብር ሙሉ ስም</label>
-                <input type="text" id="bkName" class="form-control" placeholder="ለምሳሌ: አበበ ከበደ">
-            </div>
-            <div class="form-group">
-                <label>የሂሳብ (አካውንት) ቁጥር ወይም ስልክ ቁጥር</label>
-                <input type="text" id="bkAcc" class="form-control" placeholder="የሂሳብ ቁጥር ያስገቡ">
-            </div>
-            <button class="invest-btn" onclick="submitBankUpdate()">መረጃውን አስቀምጥ</button>
-        </div>
-    </div>
 
-    <!-- 5. PASSWORD CHANGE MODAL -->
-    <div id="passModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('passModal')">&times;</span>
-            <h3 style="margin-bottom:15px; text-align:center;">የይለፍ ቃል መቀየሪያ</h3>
-            <div class="form-group">
-                <label>አዲስ ሚስጥር ቃል (New Password)</label>
-                <input type="password" id="newPass" class="form-control" placeholder="ቢያንስ 6 ሆሄያት">
-            </div>
-            <button class="invest-btn" onclick="submitPasswordChange()">ቀይር</button>
-        </div>
-    </div>
-
-    <!-- 6. HISTORY MODAL -->
-    <div id="historyModal" class="modal">
-        <div class="modal-content" style="max-width:450px;">
-            <span class="close-modal" onclick="closeModal('historyModal')">&times;</span>
-            <h3 style="margin-bottom:15px; text-align:center;">የግብይት ታሪክ (Statement)</h3>
-            <div id="historyList" style="max-height:300px; overflow-y:auto; font-size:13px;">
-                በማምጣት ላይ...
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ================= 🛠️ FRONTEND LOGIC JAVASCRIPT ================= -->
+    <!-- ================= 🛠️ FRONTEND JAVASCRIPT LOGIC ================= -->
     <script>
         const BASE_URL = window.location.origin;
         let PAGE_OPEN_TIME = Date.now();
         let sysLinks = { supportLink: '#', channelLink: '#' };
 
-        // 1. የገጽ መቀያየሪያ ሎጂክ
+        // ገጹ ሲጫን የ URL መለኪያዎችን (Query Params) ይፈትሻል
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref');
+            if (refCode) {
+                // በሪፈራል ሊንክ ከመጣ ፎርሙን ወደ Register ቀይሮ ኮዱን በራስ-ሰር ይሞላል
+                toggleAuthTab('register');
+                document.getElementById('regPromo').value = refCode;
+            }
+            
+            checkAuthToken();
+            fetchSystemLinks();
+        };
+
+        function checkAuthToken() {
+            const token = localStorage.getItem('ors_token');
+            if (token) {
+                document.getElementById('authPage').style.display = 'none';
+                document.getElementById('homePage').classList.add('active');
+                fetchUserProfile();
+            } else {
+                document.getElementById('authPage').style.display = 'flex';
+            }
+        }
+
+        // የ Auth ታቦች መቀያየሪያ
+        function toggleAuthTab(type) {
+            if (type === 'login') {
+                document.getElementById('tabLogin').classList.add('active');
+                document.getElementById('tabRegister').classList.remove('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('registerForm').classList.remove('active');
+            } else {
+                document.getElementById('tabRegister').classList.add('active');
+                document.getElementById('tabLogin').classList.remove('active');
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('loginForm').classList.remove('active');
+            }
+        }
+
+        // REGISTER PROCESS
+        async function processRegister() {
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPass').value;
+            const confirmPass = document.getElementById('regConfirmPass').value;
+            const promoCode = document.getElementById('regPromo').value.trim();
+
+            if (!phone || !password || !confirmPass) {
+                return alert('እባክዎ ሁሉንም ክፍት ቦታዎች ይሙሉ!');
+            }
+            if (password !== confirmPass) {
+                return alert('የይለፍ ቃላቶቹ አይዛመዱም!');
+            }
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, password, promoCode })
+                });
+                const data = await res.json();
+                alert(data.message);
+                if (res.ok) {
+                    toggleAuthTab('login');
+                    document.getElementById('loginPhone').value = phone;
+                }
+            } catch (e) { alert('የመመዝገብ ስህተት አጋጥሟል!'); }
+        }
+
+        // LOGIN PROCESS
+        async function processLogin() {
+            const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPass').value;
+
+            if (!phone || !password) return alert('እባክዎ ስልክ እና ፓስወርድ ያስገቡ!');
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('ors_token', data.token);
+                    document.getElementById('authPage').style.display = 'none';
+                    switchPage('homePage', document.querySelector('.nav-item'));
+                    fetchUserProfile();
+                } else {
+                    alert(data.message);
+                }
+            } catch (e) { alert('የመግባት ስህተት!'); }
+        }
+
         function switchPage(pageId, element) {
+            if (!localStorage.getItem('ors_token')) return;
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             
             document.getElementById(pageId).classList.add('active');
-            element.classList.add('active');
+            if(element) element.classList.add('active');
 
-            if(pageId === 'depositModal') { PAGE_OPEN_TIME = Date.now(); } // የ30 ደቂቃ ቆጣሪ ማደሻ
-            fetchUserProfile(); // ገጽ በተቀየረ ቁጥር ዳታቤዝ ሪፍሬሽ ማድረጊያ
+            fetchUserProfile();
         }
 
         function openModal(id) { 
@@ -635,22 +715,12 @@
         }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // 2. ከፕሮዳክት ገጽ ተጭነው ሲመጡ ዲፖዚት ፎርም መክፈቻ
         function goToDepositFromProduct(amt) {
             document.getElementById('depAmount').value = amt;
+            switchPage('homePage', document.querySelector('.nav-item'));
             openModal('depositModal');
         }
 
-        // 3. የቶከን ፍተሻ (ካልገባ ወደ መግቢያ ገጽ መላክ - Login/Register መገንባት አለብህ)
-        function checkAuth() {
-            const token = localStorage.getItem('ors_token');
-            if(!token) {
-                alert('እባክዎ መጀመሪያ ይግቡ (Login ያድርጉ)!');
-                // እዚህ ላይ ወደ ሎጊን መውሰጃ ኮድ መጻፍ ትችላለህ
-            }
-        }
-
-        // 4. የተጠቃሚ ፕሮፋይል መረጃዎችን ከባክኤንድ ማምጫ
         async function fetchUserProfile() {
             const token = localStorage.getItem('ors_token');
             if(!token) return;
@@ -663,38 +733,27 @@
                     const data = await res.json();
                     document.getElementById('homeBalance').innerText = data.balance.toFixed(2);
                     document.getElementById('profilePhone').innerText = data.phone;
-                    document.getElementById('myInviteCode').innerText = data.promoCode;
-                    document.getElementById('refCount').innerText = data.referralsCount + " ሰው";
-                    document.getElementById('validRefCount').innerText = data.validReferrals + " ሰው";
+                    
+                    // የመጨረሻ 4 ዲጂት ያለውን ኮድ እዚህ ያሳያል
+                    const code = data.promoCode || "----";
+                    document.getElementById('myInviteCode').innerText = code;
+                    document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${code}`;
 
-                    // የገዛቸውን ምርቶች አቀማመጥ ማሳያ
-                    if(data.products && data.products.length > 0) {
-                        let html = '';
-                        data.products.forEach(p => {
-                            html += `<div style="background:#0d1117; padding:10px; border-radius:8px; border:1px solid #30363d; margin-bottom:8px; text-align:left; display:flex; justify-content:between; align-items:center;">
-                                <div><b>VIP ${p.vipLevel} Fleet Car</b><br><span style="font-size:11px; color:var(--text-muted);">ዕለታዊ ገቢ፡ +${p.dailyIncome} ብር</span></div>
-                                <span style="color:var(--accent-green); font-weight:bold; font-size:12px;"><i class="fa-solid fa-circle-check"></i> Active</span>
-                            </div>`;
-                        });
-                        document.getElementById('myProductsContainer').innerHTML = html;
-                    }
+                    document.getElementById('refCount').innerText = (data.referralsCount || 0) + " ሰው";
+                    document.getElementById('validRefCount').innerText = (data.validReferrals || 0) + " ሰው";
                 }
             } catch(e) { console.log(e); }
         }
 
-        // 5. ዕለታዊ 20 ብር መቀበያ (Check In)
-        async function triggerCheckIn() {
-            const token = localStorage.getItem('ors_token');
-            const res = await fetch(`${BASE_URL}/api/checkin`, {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            const data = await res.json();
-            alert(data.message);
-            fetchUserProfile();
+        function copyReferralLink() {
+            const linkInput = document.getElementById('shareLinkInput');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(linkInput.value);
+            alert('የሪፈራል ሊንክዎ በተሳካ ሁኔታ ኮፒ ተደርጓል!');
         }
 
-        // 6. ዲፖዚት SMS ማስገቢያ
+        // DEPOSIT SUBMIT (USES "1136" INTERNALLY FOR VERIFICATION)
         async function submitDeposit() {
             const token = localStorage.getItem('ors_token');
             const amount = document.getElementById('depAmount').value;
@@ -702,21 +761,30 @@
 
             if(!smsText) return alert('እባክዎ የቴሌብር SMS ፅሁፍ ሳጥኑ ውስጥ ይቅዱ!');
 
-            const res = await fetch(`${BASE_URL}/api/deposit`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ amount, smsText, pageOpenTime: new Date(PAGE_OPEN_TIME).toISOString() })
-            });
-            const data = await res.json();
-            alert(data.message);
-            if(res.ok) { closeModal('depositModal'); fetchUserProfile(); }
+            try {
+                const res = await fetch(`${BASE_URL}/api/deposit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    // ለሊስት ማረጋገጫ ሲባል መለያ ቁጥሩ 1136 ሆኖ ይሄዳል
+                    body: JSON.stringify({ amount, smsText, verificationCode: "1136", pageOpenTime: new Date(PAGE_OPEN_TIME).toISOString() })
+                });
+                const data = await res.json();
+                alert(data.message);
+                if(res.ok) { closeModal('depositModal'); fetchUserProfile(); }
+            } catch(e) { alert('የዲፖዚት ጥያቄው አልተሳካም!'); }
         }
 
-        // 7. የወጪ ጥያቄ ማቅረቢያ (Withdraw)
+        async function triggerCheckIn() {
+            const token = localStorage.getItem('ors_token');
+            const res = await fetch(`${BASE_URL}/api/checkin`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+            const data = await res.json();
+            alert(data.message);
+            fetchUserProfile();
+        }
+
         async function submitWithdraw() {
             const token = localStorage.getItem('ors_token');
             const amount = document.getElementById('witAmount').value;
-
             const res = await fetch(`${BASE_URL}/api/withdraw`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -727,82 +795,6 @@
             if(res.ok) { closeModal('withdrawModal'); fetchUserProfile(); }
         }
 
-        // 8. ፕሮሞ ኮድ ማስገቢያ
-        async function submitPromo() {
-            const token = localStorage.getItem('ors_token');
-            const code = document.getElementById('promoCodeInput').value;
-
-            const res = await fetch(`${BASE_URL}/api/promo-bonus`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ code })
-            });
-            const data = await res.json();
-            alert(data.message);
-            if(res.ok) { closeModal('promoModal'); fetchUserProfile(); }
-        }
-
-        // 9. ባንክ ዳታ ማስተካከያ
-        async function submitBankUpdate() {
-            const token = localStorage.getItem('ors_token');
-            const bankName = document.getElementById('bkName').value;
-            const bankAccount = document.getElementById('bkAcc').value;
-
-            const res = await fetch(`${BASE_URL}/api/profile/update-bank`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ bankName, bankAccount })
-            });
-            const data = await res.json();
-            alert(data.message);
-            if(res.ok) closeModal('bankModal');
-        }
-
-        // 10. ፓስወርድ መቀየሪያ
-        async function submitPasswordChange() {
-            const token = localStorage.getItem('ors_token');
-            const newPassword = document.getElementById('newPass').value;
-
-            const res = await fetch(`${BASE_URL}/api/profile/change-password`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ newPassword })
-            });
-            const data = await res.json();
-            alert(data.message);
-            if(res.ok) closeModal('passModal');
-        }
-
-        // 11. የሂሳብ ታሪክ ማምጫ
-        async function fetchHistory() {
-            const token = localStorage.getItem('ors_token');
-            const res = await fetch(`${BASE_URL}/api/history`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if(res.ok) {
-                const list = await res.json();
-                if(list.length === 0) {
-                    document.getElementById('historyList').innerText = "ምንም አይነት የግብይት ታሪክ አልተገኘም!";
-                    return;
-                }
-                let html = '';
-                list.forEach(h => {
-                    const statusColor = h.status === 'success' ? 'var(--accent-green)' : '#ffea00';
-                    html += `<div style="border-bottom:1px solid #30363d; padding:10px 0;">
-                        <div style="display:flex; justify-content:between;">
-                            <b style="text-transform:uppercase;">${h.type}</b>
-                            <span style="color:${statusColor}">${h.status}</span>
-                        </div>
-                        <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
-                            መጠን፡ ${h.amount} ETB | ሰዓት፡ ${new Date(h.createdAt).toLocaleDateString()}
-                        </div>
-                    </div>`;
-                });
-                document.getElementById('historyList').innerHTML = html;
-            }
-        }
-
-        // 12. የቴሌግራም ሲስተም ሊንኮችን ማምጫ
         async function fetchSystemLinks() {
             try {
                 const res = await fetch(`${BASE_URL}/api/system-links`);
@@ -820,12 +812,6 @@
             alert('በተሳካ ሁኔታ ወጥተዋል!');
             location.reload();
         }
-
-        // ገጹ ሲከፈት መጀመሪያ የሚሰሩ ስራዎች
-        window.onload = function() {
-            fetchUserProfile();
-            fetchSystemLinks();
-        };
     </script>
 </body>
 </html>
