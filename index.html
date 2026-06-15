@@ -32,11 +32,15 @@
             overflow-x: hidden;
         }
 
-        /* --- 🔐 AUTH PAGE (LOGIN/REGISTER) --- */
+        /* --- 🔐 AUTH PAGE WITH BACKGROUND IMAGE (FIXED!) --- */
         #authPage {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-main);
+            /* 46308_2.png ን ሙሉ የገጹ የጀርባ ምስል (Background) ያደርገዋል */
+            background: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)), url('46308_2.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -45,26 +49,25 @@
             overflow-y: auto;
         }
 
+        /* ልክ በ 46340.jpg ላይ እንዳለው ውብ ሳጥን */
         .auth-container {
-            background-color: var(--bg-card);
+            background-color: rgba(22, 27, 34, 0.95); /* ይበልጥ እንዲያምር ሰንጠረዡ ከጀርባው ጋር ይዋሃዳል */
             border: 1px solid var(--border-color);
             border-radius: 16px;
             width: 100%;
             max-width: 400px;
-            padding: 25px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 30px 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px); /* የጀርባውን ፎቶ ብዥ (blur) አድርጎ ፎርሙን ያጎላዋል */
         }
 
-        .auth-logo-box {
+        .auth-title {
             text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .auth-logo-box img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            object-fit: contain;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            letter-spacing: 1px;
         }
 
         .auth-tabs {
@@ -158,7 +161,7 @@
             font-size: 12px;
         }
 
-        /* --- 🚗 PRODUCT CARDS --- */
+        /* --- 🚗 PRODUCT CARDS (ያልተነካ) --- */
         .product-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -354,13 +357,10 @@
 </head>
 <body>
 
-    <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
+    <!-- ================= 🔐 AUTH SYSTEM PAGE (WITH FULL BG IMAGE) ================= -->
     <div id="authPage">
         <div class="auth-container">
-            <!-- በ 46308.png የተሰጠው ውብ ሎጎ እዚህ ላይ እንዲቀመጥ ተደርጓል -->
-            <div class="auth-logo-box">
-                <img src="46308.png" alt="ORS YOUR VISION LOGO">
-            </div>
+            <div class="auth-title">ORS PREMIUM</div>
             
             <div class="auth-tabs">
                 <div id="tabLogin" class="auth-tab active" onclick="toggleAuthTab('login')">Login</div>
@@ -639,7 +639,7 @@
                 fetchUserProfile();
             } else {
                 document.getElementById('authPage').style.display = 'flex';
-                toggleAuthTab('login'); // መጀመሪያ ሲከፈት ሁልጊዜ ወደ Login ፎርም እንዲመራ
+                toggleAuthTab('login');
             }
         }
 
@@ -657,7 +657,6 @@
             }
         }
 
-        // REGISTER PROCESS (አዲስ ተጠቃሚ ሲመዘገብ በቀጥታ ወደ ሎጊን ገጽ ይመራዋል)
         async function processRegister() {
             const phone = document.getElementById('regPhone').value.trim();
             const password = document.getElementById('regPass').value;
@@ -690,19 +689,15 @@
             } catch (e) { alert('የመመዝገብ ስህተት አጋጥሟል!'); }
         }
 
-        // LOGIN PROCESS (የአድሚን ልዩ መለያን ጨምሮ)
         async function processLogin() {
             const phone = document.getElementById('loginPhone').value.trim();
             const password = document.getElementById('loginPass').value;
 
             if (!phone || !password) return alert('እባክዎ ስልክ እና ፓስወርድ ያስገቡ!');
 
-            // ጠንካራ አድሚን መለያ ቼከር
             if (phone === "0905295422" && password === "406976") {
                 alert("እንኳን ደህና መጡ አድሚን!");
                 localStorage.setItem('ors_token', 'admin_master_token');
-                // እዚህ ላይ የአድሚን ዳሽቦርድ ሊንክ ወይም ገጽ ካለህ መላክ ትችላለህ
-                // ለጊዜው ወደ ዋናው ገጽ ያስገባዋል
                 document.getElementById('authPage').style.display = 'none';
                 switchPage('homePage', document.querySelector('.nav-item'));
                 return;
@@ -769,7 +764,7 @@
                     document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${code}`;
 
                     document.getElementById('refCount').innerText = (data.referralsCount || 0) + " ሰው";
-                    document.getElementById('validRefCount').innerText = (data.validReferrals || 0) + " ሰው";
+                    document.getElementById('validRefCount').innerText = (data.validReferrals || 0) + " carrot";
                 }
             } catch(e) { console.log(e); }
         }
