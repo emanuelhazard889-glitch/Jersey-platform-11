@@ -9,14 +9,12 @@
         body { background: #0c0f12; color: #e2e8f0; font-size: 14px; padding-bottom: 70px; }
         .app-container { max-width: 480px; margin: 0 auto; background: #131920; min-height: 100vh; position: relative; border-left: 1px solid #232d38; border-right: 1px solid #232d38; }
         
-        .brand-header { width: 100%; background: #1a120b; text-align: center; border-bottom: 2px solid #3a86ff; padding: 10px 0; }
-        .brand-header img { width: 90%; max-height: 180px; object-fit: contain; border-radius: 8px; }
+        .brand-header { width: 100%; background: #1a120b; text-align: center; border-bottom: 2px solid #3a86ff; padding: 25px 0; color: #3a86ff; font-weight: bold; font-size: 1.8rem; }
 
         .screen { display: none; padding: 15px; }
         .screen.active { display: block; }
 
         h2 { color: #3a86ff; margin-bottom: 15px; font-size: 1.3rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        h4 { color: #e2e8f0; margin-bottom: 10px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 6px; color: #a0aec0; font-size: 0.85rem; }
         input, select { width: 100%; padding: 12px; background: #1c242f; border: 1px solid #2d3748; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
@@ -37,8 +35,8 @@
         .circle-item:hover { transform: scale(1.05); background: #232d38; border-color: #3a86ff; }
         .circle-item span { font-size: 0.75rem; margin-top: 4px; font-weight: 500; text-align: center; color: #e2e8f0; }
 
-        .vip-card { background: #1c242f; border-radius: 12px; border: 1px solid #2d3748; margin-bottom: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        .vip-img-placeholder { width: 100%; height: 140px; background: #2d3748; display: flex; align-items: center; justify-content: center; color: #a0aec0; font-weight: bold; position: relative; overflow: hidden; }
+        .vip-card { background: #1c242f; border-radius: 12px; border: 1px solid #2d3748; margin-bottom: 15px; overflow: hidden; }
+        .vip-img-placeholder { width: 100%; height: 140px; background: #2d3748; display: flex; align-items: center; justify-content: center; color: #a0aec0; font-weight: bold; position: relative; }
         .vip-badge { position: absolute; top: 10px; left: 10px; background: #3a86ff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
         .vip-details { padding: 15px; }
         .vip-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
@@ -47,7 +45,6 @@
         .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #131920; border-top: 1px solid #2d3748; display: flex; justify-content: space-around; padding: 10px 0; z-index: 999; }
         .nav-tab { color: #a0aec0; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; cursor: pointer; }
         .nav-tab.active { color: #3a86ff; font-weight: bold; }
-        .nav-tab span { margin-top: 3px; }
 
         .admin-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .stat-box { background: #1c242f; padding: 12px; border-radius: 8px; border-left: 4px solid #3a86ff; }
@@ -59,9 +56,7 @@
 <body>
 
 <div class="app-container">
-    <div class="brand-header">
-        <img src="46308_2.png" alt="ORS Logo Hierarchy Banner">
-    </div>
+    <div class="brand-header">ORS PLATFORM</div>
 
     <div id="screen-auth" class="screen active">
         <div style="display:flex; justify-content: space-around; margin-bottom: 20px; background: #1c242f; padding: 5px; border-radius: 8px;">
@@ -104,7 +99,6 @@
             <div class="circle-item" onclick="handleCheckIn()">📆<span>Check In</span></div>
             <div class="circle-item" onclick="switchSubPage('promo')">🎁<span>Promo Code</span></div>
         </div>
-
         <div id="home-sub-content" style="margin-top:25px; border-top:1px solid #2d3748; padding-top:15px;"></div>
     </div>
 
@@ -114,10 +108,9 @@
             <h4 style="color:#3a86ff; margin-bottom:5px;">My Active Assets</h4>
             <div id="my-products-list"></div>
         </div>
-        
         <div id="vip-catalog">
             <div class="vip-card">
-                <div class="vip-img-placeholder"><div class="vip-badge">VIP 1</div>🚗 [Audi Sedan Class Car Photo]</div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 1</div>🚗 [Audi Sedan Car]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>900 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>100 Birr</span></div>
@@ -125,7 +118,7 @@
                 </div>
             </div>
             <div class="vip-card">
-                <div class="vip-img-placeholder"><div class="vip-badge">VIP 2</div>🚙 [BMW SUV Class Car Photo]</div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 2</div>🚙 [BMW SUV Car]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>1800 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>300 Birr</span></div>
@@ -133,7 +126,7 @@
                 </div>
             </div>
             <div class="vip-card">
-                <div class="vip-img-placeholder"><div class="vip-badge">VIP 3</div>🏎️ [Porsche Sports Class Car Photo]</div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 3</div>🏎️ [Porsche Sports Car]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>3600 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>600 Birr</span></div>
@@ -141,7 +134,7 @@
                 </div>
             </div>
             <div class="vip-card">
-                <div class="vip-img-placeholder"><div class="vip-badge">VIP 4</div>🏎️ [Lamborghini Supercar Class Photo]</div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 4</div>🏎️ [Lamborghini Supercar]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>7200 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>1200 Birr</span></div>
@@ -149,7 +142,7 @@
                 </div>
             </div>
             <div class="vip-card">
-                <div class="vip-img-placeholder"><div class="vip-badge">VIP 5</div>👑 [Rolls Royce Luxury Class Car Photo]</div>
+                <div class="vip-img-placeholder"><div class="vip-badge">VIP 5</div>👑 [Rolls Royce Luxury Car]</div>
                 <div class="vip-details">
                     <div class="vip-row"><span>Price:</span> <span>10000 Birr</span></div>
                     <div class="vip-row"><span>Daily Dividend:</span> <span>1640 Birr</span></div>
@@ -165,7 +158,6 @@
             <p style="margin-bottom:8px; font-weight:bold; color:#a0aec0;">Your Exclusive Link</p>
             <input type="text" id="referral-link-input" readonly value="">
         </div>
-
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
             <div style="background:#1c242f; padding:12px; border-radius:8px;">
                 <p style="font-size:0.8rem; color:#a0aec0;">Total Invited</p>
@@ -176,21 +168,14 @@
                 <h3 id="ref-valid-count">0 Active</h3>
             </div>
         </div>
-
-        <div style="background:#1c242f; padding:15px; border-radius:8px; font-size:0.85rem; line-height:1.6;">
-            <h4 style="color:#3a86ff; margin-bottom:8px;">Commission Multi-Tier Grid</h4>
-            <p>🟢 Level 1 (Direct Referral): <b>20% Commission</b></p>
-            <p>🔵 Level 2 (Sub Referral): <b>2% Commission</b></p>
-            <p>🟤 Level 3 (Indirect Tier): <b>1% Commission</b></p>
-        </div>
     </div>
 
     <div id="screen-profile" class="screen">
         <h2>Account Dashboard</h2>
         <div class="form-group">
-            <button class="btn btn-secondary" style="margin-bottom:10px;" onclick="triggerProfileSub('password')">🔐 Security: Change Account Password</button>
-            <button class="btn btn-secondary" style="margin-bottom:10px;" onclick="triggerProfileSub('bank')">🏦 Financial: Manage Telebirr Details</button>
-            <button class="btn btn-secondary" style="margin-bottom:10px;" onclick="openChannel()">📢 Follow Official Telegram Channel</button>
+            <button class="btn btn-secondary" style="margin-bottom:10px;" onclick="triggerProfileSub('password')">🔐 Security: Change Password</button>
+            <button class="btn btn-secondary" style="margin-bottom:10px;" onclick="triggerProfileSub('bank')">🏦 Financial: Manage Telebirr</button>
+            <button class="btn btn-secondary" style="margin-bottom:10px;" onclick="openChannel()">📢 Follow Telegram Channel</button>
             <button class="btn btn-danger" onclick="logout()">Sign Out Profile</button>
         </div>
         <div id="profile-sub-content" style="margin-top:15px;"></div>
@@ -207,16 +192,14 @@
 
         <div style="background:#1c242f; padding:15px; border-radius:8px; margin-bottom:15px; border: 1px solid #ecc94b;">
             <h4 style="color:#ecc94b;">🎁 Manage Bonus Promo Codes</h4>
-            <p style="font-size:0.8rem; color:#a0aec0; margin-bottom:10px;">Generates an 8-digit English letter code valid for exactly 24 hours.</p>
             <button class="btn" style="background:#ecc94b; color:#000;" onclick="adminGeneratePromo()">⚡ Generate New Promo Code</button>
             <div id="adm-active-promos-box" style="margin-top:12px; font-size:0.85rem;"></div>
         </div>
 
         <div style="background:#1c242f; padding:15px; border-radius:8px; margin-bottom:15px;">
             <h4>User Account Lookup / Modification</h4>
-            <input type="tel" id="adm-search-phone" placeholder="Enter Member Phone Number" style="margin:10px 0;">
+            <input type="tel" id="adm-search-phone" placeholder="Enter Member Phone" style="margin:10px 0;">
             <button class="btn" onclick="adminSearchUser()">Search Account</button>
-            
             <div id="adm-user-result" style="margin-top:15px; display:none; border-top:1px dashed #2d3748; padding-top:10px;">
                 <p>Phone: <span id="admu-phone"></span></p>
                 <p>Balance: <span id="admu-balance"></span> ETB</p>
@@ -238,7 +221,7 @@
             <button class="btn btn-secondary" style="margin-top:5px;" onclick="adminUpdateLinks()">Save Changes</button>
         </div>
 
-        <h4>Pending Withdrawal Claims (15% Fee Deducted)</h4>
+        <h4>Pending Withdrawal Claims</h4>
         <div id="adm-withdraw-requests" style="margin-top:10px;"></div>
     </div>
 
@@ -331,10 +314,8 @@
             DEPOSIT_PAGE_TIME = new Date().toISOString();
             container.innerHTML = `
                 <h3>Deposit funds to Account</h3>
-                <p style="color:#ecc94b; margin-bottom:10px;">⚠️ Note: Session active for 30 minutes only.</p>
                 <p>Transfer target Telebirr: <b>0945221136</b> (EMAWAYIT)</p>
                 <div class="form-group" style="margin-top:10px;">
-                    <label>Choose Deposit Variant Amount (ETB)</label>
                     <select id="dep-amount-select">
                         <option value="900">900 Birr</option>
                         <option value="1800">1800 Birr</option>
@@ -344,43 +325,32 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Paste the Complete Telebirr Confirmation SMS:</label>
-                    <textarea id="dep-sms-input" rows="5" style="width:100%; background:#1c242f; color:#fff; border-radius:8px; padding:10px; border:1px solid #2d3748;"></textarea>
+                    <textarea id="dep-sms-input" rows="5" style="width:100%; background:#1c242f; color:#fff;" placeholder="Paste SMS here..."></textarea>
                 </div>
-                <button class="btn" onclick="executeDepositVerify()">Verify Deposit Instance</button>
+                <button class="btn" onclick="executeDepositVerify()">Verify Deposit</button>
             `;
         } else if(sub === 'withdraw') {
             container.innerHTML = `
                 <h3>Request Cash Out</h3>
-                <p style="color:#a0aec0; margin-bottom:10px;">15% Processing deductions applicable.</p>
-                <div class="form-group">
-                    <label>Amount (Minimum 300 Birr)</label>
-                    <input type="number" id="with-amount-input" placeholder="Enter amount to extract">
-                </div>
-                <button class="btn" onclick="executeWithdrawClaim()">Forward Claim to Admin</button>
+                <input type="number" id="with-amount-input" placeholder="Enter amount">
+                <button class="btn" style="margin-top:10px;" onclick="executeWithdrawClaim()">Withdraw</button>
             `;
         } else if(sub === 'history') {
-            container.innerHTML = `<h3>Transaction Logs</h3><div id="history-list-logs">Loading...</div>`;
+            container.innerHTML = `<div id="history-list-logs">Loading...</div>`;
             fetch('/api/history', { headers: {'Authorization': 'Bearer ' + JWT_TOKEN} })
                 .then(r => r.json()).then(data => {
                     const logsBox = document.getElementById('history-list-logs');
-                    if(data.length === 0) logsBox.innerHTML = '<p>No historical items recorded.</p>';
+                    if(data.length === 0) logsBox.innerHTML = '<p>No history found.</p>';
                     else {
                         logsBox.innerHTML = data.map(t => `
-                            <div class="tx-item">
-                                <b>${t.type.toUpperCase()}</b> - ${t.amount} Birr <br>
-                                <span style="font-size:0.75rem; color:#a0aec0;">Status: <span style="color:${t.status === 'success' ? '#48bb78':'#ecc94b'}">${t.status}</span> | Net Payout: ${t.netAmount} Birr</span>
-                            </div>
+                            <div class="tx-item"><b>${t.type.toUpperCase()}</b> - ${t.amount} Birr <br>Status: ${t.status}</div>
                         `).join('');
                     }
                 });
         } else if(sub === 'promo') {
             container.innerHTML = `
-                <h3>Redeem Admin Promo Code</h3>
-                <div class="form-group">
-                    <input type="text" id="promo-bonus-code-val" placeholder="Enter 8-digit English letters">
-                </div>
-                <button class="btn" onclick="executeRedeemBonus()">Claim Random Bonus (1-10 Birr)</button>
+                <input type="text" id="promo-bonus-code-val" placeholder="Enter 8-digit code">
+                <button class="btn" style="margin-top:10px;" onclick="executeRedeemBonus()">Claim Bonus</button>
             `;
         }
     }
@@ -407,7 +377,6 @@
         });
         const data = await res.json();
         alert(data.message);
-        if(res.ok) loadWalletStats();
     }
 
     async function handleCheckIn() {
@@ -435,9 +404,7 @@
         if(data.products && data.products.length > 0) {
             document.getElementById('my-products-section').style.display = 'block';
             document.getElementById('my-products-list').innerHTML = data.products.map(p => `
-                <div style="font-size:0.85rem; padding:4px 0; border-bottom:1px solid #2d3748;">
-                    VIP ${p.vipLevel} Car Asset Active - Purchased: ${new Date(p.purchasedAt).toLocaleDateString()}
-                </div>
+                <div>VIP ${p.vipLevel} Car Active - Purchased: ${new Date(p.purchasedAt).toLocaleDateString()}</div>
             `).join('');
         }
     }
@@ -445,7 +412,7 @@
     async function syncReferralMetrics() {
         const res = await fetch('/api/profile', { headers: {'Authorization': 'Bearer ' + JWT_TOKEN} });
         const data = await res.json();
-        document.getElementById('referral-link-input').value = window.location.origin + "/index.html?promoCode=" + data.promoCode;
+        document.getElementById('referral-link-input').value = window.location.origin + "/?promoCode=" + data.promoCode;
         document.getElementById('ref-total-count').innerText = `${data.referralsCount} Persons`;
         document.getElementById('ref-valid-count').innerText = `${data.validReferrals} Active`;
     }
@@ -454,14 +421,14 @@
         const container = document.getElementById('profile-sub-content');
         if(type === 'password') {
             container.innerHTML = `
-                <input type="password" id="p-new-pass" placeholder="Enter new password" style="margin-bottom:8px;">
-                <button class="btn" onclick="saveNewPassword()">Save Security Updates</button>
+                <input type="password" id="p-new-pass" placeholder="Enter new password">
+                <button class="btn" style="margin-top:10px;" onclick="saveNewPassword()">Save Password</button>
             `;
         } else if(type === 'bank') {
             container.innerHTML = `
-                <input type="text" id="p-bank-name" placeholder="Account Holder Name" style="margin-bottom:8px;">
-                <input type="tel" id="p-bank-acc" placeholder="Telebirr Account Number" style="margin-bottom:8px;">
-                <button class="btn" onclick="saveBankCard()">Save Financial Meta</button>
+                <input type="text" id="p-bank-name" placeholder="Holder Name" style="margin-bottom:8px;">
+                <input type="tel" id="p-bank-acc" placeholder="Telebirr Number">
+                <button class="btn" style="margin-top:10px;" onclick="saveBankCard()">Save Details</button>
             `;
         }
     }
@@ -487,7 +454,6 @@
         const d = await res.json(); alert(d.message);
     }
 
-    // --- ADMIN SYSTEM MANAGEMENT FUNCTIONS ---
     async function loadAdminConsole() {
         const res = await fetch('/api/admin/dashboard', { headers: {'Authorization': 'Bearer ' + JWT_TOKEN} });
         const data = await res.json();
@@ -496,20 +462,15 @@
         document.getElementById('adm-total-withdraw').innerText = data.totalWithdraw + ' ETB';
         document.getElementById('adm-pending-withdraw').innerText = data.pendingWithdraw + ' ETB';
 
-        // ንቁ የሆኑ አድሚን ፕሮሞ ኮዶችን ማሳያ
         if (data.activePromos && data.activePromos.length > 0) {
             document.getElementById('adm-active-promos-box').innerHTML = "<b>Active Codes:</b><br>" + 
-                data.activePromos.map(p => `<code>${p.code}</code> (Redeemed: ${p.redeemedUsers.length} times)`).join('<br>');
+                data.activePromos.map(p => `<code>${p.code}</code>`).join(', ');
         } else {
-            document.getElementById('adm-active-promos-box').innerHTML = "No active promo codes currently.";
+            document.getElementById('adm-active-promos-box').innerHTML = "No active promo codes.";
         }
 
         document.getElementById('adm-withdraw-requests').innerHTML = data.pendingRequests.map(r => `
-            <div class="tx-item">
-                User: <b>${r.phone}</b> <br>
-                Gross Request: ${r.amount} ETB | Net (After 15%): <b>${r.netAmount} ETB</b> <br>
-                <button class="btn" style="padding:6px; margin-top:5px; background:#48bb78;" onclick="approveWithdrawal('${r._id}')">Approve Request</button>
-            </div>
+            <div class="tx-item">User: ${r.phone} | Net: <b>${r.netAmount} ETB</b> <button onclick="approveWithdrawal('${r._id}')">Approve</button></div>
         `).join('');
     }
 
@@ -532,7 +493,6 @@
         });
         const data = await res.json();
         if(!res.ok) return alert(data.message);
-        
         document.getElementById('adm-user-result').style.display = 'block';
         document.getElementById('admu-phone').innerText = data.phone;
         document.getElementById('admu-balance').innerText = data.balance;
@@ -571,12 +531,10 @@
         const d = await res.json(); alert(d.message);
     }
 
-    // Auto load configs
     fetch('/api/system-links').then(r => r.json()).then(d => {
         SUPPORT_LINK = d.supportLink; CHANNEL_LINK = d.channelLink;
     });
 
-    // Check URL parameters for referral links automatically
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('promoCode');
