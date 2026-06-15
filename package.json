@@ -1,7 +1,7 @@
 {
   "name": "ors-vision-platform",
   "version": "1.0.0",
-  "description": "ORS Investment Mobile Platform with Automated Telebirr Matching System",
+  "description": "ORS Investment Mobile Platform with Fixed Routing",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
