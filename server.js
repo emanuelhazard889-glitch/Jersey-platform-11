@@ -10,18 +10,20 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ors_platform')
-    .then(() => console.log('MongoDB Connected Successfully'))
+// የዳታቤዝ ግንኙነት መስመር
+const MONGODB_URI = "mongodb+srv://Alpha:406976aaa@cluster0.sgcjmyi.mongodb.net/ors_platform?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose.connect(MONGODB_URI)
+    .then(() => console.log('ORS Database Cluster Connected Successfully'))
     .catch(err => console.error('MongoDB Connection Error:', err));
 
 // --- SCHEMAS ---
 const UserSchema = new mongoose.Schema({
     phone: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    promoCode: { type: String, unique: true },
+    promoCode: { type: String, unique: true }, // የሪፈራል ኮድ
     referredBy: { type: String, default: null },
-    balance: { type: Number, default: 300 }, // New users get 300 Birr
+    balance: { type: Number, default: 300 }, 
     isBanned: { type: Boolean, default: false },
     bankAccount: { type: String, default: '' },
     bankName: { type: String, default: '' },
@@ -47,6 +49,14 @@ const TransactionSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+// ለአድሚን የሚሆኑ አዳዲስ የፕሮሞ ኮዶች ማስቀመጫ Schema
+const AdminPromoSchema = new mongoose.Schema({
+    code: { type: String, required: true, unique: true },
+    createdAt: { type: Date, default: Date.now },
+    expiresAt: { type: Date, required: true },
+    redeemedUsers: [String] // ኮዱን የተጠቀሙ ሰዎችን ስልክ ቁጥር ይይዛል
+});
+
 const SystemConfigSchema = new mongoose.Schema({
     supportLink: { type: String, default: 'https://t.me/your_support' },
     channelLink: { type: String, default: 'https://t.me/your_channel' },
@@ -55,18 +65,15 @@ const SystemConfigSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 const Transaction = mongoose.model('Transaction', TransactionSchema);
+const AdminPromo = mongoose.model('AdminPromo', AdminPromoSchema);
 const SystemConfig = mongoose.model('SystemConfig', SystemConfigSchema);
 
-// Initial App Config Setup
 async function initConfig() {
     const config = await SystemConfig.findOne();
-    if (!config) {
-        await SystemConfig.create({});
-    }
+    if (!config) { await SystemConfig.create({}); }
 }
 initConfig();
 
-// --- MIDDLEWARE ---
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -91,13 +98,9 @@ app.post('/api/register', async (req, res) => {
         const existingUser = await User.findOne({ phone });
         if (existingUser) return res.status(400).json({ message: 'Phone number already registered' });
 
-        // Generate 6-digit unique promo code
         let uniquePromo = Math.floor(100000 + Math.random() * 900000).toString();
-        
         let referredByUser = null;
-        if (promoCode) {
-            referredByUser = await User.findOne({ promoCode });
-        }
+        if (promoCode) { referredByUser = await User.findOne({ promoCode }); }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
@@ -111,7 +114,6 @@ app.post('/api/register', async (req, res) => {
         if (referredByUser) {
             await User.updateOne({ phone: referredByUser.phone }, { $inc: { referralsCount: 1 } });
         }
-
         res.status(201).json({ message: 'Registration Successful' });
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -120,7 +122,6 @@ app.post('/api/register', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
     const { phone, password } = req.body;
-    // Admin Login Bypass
     if (phone === '0905295422' && password === '406976') {
         const token = jwt.sign({ id: 'ADMIN', isAdmin: true }, 'ORS_SECRET_KEY_2026');
         return res.json({ token, isAdmin: true });
@@ -137,9 +138,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // --- USER FEATURES ---
-app.get('/api/profile', authenticateToken, async (req, res) => {
-    res.json(req.user);
-});
+app.get('/api/profile', authenticateToken, async (req, res) => { res.json(req.user); });
 
 app.post('/api/profile/update-bank', authenticateToken, async (req, res) => {
     const { bankAccount, bankName } = req.body;
@@ -156,7 +155,6 @@ app.post('/api/profile/change-password', authenticateToken, async (req, res) => 
     res.json({ message: 'Password Updated Successfully' });
 });
 
-// Daily Check-in (20 Birr)
 app.post('/api/checkin', authenticateToken, async (req, res) => {
     const today = new Date().toISOString().split('T')[0];
     if (req.user.lastCheckIn === today) {
@@ -168,42 +166,56 @@ app.post('/api/checkin', authenticateToken, async (req, res) => {
     res.json({ message: 'Checked in successfully! +20 Birr', newBalance: req.user.balance });
 });
 
-// Promo Bonus Code
+// ተጠቃሚው በአድሚን የተፈጠረውን ፕሮሞ ኮድ የሚያስገባበት ህግ
 app.post('/api/promo-bonus', authenticateToken, async (req, res) => {
     const { code } = req.body;
-    if (!code || code.trim() === "") return res.status(400).json({ message: 'Invalid code' });
-    
-    // Give a random bonus between 1 and 10 Birr
+    if (!code || code.trim() === "") return res.status(400).json({ message: 'Please enter a valid code' });
+
+    // ኮዱ በአድሚን የተፈጠረ መሆኑንና አለማለፉን ቼክ ያደርጋል
+    const activePromo = await AdminPromo.findOne({ code: code.trim().toUpperCase() });
+    if (!activePromo) {
+        return res.status(400).json({ message: 'Invalid Promo Code!' });
+    }
+
+    if (new Date() > activePromo.expiresAt) {
+        return res.status(400).json({ message: 'This Promo Code has expired (24 Hours limit reached)!' });
+    }
+
+    if (activePromo.redeemedUsers.includes(req.user.phone)) {
+        return res.status(400).json({ message: 'You have already used this Promo Code!' });
+    }
+
+    // ከ 1 እስከ 10 ብር በዘፈቀደ (Random) መውሰድ
     const bonus = Math.floor(Math.random() * 10) + 1;
     req.user.balance += bonus;
     await req.user.save();
-    res.json({ message: `Success! You received ${bonus} Birr bonus.` });
+
+    // ይህ ሰው በድጋሚ እንዳይጠቀም ስሙን መዝግብ
+    activePromo.redeemedUsers.push(req.user.phone);
+    await activePromo.save();
+
+    res.json({ message: `Success! You received ${bonus} Birr promo bonus.`, newBalance: req.user.balance });
 });
 
 // AUTOMATED TELEBIRR DEPOSIT VERIFICATION
 app.post('/api/deposit', authenticateToken, async (req, res) => {
     const { amount, smsText, pageOpenTime } = req.body;
-    
-    // Rule 1: 30 minutes validation limit
     const timeElapsed = (Date.now() - new Date(pageOpenTime).getTime()) / 1000 / 60;
     if (timeElapsed > 30) {
         return res.status(400).json({ message: 'Transaction session expired. Please refresh the deposit page.' });
     }
 
-    // Rule 2 & 3: Check Telebirr SMS structural criteria
     if (!smsText.includes('Emawayit') || !smsText.includes('1136') || !smsText.includes('Dear')) {
         return res.status(400).json({ message: 'Invalid or incomplete Telebirr SMS format.' });
     }
 
-    // Extract exact amount and TxID from Telebirr standard structure
-    const matchAmt = smsText.match(/(?:received|sent|transferred)\s([0-aligned.\d]+)\s?ETB/i) || smsText.match(/([0-9.]+)\s?Birr/i);
+    const matchAmt = smsText.match(/(?:received|sent|transferred)\s([0-9.\d]+)\s?ETB/i) || smsText.match(/([0-9.]+)\s?Birr/i);
     const parsedAmount = matchAmt ? parseFloat(matchAmt[1]) : null;
 
     if (!parsedAmount || parsedAmount !== parseFloat(amount)) {
         return res.status(400).json({ message: 'SMS amount does not match your selected amount.' });
     }
 
-    // Regex capture for Transaction ID (standard telebirr reference codes alphanumeric)
     const matchTx = smsText.match(/Transaction\s?ID\s?([A-Z0-9]+)/i) || smsText.match(/Ref\s?No\.?\s?([A-Z0-9]+)/i);
     const txId = matchTx ? matchTx[1] : 'TX' + Math.floor(Math.random() * 1000000);
 
@@ -212,10 +224,8 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: 'This Transaction ID has already been verified.' });
     }
 
-    // Process Validated Deposit
     req.user.balance += parsedAmount;
     
-    // Handle Auto-Product Purchase Based on Exact Deposited Amount Match
     let autoVip = null;
     let dailyInc = 0;
     if (parsedAmount === 900) { autoVip = 1; dailyInc = 100; }
@@ -228,7 +238,6 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
         req.user.products.push({ vipLevel: autoVip, purchasePrice: parsedAmount, dailyIncome: dailyInc });
     }
 
-    // Multi-Level Referral Commissions System (Level 1: 20%, Level 2: 2%, Level 3: 1%)
     if (req.user.referredBy) {
         const lvl1 = await User.findOne({ phone: req.user.referredBy });
         if (lvl1) {
@@ -259,7 +268,6 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
     await req.user.save();
 
     await Transaction.create({ phone: req.user.phone, type: 'deposit', amount: parsedAmount, netAmount: parsedAmount, status: 'success', txId });
-
     res.json({ message: autoVip ? `Deposit auto-verified! VIP ${autoVip} Purchased!` : 'Deposit Approved!', balance: req.user.balance });
 });
 
@@ -292,7 +300,6 @@ app.post('/api/withdraw', authenticateToken, async (req, res) => {
         netAmount: netAmount,
         status: 'pending'
     });
-
     res.json({ message: 'Withdraw request forwarded to Administrator panel.', remainingBalance: req.user.balance });
 });
 
@@ -324,14 +331,41 @@ app.get('/api/admin/dashboard', verifyAdmin, async (req, res) => {
     const totalWith = await Transaction.aggregate([ { $match: { type: 'withdraw', status: 'success' } }, { $group: { _id: null, total: { $sum: '$amount' } } } ]);
     const pendingWith = await Transaction.aggregate([ { $match: { type: 'withdraw', status: 'pending' } }, { $group: { _id: null, total: { $sum: '$amount' } } } ]);
     const pendingRequests = await Transaction.find({ type: 'withdraw', status: 'pending' });
+    const totalActivePromos = await AdminPromo.find({ expiresAt: { $gte: new Date() } }).sort({ createdAt: -1 });
 
     res.json({
         totalMembers: totalUsers,
         totalDeposit: totalDep[0]?.total || 0,
         totalWithdraw: totalWith[0]?.total || 0,
         pendingWithdraw: pendingWith[0]?.total || 0,
-        pendingRequests
+        pendingRequests,
+        activePromos: totalActivePromos
     });
+});
+
+// አድሚን በራስ-ሰር 8 ፊደል የእንግሊዘኛ ፕሮሞ ኮድ የሚያመነጭበት ህግ (24 ሰዓት ብቻ የሚቆይ)
+app.post('/api/admin/generate-promo', verifyAdmin, async (req, res) => {
+    try {
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let generatedCode = "";
+        for (let i = 0; i < 8; i++) {
+            generatedCode += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+
+        const expires = new Date();
+        expires.setHours(expires.getHours() + 24); // ከ 24 ሰዓት በኋላ ኤክስፓየር እንዲሆን መመደብ
+
+        const newPromo = new AdminPromo({
+            code: generatedCode,
+            expiresAt: expires,
+            redeemedUsers: []
+        });
+        await newPromo.save();
+
+        res.json({ message: '8-Digit English Letter Promo Code generated!', code: generatedCode });
+    } catch (err) {
+        res.status(500).json({ message: 'Error generating promo code' });
+    }
 });
 
 app.post('/api/admin/search-user', verifyAdmin, async (req, res) => {
@@ -366,7 +400,7 @@ app.post('/api/admin/update-links', verifyAdmin, async (req, res) => {
     res.json({ message: 'Official structural Links reconfigured.' });
 });
 
-// Background Cron-job Simulator (Every 24 Hours adds passive VIP Interest income)
+// Passive VIP Daily Income Automation Simulator
 setInterval(async () => {
     const users = await User.find({ "products.0": { $exists: true } });
     for (let u of users) {
@@ -383,4 +417,4 @@ setInterval(async () => {
 }, 1000 * 60 * 60 * 24);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`ORS System cluster active on port ${PORT}`));
+app.listen(PORT, () => console.log(`ORS cluster active on port ${PORT}`));
