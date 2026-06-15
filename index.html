@@ -1,703 +1,831 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORS INVESTMENT PLATFORM</title>
+    <title>ORS Premium Fleet Platforms</title>
+    <!-- FontAwesome ለሚያምሩ አይኮኖች -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- 🎨 የዲዛይን ከለር እና ስታይል (Theme Setup) --- */
         :root {
-            --dark-bg: #0b0f19;
-            --panel-bg: rgba(21, 31, 50, 0.8);
-            --border-glow: rgba(6, 182, 212, 0.3);
-            --neon-cyan: #06b6d4;
-            --neon-blue: #3b82f6;
-            --text-gold: #fbbf24;
-            --text-white: #f3f4f6;
-            --text-gray: #9ca3af;
-            --crypto-green: #10b981;
-            --card-gradient: linear-gradient(145deg, #1e293b, #0f172a);
-            --glass: cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-main: #0d1117;       /* ጥልቅ የባህር ጥቁር ጀርባ */
+            --bg-card: #161b22;       /* የሳጥኖችና የካርዶች ቀለም */
+            --accent-gold: #ffea00;   /* ወርቃማ ቀለም */
+            --accent-green: #00e676;  /* ደማቅ አረንጓዴ ለገንዘብ */
+            --text-main: #ffffff;     /* ነጭ ፅሁፍ */
+            --text-muted: #8b949e;    /* ደብዛዛ ፅሁፍ */
+            --border-color: #30363d;  /* የካርድ መስመሮች */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--dark-bg);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
-            color: var(--text-white);
-            padding-bottom: 95px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 80px; /* ለታችኛው ሜኑ ቦታ መተው */
             overflow-x: hidden;
         }
 
-        /* Ultimate Premium Header */
-        .premium-header {
-            background: rgba(11, 15, 25, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 18px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .brand-logo {
-            font-size: 24px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #06b6d4, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-        }
-
-        .header-icon {
-            font-size: 20px;
-            color: var(--neon-cyan);
-            filter: drop-shadow(0 0 8px var(--neon-cyan));
-        }
-
-        /* Smooth View Switching */
-        .app-page {
+        /* --- 📱 የገጾች መቆጣጠሪያ (Page Views) --- */
+        .page {
             display: none;
             padding: 20px;
-            animation: slideUp 0.4s var(--glass);
+            animation: fadeIn 0.4s ease-in-out;
         }
 
-        .app-page.active {
+        .page.active {
             display: block;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 10x Better Glassmorphism Card (Inspired by 46328.jpg) */
-        .glass-wallet-card {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
+        /* --- 💳 የባላንስ ትልቅ ካርድ (Wallet Card) --- */
+        .wallet-card {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(217, 119, 6, 0.3);
-            margin-bottom: 25px;
         }
 
-        .wallet-label {
-            font-size: 13px;
-            color: rgba(0, 0, 0, 0.7);
+        .wallet-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,230,118,0.05) 0%, transparent 70%);
+        }
+
+        .wallet-card h3 {
+            color: var(--text-muted);
+            font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 700;
         }
 
         .wallet-balance {
-            font-size: 40px;
-            font-weight: 900;
-            color: #000000;
+            color: var(--accent-green);
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
         }
 
-        /* Luxury Quick Menu Buttons */
-        .action-grid {
+        /* --- 🎛️ የሆም ገጽ ክብ በተኖች (Quick Actions Grid) --- */
+        .actions-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-bottom: 25px;
         }
 
-        .luxury-btn {
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 18px;
-            padding: 15px 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        .action-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.25s var(--glass);
+            transition: all 0.2s ease;
         }
 
-        .luxury-btn:active {
-            transform: scale(0.9);
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan));
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        .action-btn:active {
+            transform: scale(0.93);
+            background-color: #21262d;
         }
 
-        .luxury-btn i {
-            font-size: 22px;
-            color: var(--text-gold);
-        }
-
-        .luxury-btn:active i {
-            color: #ffffff;
-        }
-
-        .luxury-btn span {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-white);
-        }
-
-        /* Form Content Container */
-        .premium-container {
-            background: var(--panel-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .premium-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--text-white);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 10px;
-        }
-
-        .input-wrapper {
-            background: rgba(3, 7, 18, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .input-wrapper i {
-            color: var(--neon-cyan);
-            font-size: 18px;
-        }
-
-        .input-wrapper input, .input-wrapper select, .input-wrapper textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: white;
-            font-size: 15px;
-        }
-
-        /* Futuristic Luxury Vehicle Investment Cards (Inspired by 46329.jpg) */
-        .vehicle-card {
-            background: #151f32;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-        }
-
-        .vehicle-card-inner {
-            display: flex;
-            padding: 20px;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .vehicle-img-box {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(#24334d, #0f172a);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .vehicle-glow-icon {
-            font-size: 45px;
-            color: var(--text-gold);
-            filter: drop-shadow(0 4px 10px rgba(251, 191, 36, 0.5));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .vehicle-details {
-            flex: 1;
-        }
-
-        .vehicle-name {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-white);
+        .action-btn i {
+            font-size: 24px;
             margin-bottom: 8px;
+            color: var(--accent-gold);
+            display: block;
         }
 
-        .mini-specs {
+        .action-btn span {
             font-size: 12px;
-            color: var(--text-gray);
-            line-height: 1.6;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
-        .mini-specs span {
-            color: var(--neon-cyan);
-            font-weight: 700;
+        /* --- 🚗 የመኪና VIP ካርዶች (Product Items) --- */
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .invest-action-btn {
+        .product-img-box {
             width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
+            height: 180px;
+            background-color: #0b0e14;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .product-img-box img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+        }
+
+        .vip-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(45deg, #b58928, #ffea00);
+            color: #000;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-label { color: var(--text-muted); }
+        .info-val { font-weight: 600; }
+        .info-val.green { color: var(--accent-green); }
+
+        .invest-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #ffc107, #ffea00);
+            color: #000;
             border: none;
-            padding: 14px;
+            padding: 12px;
+            border-radius: 8px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
+            margin-top: 10px;
+            transition: opacity 0.2s;
         }
 
-        .invest-action-btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+        .invest-btn:active { opacity: 0.8; }
+
+        /* --- 📥 የፋርሞችና የፖፕ-አፕ ዲዛይን (Forms & Inputs) --- */
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        /* Solid Action Neon Buttons */
-        .neon-submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan));
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
-            transition: all 0.2s;
-        }
-
-        .neon-submit-btn:active {
-            transform: scale(0.96);
-        }
-
-        .back-nav-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-white);
-            padding: 10px 18px;
-            border-radius: 30px;
+        .form-group label {
+            display: block;
             font-size: 13px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
         }
 
-        /* Premium Bottom Tab Bar Navigator */
-        .neon-tab-bar {
+        .form-control {
+            width: 100%;
+            background-color: #0d1117;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* --- 👤 የፕሮፋይል ሊስት ሜኑ (Profile Settings List) --- */
+        .menu-list {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:active { background-color: #21262d; }
+
+        .menu-left { display: flex; align-items: center; gap: 12px; }
+        .menu-left i { color: var(--accent-gold); font-size: 18px; }
+
+        /* --- 📱 የታችኛው ቋሚ ሜኑ (Sticky Bottom Navigation) --- */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
-            right: 0;
-            height: 75px;
-            background: rgba(11, 15, 25, 0.9);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-around;
+            width: 100%;
+            height: 65px;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             align-items: center;
-            padding: 0 10px;
+            text-align: center;
             z-index: 1000;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
         }
 
-        .tab-trigger {
+        .nav-item {
+            color: var(--text-muted);
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
-            color: var(--text-gray);
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 60px;
-        }
-
-        .tab-trigger i {
-            font-size: 20px;
-        }
-
-        .tab-trigger span {
+            justify-content: center;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
+            gap: 4px;
+            height: 100%;
         }
 
-        .tab-trigger.active {
-            color: var(--text-gold);
-            transform: translateY(-2px);
+        .nav-item i { font-size: 20px; }
+        .nav-item.active {
+            color: var(--accent-gold);
         }
 
-        /* Referral System Styling (Inspired by 46328.jpg) */
-        .referral-card {
-            background: #151f32;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 15px;
-        }
-
-        .ref-commission-box {
-            font-size: 13px;
-            color: var(--text-gray);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .ref-commission-box span {
-            color: var(--text-gold);
-            font-weight: 700;
-        }
-
-        .referral-link-box {
-            background: #0b0f19;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            text-align: left;
-            color: var(--neon-cyan);
-            word-break: break-all;
-            margin-bottom: 12px;
-        }
-
-        .copy-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #fbbf24, #d97706);
-            color: #000000;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
+        /* ፖፕ አፕ ሰሌዳ (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            padding: 20px;
         }
-
-        .copy-btn:active {
-            transform: scale(0.97);
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
         }
-
-        .done-badge {
-            background: var(--text-gold);
-            color: black;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            font-size: 20px; color: var(--text-muted); cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Block -->
-    <div class="premium-header">
-        <div class="brand-logo">ORS VISION</div>
-        <div class="header-icon"><i class="fa-solid fa-bolt"></i></div>
-    </div>
-
-    <!-- 1. HOME VIEW -->
-    <div id="view-home" class="app-page active">
-        <div class="glass-wallet-card">
-            <div class="wallet-label"><i class="fa-solid fa-wallet"></i> Available for withdrawal</div>
-            <div class="wallet-balance" id="display-balance">320.00 ETB</div>
+    <!-- ================= 🏠 HOME PAGE ================= -->
+    <div id="homePage" class="page active">
+        <div class="wallet-card">
+            <h3>ORS ዋና ባላንስ</h3>
+            <div class="wallet-balance"><span id="homeBalance">300.00</span> ETB</div>
+            <p style="font-size: 12px; color: var(--text-muted);">እንኳን ደህና መጡ! ዕለታዊ ገቢዎ እዚህ ይደመራል</p>
         </div>
 
-        <!-- Luxury Quick Nav Grid (Fixed Routing) -->
-        <div class="action-grid">
-            <div class="luxury-btn" onclick="switchView('view-deposit')">
-                <i class="fa-solid fa-circle-plus"></i>
+        <!-- ክብ በተኖች ግሪድ -->
+        <div class="actions-grid">
+            <div class="action-btn" onclick="openModal('depositModal')">
+                <i class="fa-solid fa-money-bill-transfer"></i>
                 <span>Deposit</span>
             </div>
-            <div class="luxury-btn" onclick="switchView('view-withdraw')">
-                <i class="fa-solid fa-money-bill-transfer"></i>
+            <div class="action-btn" onclick="openModal('withdrawModal')">
+                <i class="fa-solid fa-building-columns"></i>
                 <span>Withdraw</span>
             </div>
-            <div class="luxury-btn" onclick="switchView('view-history')">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>History</span>
+            <div class="action-btn" onclick="triggerCheckIn()">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Check In</span>
             </div>
-            <div class="luxury-btn" onclick="switchView('view-referral')">
-                <i class="fa-solid fa-users"></i>
-                <span>Referral</span>
+            <div class="action-btn" onclick="openModal('promoModal')">
+                <i class="fa-solid fa-gift"></i>
+                <span>Promo Code</span>
+            </div>
+            <div class="action-btn" onclick="openLink('chan')">
+                <i class="fa-brands fa-telegram"></i>
+                <span>Channel</span>
+            </div>
+            <div class="action-btn" onclick="openLink('supp')">
+                <i class="fa-solid fa-headset"></i>
+                <span>Support</span>
             </div>
         </div>
 
-        <!-- Daily Checkin Showcase Banner -->
-        <div style="background:#151f32; padding:16px; border-radius:16px; display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; border:1px solid rgba(255,255,255,0.05);">
-            <div>
-                <div style="font-size:14px; font-weight:700;">Daily Check-in</div>
-                <div style="font-size:13px; color:var(--text-gold); margin-top:2px;">+20 ETB</div>
-            </div>
-            <button id="home-checkin-btn" class="done-badge" style="border:none; cursor:pointer;" onclick="execCheckIn()">Claim <i class="fa-solid fa-chevron-right"></i></button>
+        <h3 style="margin-bottom: 15px; font-size: 16px;">የእኔ ገቢ የሚያመነጩ መኪናዎች</h3>
+        <div id="myProductsContainer" style="color: var(--text-muted); font-size: 13px; text-align: center; padding: 20px; background:#161b22; border-radius:12px;">
+            የተገዛ መኪና የለም። የ"Product" ገጽ ላይ በመሄድ ስራ ይጀምሩ!
         </div>
     </div>
 
-    <!-- 2. DEPOSIT VIEW -->
-    <div id="view-deposit" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</div>
-        <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-wallet"></i> Deposit System</div>
-            <p style="font-size: 14px; color: var(--text-gray); margin-bottom: 20px; line-height: 1.5;">
-                የቴሌብር ቁጥር: <strong style="color: var(--text-gold); font-size: 16px;">0945221136</strong> (EMAWAYIT)<br>
-                <span style="font-size: 12px; color: #ef4444;">* እባክዎ በትክክለኛው ስም መላክዎን ያረጋግጡ!</span>
+    <!-- ================= 🚗 PRODUCT/VIP PAGE ================= -->
+    <div id="productPage" class="page">
+        <h2 style="margin-bottom: 20px; text-align: center;">የኢንቨስትመንት መኪናዎች ፍሊት</h2>
+
+        <!-- VIP 1 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 1</div>
+                <!-- የምስል ሊንክ ማስገቢያ ቦታ -->
+                <img src="https://purepng.com/public/uploads/large/purepng.com-yellow-lamborghini-carcarvehicletransportationlamborghini-961524661751q11be.png" alt="VIP 1 Car">
+            </div>
+            <div class="product-details">
+                <div class="product-title">Suzuki Swift GT</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">900 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+100 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(900)">በ 900 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+
+        <!-- VIP 2 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 2</div>
+                <img src="https://purepng.com/public/uploads/large/purepng.com-audi-r8-red-caraudi-r8audicarssport-carred-audi-17015274191319qcl.png" alt="VIP 2 Car">
+            </div>
+            <div class="product-details">
+                <div class="product-title">Toyota Corolla Cross</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">1,800 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+300 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(1800)">በ 1,800 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+
+        <!-- VIP 3 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 3</div>
+                <img src="https://purepng.com/public/uploads/large/purepng.com-chevrolet-camaro-carcarvehicletransportationchevrolet-9615246536093vbgx.png" alt="VIP 3 Car">
+            </div>
+            <div class="product-details">
+                <div class="product-title">Mercedes-Benz C200</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">3,600 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+600 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(3600)">በ 3,600 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+
+        <!-- VIP 4 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 4</div>
+                <img src="https://purepng.com/public/uploads/large/purepng.com-porsche-911-gt3-rs-carcarvehicletransportationporsche-961524662451k1xha.png" alt="VIP 4 Car">
+            </div>
+            <div class="product-details">
+                <div class="product-title">Range Rover Velar</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">7,200 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+1,200 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(7200)">በ 7,200 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+
+        <!-- VIP 5 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 5</div>
+                <img src="https://purepng.com/public/uploads/large/purepng.com-sports-carcarvehicletransportationsports-car-961524654316bty4z.png" alt="VIP 5 Car">
+            </div>
+            <div class="product-details">
+                <div class="product-title">Tesla Model X Plaid</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">10,000 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+1,640 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(10000)">በ 10,000 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 👥 REFERRAL PAGE ================= -->
+    <div id="referralPage" class="page">
+        <h2 style="text-align: center; margin-bottom: 20px;">የሪፈራል ማዕከል</h2>
+        <div class="wallet-card" style="background: #111;">
+            <h4 style="color:var(--text-muted)">የእርስዎ መጋበዣ ኮድ</h4>
+            <div id="myInviteCode" style="font-size: 28px; color: var(--accent-gold); font-weight:800; margin: 10px 0;">------</div>
+            <p style="font-size: 13px; color:var(--text-muted)">ጓደኞችዎን ሲጋብዙ የ 3 ደረጃ የኮሚሽን ክፍያ ያገኛሉ!</p>
+        </div>
+
+        <div class="menu-list">
+            <div class="menu-item">
+                <div class="menu-left"><span>ጠቅላላ የተጋበዙ ሰዎች</span></div>
+                <span id="refCount" class="info-val">0 ሰው</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-left"><span>ኢንቨስት ያደረጉ (Valid)</span></div>
+                <span id="validRefCount" class="info-val green">0 ሰው</span>
+            </div>
+        </div>
+
+        <div style="margin-top:20px; background:var(--bg-card); padding:15px; border-radius:12px; border:1px solid var(--border-color); font-size:13px;">
+            <p style="color:var(--accent-gold); font-weight:600; margin-bottom:8px;">🎁 የኮሚሽን ህግጋት፡</p>
+            <p>• ደረጃ 1 (ቀጥታ ተጋባዥ)፦ 20% የዲፖዚት ቦነስ</p>
+            <p>• ደረጃ 2 ፦ 2% የዲፖዚት ቦነስ</p>
+            <p>• ደረጃ 3 ፦ 1% የዲፖዚት ቦነስ</p>
+        </div>
+    </div>
+
+    <!-- ================= 👤 PROFILE PAGE ================= -->
+    <div id="profilePage" class="page">
+        <div style="text-align:center; padding:20px 0;">
+            <div style="width:70px; height:70px; background:var(--border-color); border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center;">
+                <i class="fa-solid fa-user-gear" style="font-size:32px; color:var(--accent-gold);"></i>
+            </div>
+            <h3 id="profilePhone">09********</h3>
+            <p style="font-size:13px; color:var(--text-muted)">አባልነት፡ የተከበረ የ ORS ደንበኛ</p>
+        </div>
+
+        <div class="menu-list">
+            <div class="menu-item" onclick="openModal('bankModal')">
+                <div class="menu-left"><i class="fa-solid fa-credit-card"></i><span>የባንክ/ቴሌብር መረጃ ማስተካከያ</span></div>
+                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
+            </div>
+            <div class="menu-item" onclick="openModal('passModal')">
+                <div class="menu-left"><i class="fa-solid fa-lock"></i><span>የይለፍ ቃል መቀየሪያ</span></div>
+                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
+            </div>
+            <div class="menu-item" onclick="openModal('historyModal'); fetchHistory();">
+                <div class="menu-left"><i class="fa-solid fa-clock-history"></i><span>የሂሳብ ታሪክ (History)</span></div>
+                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
+            </div>
+            <div class="menu-item" onclick="logout()">
+                <div class="menu-left"><i class="fa-solid fa-right-from-bracket" style="color:#ff3b30"></i><span style="color:#ff3b30">ከአካውንት ውጣ (Logout)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 📱 STICKY BOTTOM NAVIGATION ================= -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchPage('homePage', this)">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+        </div>
+        <div class="nav-item" onclick="switchPage('productPage', this)">
+            <i class="fa-solid fa-car-sports"></i><span>Product</span>
+        </div>
+        <div class="nav-item" onclick="switchPage('referralPage', this)">
+            <i class="fa-solid fa-users-viewfinder"></i><span>Referral</span>
+        </div>
+        <div class="nav-item" onclick="switchPage('profilePage', this)">
+            <i class="fa-solid fa-user"></i><span>Profile</span>
+        </div>
+    </div>
+
+    <!-- ================= 🚨 MODALS (የግብአት ፎርሞች ሰሌዳ) ================= -->
+
+    <!-- 1. DEPOSIT MODAL -->
+    <div id="depositModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('depositModal')">&times;</span>
+            <h3 style="margin-bottom:15px; text-align:center;">በቴሌብር ፈጣን ዲፖዚት</h3>
+            <p style="font-size:12px; color:var(--accent-gold); margin-bottom:12px; line-height:1.4;">
+                ⚠️ ህግ፡ የዲፖዚት ገጹ ክፍለ-ጊዜ 30 ደቂቃ ብቻ ነው። ከ 30 ደቂቃ በኋላ SMS ቢያስገቡ አይሰራም!
             </p>
-            
-            <label style="font-size: 12px; color: var(--text-gray); display:block; margin-bottom:6px;">Select Amount</label>
-            <div class="input-wrapper">
-                <i class="fa-solid fa-money-bill-wave"></i>
-                <select id="deposit-amt">
-                    <option value="900">900 ETB</option>
-                    <option value="1800">1800 ETB</option>
-                    <option value="5000">5000 ETB</option>
+            <div class="form-group">
+                <label>የዲፖዚት ፓኬጅ ይምረጡ</label>
+                <select id="depAmount" class="form-control">
+                    <option value="900">VIP 1 - 900 ETB</option>
+                    <option value="1800">VIP 2 - 1,800 ETB</option>
+                    <option value="3600">VIP 3 - 3,600 ETB</option>
+                    <option value="7200">VIP 4 - 7,200 ETB</option>
+                    <option value="10000">VIP 5 - 10,000 ETB</option>
                 </select>
             </div>
-
-            <label style="font-size: 12px; color: var(--text-gray); display:block; margin-bottom:6px;">Paste Full Transaction SMS</label>
-            <div class="input-wrapper" style="align-items: flex-start;">
-                <i class="fa-solid fa-envelope-open-text" style="margin-top: 4px;"></i>
-                <textarea id="deposit-sms" rows="5" placeholder="ከቴሌብር የደረሰዎትን ሙሉ ማረጋገጫ አጭር መልእክት (SMS) እዚህ ላይ ሙሉ በሙሉ ገልብጠው ያስገቡ..." style="resize: none;"></textarea>
+            <div style="background:#111; padding:10px; border-radius:8px; font-size:13px; margin-bottom:15px;">
+                <p>የቴሌብር አካውንት ስም፡ <b>Emawayit</b></p>
+                <p>የቴሌብር መለያ ቁጥር፡ <b>1136</b></p>
             </div>
-            <button class="neon-submit-btn" onclick="alert('የላኩት የክፍያ መረጃ ደርሶናል! በቅርቡ ተረጋግጦ ይገባል!')">VERIFY PAYMENT</button>
+            <div class="form-group">
+                <label>ከቴሌብር የመጣሎትን ሙሉ SMS እዚህ ይቅዱና ይለጥፉ</label>
+                <textarea id="depSms" class="form-control" rows="4" placeholder="Dear Customer, you have received..."></textarea>
+            </div>
+            <button class="invest-btn" onclick="submitDeposit()">ክፍያውን አረጋግጥ</button>
         </div>
     </div>
 
-    <!-- 3. WITHDRAW VIEW -->
-    <div id="view-withdraw" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</div>
-        <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-money-bill-transfer"></i> Cashout Portal</div>
-            <div class="input-wrapper">
-                <i class="fa-solid fa-calculator"></i>
-                <input type="number" placeholder="Enter Cashout Amount (Min: 100 ETB)">
+    <!-- 2. WITHDRAW MODAL -->
+    <div id="withdrawModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('withdrawModal')">&times;</span>
+            <h3 style="margin-bottom:15px; text-align:center;">የወጪ ጥያቄ ፎርም</h3>
+            <p style="font-size:12px; color:var(--accent-gold); margin-bottom:10px;">• አነስተኛ የወጪ መጠን 300 ብር ነው።<br>• የ 15% ሲስተም አገልግሎት ክፍያ ይቀነሳል።</p>
+            <div class="form-group">
+                <label>የሚወጣው የብር መጠን (ETB)</label>
+                <input type="number" id="witAmount" class="form-control" placeholder="ከ 300 ብር በላይ ያስገቡ">
             </div>
-            <div class="input-wrapper">
-                <i class="fa-solid fa-mobile-button"></i>
-                <input type="tel" placeholder="Telebirr Receiver Number (09xxxxxxxx)">
-            </div>
-            <button class="neon-submit-btn" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);" onclick="alert('የመውጫ ጥያቄዎ በተሳካ ሁኔታ ተመዝግቧል።')">SUBMIT REQUEST</button>
+            <button class="invest-btn" style="background: #00e676; color:#000;" onclick="submitWithdraw()">የወጪ ጥያቄ ላክ</button>
         </div>
     </div>
 
-    <!-- 4. PRODUCTS (FLEETS) VIEW -->
-    <div id="view-products" class="app-page">
-        <div class="premium-title" style="margin-bottom: 25px;"><i class="fa-solid fa-car-side"></i> Premium Luxury Fleets</div>
-
-        <!-- Vehicle Fleet Item 1 -->
-        <div class="vehicle-card">
-            <div class="vehicle-card-inner">
-                <div class="vehicle-img-box">
-                    <i class="fa-solid fa-car-rear vehicle-glow-icon"></i>
-                </div>
-                <div class="vehicle-details">
-                    <div class="vehicle-name">Audi A6 Sedan (VIP 1)</div>
-                    <div class="mini-specs">
-                        Price: <span>900 ETB</span><br>
-                        Daily Profit: <span>100 ETB</span><br>
-                        Period: <span>150 Days</span><br>
-                        Total Income: <span>15,000 ETB</span>
-                    </div>
-                </div>
+    <!-- 3. PROMO CODE MODAL -->
+    <div id="promoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('promoModal')">&times;</span>
+            <h3 style="margin-bottom:15px; text-align:center;">የቦነስ ፕሮሞ ኮድ</h3>
+            <div class="form-group">
+                <label>የአድሚን ልዩ ቦነስ ኮድ ያስገቡ</label>
+                <input type="text" id="promoCodeInput" class="form-control" placeholder="ለምሳሌ: AB7X2K">
             </div>
-            <button class="invest-action-btn" onclick="alert('VIP 1 Fleet Activation Complete!')">Invest Now <i class="fa-solid fa-angle-right"></i></button>
-        </div>
-
-        <!-- Vehicle Fleet Item 2 -->
-        <div class="vehicle-card">
-            <div class="vehicle-card-inner">
-                <div class="vehicle-img-box">
-                    <i class="fa-solid fa-truck-pickup vehicle-glow-icon" style="color: var(--neon-cyan); filter: drop-shadow(0 4px 10px rgba(6,182,212,0.5));"></i>
-                </div>
-                <div class="vehicle-details">
-                    <div class="vehicle-name">BMW X5 M-Sport (VIP 2)</div>
-                    <div class="mini-specs">
-                        Price: <span>1800 ETB</span><br>
-                        Daily Profit: <span>300 ETB</span><br>
-                        Period: <span>150 Days</span><br>
-                        Total Income: <span>45,000 ETB</span>
-                    </div>
-                </div>
-            </div>
-            <button class="invest-action-btn" onclick="alert('VIP 2 Fleet Activation Complete!')">Invest Now <i class="fa-solid fa-angle-right"></i></button>
+            <button class="invest-btn" onclick="submitPromo()">ቦነስ ተቀበል</button>
         </div>
     </div>
 
-    <!-- 5. REFERRAL VIEW -->
-    <div id="view-referral" class="app-page">
-        <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-share-nodes"></i> Referral Ecosystem</div>
-            
-            <div class="referral-card">
-                <div class="ref-commission-box">
-                    Earn dynamic instant commissions when your referrals buy VIP packages:<br>
-                    <span>Level 1: 20%</span> | <span>Level 2: 2%</span> | <span>Level 3: 1%</span>
-                </div>
-                
-                <!-- Active Dynamic Link Field -->
-                <div class="referral-link-box" id="ref-link">https://jersey-platform-11.onrender.com/?ref=0984122041</div>
-                
-                <!-- Functional Copy Button -->
-                <button class="copy-btn" onclick="copyReferralLink()">
-                    <i class="fa-solid fa-copy"></i> <span id="copy-text">Copy Referral Link</span>
-                </button>
+    <!-- 4. BANK DATA MODAL -->
+    <div id="bankModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('bankModal')">&times;</span>
+            <h3 style="margin-bottom:15px; text-align:center;">የባንክ/ቴሌብር አካውንት መመዝገቢያ</h3>
+            <div class="form-group">
+                <label>የባንክ ወይም የቴሌብር ሙሉ ስም</label>
+                <input type="text" id="bkName" class="form-control" placeholder="ለምሳሌ: አበበ ከበደ">
             </div>
+            <div class="form-group">
+                <label>የሂሳብ (አካውንት) ቁጥር ወይም ስልክ ቁጥር</label>
+                <input type="text" id="bkAcc" class="form-control" placeholder="የሂሳብ ቁጥር ያስገቡ">
+            </div>
+            <button class="invest-btn" onclick="submitBankUpdate()">መረጃውን አስቀምጥ</button>
+        </div>
+    </div>
 
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px;">
-                <div style="background: rgba(3,7,18,0.5); padding: 16px; border-radius: 16px; text-align: center;">
-                    <div style="font-size: 11px; color: var(--text-gray);">Total Invited</div>
-                    <div style="font-size: 24px; font-weight: 800; color: var(--crypto-green); margin-top: 6px;">0</div>
-                </div>
-                <div style="background: rgba(3,7,18,0.5); padding: 16px; border-radius: 16px; text-align: center;">
-                    <div style="font-size: 11px; color: var(--text-gray);">Active Teams</div>
-                    <div style="font-size: 24px; font-weight: 800; color: var(--neon-cyan); margin-top: 6px;">0</div>
-                </div>
+    <!-- 5. PASSWORD CHANGE MODAL -->
+    <div id="passModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('passModal')">&times;</span>
+            <h3 style="margin-bottom:15px; text-align:center;">የይለፍ ቃል መቀየሪያ</h3>
+            <div class="form-group">
+                <label>አዲስ ሚስጥር ቃል (New Password)</label>
+                <input type="password" id="newPass" class="form-control" placeholder="ቢያንስ 6 ሆሄያት">
+            </div>
+            <button class="invest-btn" onclick="submitPasswordChange()">ቀይር</button>
+        </div>
+    </div>
+
+    <!-- 6. HISTORY MODAL -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content" style="max-width:450px;">
+            <span class="close-modal" onclick="closeModal('historyModal')">&times;</span>
+            <h3 style="margin-bottom:15px; text-align:center;">የግብይት ታሪክ (Statement)</h3>
+            <div id="historyList" style="max-height:300px; overflow-y:auto; font-size:13px;">
+                በማምጣት ላይ...
             </div>
         </div>
     </div>
 
-    <!-- 6. HISTORY VIEW -->
-    <div id="view-history" class="app-page">
-        <div class="back-nav-btn" onclick="switchView('view-home')"><i class="fa-solid fa-arrow-left"></i> Back</div>
-        <div class="premium-container">
-            <div class="premium-title"><i class="fa-solid fa-list-check"></i> Statement Logs</div>
-            <div style="background: rgba(3,7,18,0.5); padding: 14px; border-radius: 14px; border-left: 4px solid var(--crypto-green); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-size: 14px; font-weight:700;">Daily Account Checkin</div>
-                    <div style="font-size: 11px; color: var(--text-gray);">System Auto Processed</div>
-                </div>
-                <div style="color: var(--crypto-green); font-weight: 800;">+20.00 ETB</div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 7. PROFILE VIEW -->
-    <div id="view-profile" class="app-page">
-        <div class="premium-container" style="text-align: center; padding: 30px 20px;">
-            <div style="width: 85px; height: 85px; background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;">
-                <i class="fa-solid fa-user-tie" style="font-size: 35px; color: white;"></i>
-            </div>
-            <h3 style="font-size: 20px; font-weight: 800;">UID: #584920</h3>
-            <p style="color: var(--crypto-green); font-size: 13px; font-weight: 700; margin-top: 5px;">Verified Member Account</p>
-        </div>
-    </div>
-
-    <!-- Bottom App Navigation Tab Bar -->
-    <div class="neon-tab-bar">
-        <div class="tab-trigger active" id="trigger-home" onclick="switchView('view-home')">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </div>
-        <div class="tab-trigger" id="trigger-products" onclick="switchView('view-products')">
-            <i class="fa-solid fa-car-side"></i>
-            <span>Fleets</span>
-        </div>
-        <div class="tab-trigger" id="trigger-referral" onclick="switchView('view-referral')">
-            <i class="fa-solid fa-share-nodes"></i>
-            <span>Share</span>
-        </div>
-        <div class="tab-trigger" id="trigger-profile" onclick="switchView('view-profile')">
-            <i class="fa-solid fa-user"></i>
-            <span>My</span>
-        </div>
-    </div>
-
-    <!-- JavaScript Control Block -->
+    <!-- ================= 🛠️ FRONTEND LOGIC JAVASCRIPT ================= -->
     <script>
-        // High Performance Router View Engine
-        function switchView(targetId) {
-            document.querySelectorAll('.app-page').forEach(view => {
-                view.classList.remove('active');
-            });
+        const BASE_URL = window.location.origin;
+        let PAGE_OPEN_TIME = Date.now();
+        let sysLinks = { supportLink: '#', channelLink: '#' };
+
+        // 1. የገጽ መቀያየሪያ ሎጂክ
+        function switchPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             
-            document.getElementById(targetId).classList.add('active');
+            document.getElementById(pageId).classList.add('active');
+            element.classList.add('active');
 
-            document.querySelectorAll('.tab-trigger').forEach(trigger => {
-                trigger.classList.remove('active');
-            });
+            if(pageId === 'depositModal') { PAGE_OPEN_TIME = Date.now(); } // የ30 ደቂቃ ቆጣሪ ማደሻ
+            fetchUserProfile(); // ገጽ በተቀየረ ቁጥር ዳታቤዝ ሪፍሬሽ ማድረጊያ
+        }
 
-            // Tab Item Binding Logic
-            if(['view-home', 'view-deposit', 'view-withdraw', 'view-history'].includes(targetId)) {
-                document.getElementById('trigger-home').classList.add('active');
-            } else if(targetId === 'view-products') {
-                document.getElementById('trigger-products').classList.add('active');
-            } else if(targetId === 'view-referral') {
-                document.getElementById('trigger-referral').classList.add('active');
-            } else if(targetId === 'view-profile') {
-                document.getElementById('trigger-profile').classList.add('active');
+        function openModal(id) { 
+            document.getElementById(id).style.display = 'flex'; 
+            if(id === 'depositModal') { PAGE_OPEN_TIME = Date.now(); }
+        }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // 2. ከፕሮዳክት ገጽ ተጭነው ሲመጡ ዲፖዚት ፎርም መክፈቻ
+        function goToDepositFromProduct(amt) {
+            document.getElementById('depAmount').value = amt;
+            openModal('depositModal');
+        }
+
+        // 3. የቶከን ፍተሻ (ካልገባ ወደ መግቢያ ገጽ መላክ - Login/Register መገንባት አለብህ)
+        function checkAuth() {
+            const token = localStorage.getItem('ors_token');
+            if(!token) {
+                alert('እባክዎ መጀመሪያ ይግቡ (Login ያድርጉ)!');
+                // እዚህ ላይ ወደ ሎጊን መውሰጃ ኮድ መጻፍ ትችላለህ
             }
-            
-            window.scrollTo(0, 0);
         }
 
-        // Clip API Copy Executor
-        function copyReferralLink() {
-            const linkText = document.getElementById('ref-link').innerText;
-            navigator.clipboard.writeText(linkText).then(() => {
-                const copyBtnSpan = document.getElementById('copy-text');
-                copyBtnSpan.innerText = "Copied!";
-                setTimeout(() => {
-                    copyBtnSpan.innerText = "Copy Referral Link";
-                }, 2000);
-            }).catch(err => {
-                alert("ኮፒ ማድረግ አልተሳካም፣ እባክዎ ሊንኩን በመጫን ኮፒ ያድርጉት።");
+        // 4. የተጠቃሚ ፕሮፋይል መረጃዎችን ከባክኤንድ ማምጫ
+        async function fetchUserProfile() {
+            const token = localStorage.getItem('ors_token');
+            if(!token) return;
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/profile`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if(res.ok) {
+                    const data = await res.json();
+                    document.getElementById('homeBalance').innerText = data.balance.toFixed(2);
+                    document.getElementById('profilePhone').innerText = data.phone;
+                    document.getElementById('myInviteCode').innerText = data.promoCode;
+                    document.getElementById('refCount').innerText = data.referralsCount + " ሰው";
+                    document.getElementById('validRefCount').innerText = data.validReferrals + " ሰው";
+
+                    // የገዛቸውን ምርቶች አቀማመጥ ማሳያ
+                    if(data.products && data.products.length > 0) {
+                        let html = '';
+                        data.products.forEach(p => {
+                            html += `<div style="background:#0d1117; padding:10px; border-radius:8px; border:1px solid #30363d; margin-bottom:8px; text-align:left; display:flex; justify-content:between; align-items:center;">
+                                <div><b>VIP ${p.vipLevel} Fleet Car</b><br><span style="font-size:11px; color:var(--text-muted);">ዕለታዊ ገቢ፡ +${p.dailyIncome} ብር</span></div>
+                                <span style="color:var(--accent-green); font-weight:bold; font-size:12px;"><i class="fa-solid fa-circle-check"></i> Active</span>
+                            </div>`;
+                        });
+                        document.getElementById('myProductsContainer').innerHTML = html;
+                    }
+                }
+            } catch(e) { console.log(e); }
+        }
+
+        // 5. ዕለታዊ 20 ብር መቀበያ (Check In)
+        async function triggerCheckIn() {
+            const token = localStorage.getItem('ors_token');
+            const res = await fetch(`${BASE_URL}/api/checkin`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
             });
+            const data = await res.json();
+            alert(data.message);
+            fetchUserProfile();
         }
 
-        // Live check-in flow state
-        let hasClaimed = false;
-        function execCheckIn() {
-            if(hasClaimed) {
-                alert("የዛሬውን ስጦታ ቀድመው ወስደዋል!");
-                return;
-            }
-            alert("Daily check-in successful! +20.00 ETB credited.");
-            document.getElementById('display-balance').innerText = "340.00 ETB";
-            const homeBtn = document.getElementById('home-checkin-btn');
-            homeBtn.innerText = "Done ✓";
-            homeBtn.style.background = "#374151";
-            homeBtn.style.color = "#9ca3af";
-            hasClaimed = true;
+        // 6. ዲፖዚት SMS ማስገቢያ
+        async function submitDeposit() {
+            const token = localStorage.getItem('ors_token');
+            const amount = document.getElementById('depAmount').value;
+            const smsText = document.getElementById('depSms').value;
+
+            if(!smsText) return alert('እባክዎ የቴሌብር SMS ፅሁፍ ሳጥኑ ውስጥ ይቅዱ!');
+
+            const res = await fetch(`${BASE_URL}/api/deposit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ amount, smsText, pageOpenTime: new Date(PAGE_OPEN_TIME).toISOString() })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if(res.ok) { closeModal('depositModal'); fetchUserProfile(); }
         }
+
+        // 7. የወጪ ጥያቄ ማቅረቢያ (Withdraw)
+        async function submitWithdraw() {
+            const token = localStorage.getItem('ors_token');
+            const amount = document.getElementById('witAmount').value;
+
+            const res = await fetch(`${BASE_URL}/api/withdraw`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ amount })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if(res.ok) { closeModal('withdrawModal'); fetchUserProfile(); }
+        }
+
+        // 8. ፕሮሞ ኮድ ማስገቢያ
+        async function submitPromo() {
+            const token = localStorage.getItem('ors_token');
+            const code = document.getElementById('promoCodeInput').value;
+
+            const res = await fetch(`${BASE_URL}/api/promo-bonus`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ code })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if(res.ok) { closeModal('promoModal'); fetchUserProfile(); }
+        }
+
+        // 9. ባንክ ዳታ ማስተካከያ
+        async function submitBankUpdate() {
+            const token = localStorage.getItem('ors_token');
+            const bankName = document.getElementById('bkName').value;
+            const bankAccount = document.getElementById('bkAcc').value;
+
+            const res = await fetch(`${BASE_URL}/api/profile/update-bank`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ bankName, bankAccount })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if(res.ok) closeModal('bankModal');
+        }
+
+        // 10. ፓስወርድ መቀየሪያ
+        async function submitPasswordChange() {
+            const token = localStorage.getItem('ors_token');
+            const newPassword = document.getElementById('newPass').value;
+
+            const res = await fetch(`${BASE_URL}/api/profile/change-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ newPassword })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if(res.ok) closeModal('passModal');
+        }
+
+        // 11. የሂሳብ ታሪክ ማምጫ
+        async function fetchHistory() {
+            const token = localStorage.getItem('ors_token');
+            const res = await fetch(`${BASE_URL}/api/history`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if(res.ok) {
+                const list = await res.json();
+                if(list.length === 0) {
+                    document.getElementById('historyList').innerText = "ምንም አይነት የግብይት ታሪክ አልተገኘም!";
+                    return;
+                }
+                let html = '';
+                list.forEach(h => {
+                    const statusColor = h.status === 'success' ? 'var(--accent-green)' : '#ffea00';
+                    html += `<div style="border-bottom:1px solid #30363d; padding:10px 0;">
+                        <div style="display:flex; justify-content:between;">
+                            <b style="text-transform:uppercase;">${h.type}</b>
+                            <span style="color:${statusColor}">${h.status}</span>
+                        </div>
+                        <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+                            መጠን፡ ${h.amount} ETB | ሰዓት፡ ${new Date(h.createdAt).toLocaleDateString()}
+                        </div>
+                    </div>`;
+                });
+                document.getElementById('historyList').innerHTML = html;
+            }
+        }
+
+        // 12. የቴሌግራም ሲስተም ሊንኮችን ማምጫ
+        async function fetchSystemLinks() {
+            try {
+                const res = await fetch(`${BASE_URL}/api/system-links`);
+                if(res.ok) { sysLinks = await res.json(); }
+            } catch(e){}
+        }
+
+        function openLink(type) {
+            if(type === 'chan') window.open(sysLinks.channelLink, '_blank');
+            if(type === 'supp') window.open(sysLinks.supportLink, '_blank');
+        }
+
+        function logout() {
+            localStorage.removeItem('ors_token');
+            alert('በተሳካ ሁኔታ ወጥተዋል!');
+            location.reload();
+        }
+
+        // ገጹ ሲከፈት መጀመሪያ የሚሰሩ ስራዎች
+        window.onload = function() {
+            fetchUserProfile();
+            fetchSystemLinks();
+        };
     </script>
 </body>
 </html>
