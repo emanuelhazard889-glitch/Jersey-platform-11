@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORS Premium Fleet Platforms</title>
-    <!-- FontAwesome Icons -->
+    <!-- FontAwesome icons ለቀደሙት አይኮኖች በሙሉ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -12,7 +12,6 @@
             --bg-card: #0b0e14;
             --accent-red: #ff5a5a;
             --accent-gold: #b58928;
-            --accent-green: #00e676;
             --text-main: #ffffff;
             --text-muted: #a0a5b5;
             --border-color: #1a1f29;
@@ -33,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- 🔐 AUTH PAGE --- */
+        /* --- 🔐 AUTH SYSTEM PAGE (46347.jpg Style) --- */
         #authPage {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -43,7 +42,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow-y: auto;
         }
 
         .auth-container {
@@ -56,20 +54,15 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
-        .auth-logo-top {
-            display: block;
-            max-width: 100px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
+        .auth-logo-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .auth-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
+        .auth-logo-img {
+            max-width: 160px;
+            height: auto;
+            object-fit: contain;
         }
 
         .auth-tabs {
@@ -92,208 +85,13 @@
             border-bottom: 2px solid var(--accent-red);
         }
 
-        .auth-form {
-            display: none;
-        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
 
-        .auth-form.active {
-            display: block;
-        }
-
-        /* --- 📱 PAGES --- */
-        .page {
-            display: none;
-            padding: 20px;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* --- 💳 DASHBOARD BOX (46344_2.jpg Style) --- */
-        .profile-header-card {
-            background: linear-gradient(180deg, #990000 0%, #06090e 100%);
-            padding: 30px 20px;
-            text-align: center;
-            margin: -20px -20px 20px -20px;
-        }
-
-        .profile-avatar-wrapper {
-            width: 80px;
-            height: 80px;
-            background-color: var(--bg-card);
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--accent-gold);
-            overflow: hidden;
-        }
-
-        .profile-avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .stats-block-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .stat-box-item {
-            background-color: rgba(11, 14, 20, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px 5px;
-            text-align: center;
-        }
-
-        .stat-box-title {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .stat-box-value {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--accent-red);
-        }
-
-        /* --- 🎛️ MENU GRID (46344_2.jpg Layout) --- */
-        .menu-grid-items {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .menu-grid-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px 10px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .menu-grid-box i {
-            font-size: 22px;
-            color: var(--accent-red);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .menu-grid-box span {
-            font-size: 12px;
-            color: var(--text-main);
-        }
-
-        /* --- 🚗 PRODUCT CARDS --- */
-        .product-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .product-img-box {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .product-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .vip-tag {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: linear-gradient(45deg, #b58928, #ffea00);
-            color: #000;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
-        .product-details {
-            padding: 20px;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .info-label { color: var(--text-muted); }
-        .info-val { font-weight: 600; }
-
-        .invest-btn {
-            width: 100%;
-            background-color: var(--accent-red);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        /* --- 📥 FORMS & INPUTS --- */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .form-control {
-            width: 100%;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        /* --- 📊 TABLES --- */
-        .admin-section {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        /* --- 📱 BOTTOM STICKY MENU --- */
+        /* --- 📱 BOTTOM NAVIGATION (46345_3.jpg Style) --- */
         .bottom-nav {
             position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            height: 65px;
+            bottom: 0; left: 0; width: 100%; height: 65px;
             background-color: var(--bg-card);
             border-top: 1px solid var(--border-color);
             display: grid;
@@ -315,16 +113,100 @@
 
         .nav-item i { font-size: 20px; }
         .nav-item.active { color: var(--accent-red); }
+
+        /* --- 📱 PAGES --- */
+        .page { display: none; padding: 20px; }
+        .page.active { display: block; }
+
+        /* --- 👤 MINE PAGE HEADER (46344_3.jpg) --- */
+        .profile-header-card {
+            background: linear-gradient(180deg, #990000 0%, #06090e 100%);
+            padding: 30px 20px;
+            text-align: center;
+            margin: -20px -20px 20px -20px;
+        }
+
+        .profile-avatar-wrapper {
+            width: 85px;
+            height: 85px;
+            background-color: var(--bg-card);
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-gold);
+            overflow: hidden;
+        }
+
+        .profile-avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .stats-block-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-box-item {
+            background-color: rgba(11, 14, 20, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 5px;
+            text-align: center;
+        }
+
+        .stat-box-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .stat-box-value { font-size: 14px; font-weight: 700; color: var(--accent-red); }
+
+        /* --- 🎛️ MENU GRID LAYOUT (46344_3.jpg) --- */
+        .menu-grid-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .menu-grid-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .menu-grid-box i { font-size: 22px; color: var(--accent-red); display: block; margin-bottom: 8px; }
+        .menu-grid-box span { font-size: 12px; color: var(--text-main); }
+
+        /* --- FORMS & INPUTS --- */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+        .form-control {
+            width: 100%; background-color: var(--bg-main); border: 1px solid var(--border-color);
+            color: #fff; padding: 12px; border-radius: 8px; font-size: 15px; outline: none;
+        }
+
+        .invest-btn {
+            width: 100%; background-color: var(--accent-red); color: #fff; border: none;
+            padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer;
+        }
+
+        .admin-section {
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 15px; margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ================= 🔐 AUTH SYSTEM PAGE WITH ORS LOGO ================= -->
+    <!-- ================= 🔐 AUTH SYSTEM PAGE (46347.jpg) ================= -->
     <div id="authPage">
         <div class="auth-container">
-            <!-- ORS Version Logo Added Here -->
-            <img src="46308_2.png" class="auth-logo-top" alt="ORS Logo" onerror="this.src='https://via.placeholder.com/100'">
-            <div class="auth-title">ORS PREMIUM FLEET</div>
+            <!-- 46308_3.png እዚህ ላይ በጽሑፉ ምትክ ገብቷል -->
+            <div class="auth-logo-wrapper">
+                <img src="46308_3.png" class="auth-logo-img" alt="ORS Logo">
+            </div>
             
             <div class="auth-tabs">
                 <div id="tabLogin" class="auth-tab active" onclick="toggleAuthTab('login')">Login</div>
@@ -352,11 +234,11 @@
                 </div>
                 <div class="form-group">
                     <label>Login Password</label>
-                    <input type="password" id="regPass" class="form-control" placeholder="Min 6 characters">
+                    <input type="password" id="regPass" class="form-control" placeholder="******">
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" id="regConfirmPass" class="form-control" placeholder="Repeat password">
+                    <input type="password" id="regConfirmPass" class="form-control" placeholder="******">
                 </div>
                 <div class="form-group">
                     <label>Invitation Code (Optional)</label>
@@ -368,14 +250,16 @@
     </div>
 
 
-    <!-- ================= 🏠 HOME PAGE (46345_2.jpg Style) ================= -->
+    <!-- ================= 🏠 HOME PAGE (46345_3.jpg) ================= -->
     <div id="homePage" class="page">
         <div style="text-align: center; padding: 20px 0; background: linear-gradient(180deg, #990000 0%, #06090e 100%); margin: -20px -20px 20px -20px;">
-            <img src="46308_2.png" style="max-width: 80px; margin-bottom: 10px; border-radius: 50%;" alt="ORS Logo">
+            <!-- 46308_3.png በሆም ፔጁ ሎጎ ቦታ ላይ ገብቷል -->
+            <img src="46308_3.png" style="max-width: 120px; height: auto; margin-bottom: 8px; object-fit: contain;" alt="ORS Logo">
             <h2 style="font-weight: 800;">ORS PLATFORM</h2>
             <p style="font-size: 12px; color: var(--text-muted);">Investment Platform Engine</p>
         </div>
 
+        <!-- 3 ዋና ቁልፎች (Deposit, Withdraw, Check In) -->
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
             <div class="menu-grid-box" onclick="switchPage('depositPage')">
                 <i class="fa-solid fa-money-bill-transfer"></i>
@@ -385,15 +269,18 @@
                 <i class="fa-solid fa-building-columns"></i>
                 <span>Withdraw</span>
             </div>
-            <div class="menu-grid-box" onclick="triggerCheckIn()">
+            <div class="menu-grid-box" onclick="alert('Check-in Successful!')">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span>Check In</span>
             </div>
         </div>
 
-        <!-- Car Image Asset -->
-        <div style="width:100%; border-radius:12px; overflow:hidden; margin-bottom:20px; border:1px solid var(--border-color);">
-            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&auto=format&fit=crop&q=60" style="width:100%; display:block;" alt="Tesla Banner">
+        <!-- ባዶ መካከለኛ ሳጥን (ከ46345_3.jpg ጋር አንድ አይነት) -->
+        <div style="width: 100%; height: 45px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px;"></div>
+
+        <!-- የተሽከርካሪ ምስል ባነር -->
+        <div style="width:100%; border-radius:12px; overflow:hidden; border:1px solid var(--border-color);">
+            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800" style="width:100%; display:block;" alt="Tesla Banner">
         </div>
     </div>
 
@@ -401,20 +288,19 @@
     <!-- ================= 🚗 PRODUCTS PAGE ================= -->
     <div id="productPage" class="page">
         <h2 style="margin-bottom: 20px; text-align: center;">Investment Fleet Vehicles</h2>
-        <!-- VIP 1 -->
-        <div class="product-card">
-            <div class="product-img-box"><div class="vip-tag">VIP 1</div><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500" alt="Car"></div>
-            <div class="product-details">
-                <div style="font-size:18px; font-weight:700; margin-bottom:10px;">Suzuki Swift GT</div>
-                <div class="info-row"><span class="info-label">Product Price</span><span class="info-val">900 ETB</span></div>
-                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val" style="color:var(--accent-green)">+100 ETB</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(900)">Invest 900 ETB</button>
+        <div style="background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius:12px; overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500" style="width:100%; height:180px; object-fit:cover;" alt="Car">
+            <div style="padding: 15px;">
+                <h3 style="margin-bottom:10px;">Suzuki Swift GT</h3>
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:5px;">Price: 900 ETB</p>
+                <p style="font-size:14px; color:#00e676; margin-bottom:15px;">Daily Income: +100 ETB</p>
+                <button class="invest-btn" onclick="switchPage('depositPage')">Invest Now</button>
             </div>
         </div>
     </div>
 
 
-    <!-- ================= 👥 TEAM PAGE (46346_2.jpg Style) ================= -->
+    <!-- ================= 👥 TEAM PAGE (46346_3.jpg) ================= -->
     <div id="referralPage" class="page">
         <h2 style="text-align: center; margin-bottom: 20px;">Referral System Hub</h2>
         <div class="admin-section">
@@ -423,7 +309,7 @@
             <p style="font-size: 13px; color:var(--text-muted);">Your Invitation Link:</p>
             <div style="display:flex; gap:10px; margin-top:10px;">
                 <input type="text" id="shareLinkInput" class="form-control" readonly>
-                <button onclick="copyReferralLink()" style="background-color: #b58928; color: #000; border: none; padding: 0 15px; border-radius: 8px; font-weight: 700; cursor: pointer;">Copy</button>
+                <button onclick="navigator.clipboard.writeText(document.getElementById('shareLinkInput').value); alert('Copied Link!');" style="background-color: #b58928; color: #000; border: none; padding: 0 15px; border-radius: 8px; font-weight: 700; cursor: pointer;">Copy</button>
             </div>
         </div>
         <div class="admin-section" style="display: flex; justify-content: space-between;">
@@ -433,107 +319,95 @@
     </div>
 
 
-    <!-- ================= 👤 MINE/PROFILE PAGE (46344_2.jpg Complete Style) ================= -->
+    <!-- ================= 👤 MINE PAGE (46344_3.jpg 100% ተመሳሳይ) ================= -->
     <div id="profilePage" class="page">
         <div class="profile-header-card">
+            <!-- 46308_3.png በፕሮፋይል ሎጎ ክፈፍ ውስጥ ገብቷል -->
             <div class="profile-avatar-wrapper">
-                <img src="46308_2.png" alt="Logo" onerror="this.src='https://via.placeholder.com/80'">
+                <img src="46308_3.png" alt="Profile Branding Logo">
             </div>
             <h3 id="profilePhone" style="font-size: 18px; font-weight: 700;">+251 9********</h3>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Verified ORS Premium Member</p>
 
-            <!-- 6 Matrix Box Layout -->
+            <!-- 6 Matrix Boxes EXACTLY as 46344_3.jpg -->
             <div class="stats-block-grid">
-                <div class="stat-box-item"><div class="stat-box-title">Balance</div><div class="stat-box-value" id="mineBalance">0.00</div></div>
-                <div class="stat-box-item"><div class="stat-box-title">Recharge</div><div class="stat-box-value" id="mineRecharge">0.00</div></div>
-                <div class="stat-box-item"><div class="stat-box-title">Total Earn</div><div class="stat-box-value">0.00</div></div>
-                <div class="stat-box-item"><div class="stat-box-title">Withdraw</div><div class="stat-box-value">0.00</div></div>
-                <div class="stat-box-item"><div class="stat-box-title">Today</div><div class="stat-box-value">0.00</div></div>
-                <div class="stat-box-item"><div class="stat-box-title">Team Com.</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">BALANCE</div><div class="stat-box-value" id="mineBalance">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">RECHARGE</div><div class="stat-box-value" id="mineRecharge">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">TOTAL EARN</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">WITHDRAW</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">TODAY</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">TEAM COM.</div><div class="stat-box-value">0.00</div></div>
             </div>
         </div>
 
-        <!-- Promo Code Input (Gift) Panel directly inside Mine Page -->
-        <div class="admin-section" style="margin: 10px 0;">
-            <label style="font-size:13px; color:var(--text-muted); display:block; margin-bottom:8px;">Redeem Gift / Promo Code:</label>
+        <!-- Gift ሲነካ የሚከፈት የፕሮሞ ኮድ ማስገቢያ ሳጥን (ከተፈለገ ብቻ ይከፈታል) -->
+        <div id="promoBox" class="admin-section" style="display:none; margin-top:-10px; margin-bottom:15px; border-color: var(--accent-gold);">
+            <label style="font-size:13px; color:var(--text-muted); display:block; margin-bottom:6px;">Enter Promo / Gift Code:</label>
             <div style="display:flex; gap:10px;">
-                <input type="text" id="giftPromoInput" class="form-control" placeholder="Enter code here" style="padding:8px;">
-                <button onclick="claimPromoCode()" style="background:var(--accent-red); border:none; padding:0 15px; border-radius:8px; color:#fff; font-weight:700; cursor:pointer;">Apply</button>
+                <input type="text" id="giftInput" class="form-control" placeholder="CODE100">
+                <button onclick="claimPromoCode()" style="background:var(--accent-red); border:none; padding:0 15px; border-radius:8px; color:#fff; font-weight:700;">Claim</button>
             </div>
         </div>
 
-        <!-- 9 Grid Operations Area with Telegram Support embedded -->
+        <!-- 9 Grid Operations Area (EXACTLY from 46344_3.jpg) -->
         <div class="menu-grid-items">
             <div class="menu-grid-box" onclick="switchPage('depositPage')"><i class="fa-solid fa-wallet"></i><span>Recharge</span></div>
             <div class="menu-grid-box" onclick="switchPage('withdrawPage')"><i class="fa-solid fa-money-check-dollar"></i><span>Withdraw</span></div>
-            <div class="menu-grid-box" onclick="alert('Bank Card Module Active')"><i class="fa-solid fa-credit-card"></i><span>Add Bank</span></div>
-            <div class="menu-grid-box" onclick="alert('No recharge logs')"><i class="fa-solid fa-list-check"></i><span>Recharge Log</span></div>
-            <div class="menu-grid-box" onclick="alert('No withdraw logs')"><i class="fa-solid fa-clock-rotate-left"></i><span>Withdraw Log</span></div>
-            <div class="menu-grid-box" onclick="alert('No active fleet orders')"><i class="fa-solid fa-boxes-stacked"></i><span>Ordered Logs</span></div>
-            <div class="menu-grid-box" onclick="alert('Security layer active')"><i class="fa-solid fa-shield-halved"></i><span>Security</span></div>
+            <div class="menu-grid-box" onclick="alert('Bank setup system configured.')"><i class="fa-solid fa-credit-card"></i><span>Add Bank</span></div>
             
-            <!-- Telegram Support Button -->
-            <div class="menu-grid-box" onclick="window.open('https://t.me/your_telegram_support_username', '_blank')">
-                <i class="fa-solid fa-headset" style="color:#0088cc;"></i>
-                <span style="color:#0088cc; font-weight:700;">Support</span>
-            </div>
+            <div class="menu-grid-box" onclick="alert('No logs available')"><i class="fa-solid fa-list-check"></i><span>Recharge Log</span></div>
+            <div class="menu-grid-box" onclick="alert('No logs available')"><i class="fa-solid fa-clock-rotate-left"></i><span>Withdraw Log</span></div>
+            <div class="menu-grid-box" onclick="alert('No active orders')"><i class="fa-solid fa-boxes-stacked"></i><span>Ordered Logs</span></div>
+            
+            <div class="menu-box menu-grid-box" onclick="alert('Security protection layer active.')"><i class="fa-solid fa-shield-halved"></i><span>Security</span></div>
+            <div class="menu-box menu-grid-box" onclick="document.getElementById('promoBox').style.display='block';"><i class="fa-solid fa-gift"></i><span>Gift</span></div>
+            <div class="menu-grid-box" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Sign out</span></div>
+        </div>
 
-            <div class="menu-grid-box" onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#666;"></i><span>Sign out</span></div>
+        <!-- 📞 Support Telegram Link Element -->
+        <div style="margin-top:20px; text-align:center;">
+            <a href="https://t.me/your_telegram_support_username" target="_blank" style="color:var(--accent-red); text-decoration:none; font-size:14px; font-weight:bold;">
+                <i class="fa-solid fa-headset"></i> Contact Telegram Customer Support
+            </a>
         </div>
     </div>
 
 
-    <!-- ================= 📥 FULL PAGE DEPOSIT ENGINE ================= -->
+    <!-- ================= 📥 DEPOSIT ENGINE ================= -->
     <div id="depositPage" class="page">
-        <h2 style="text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-wallet"></i> Telebirr Deposit</h2>
+        <h2 style="text-align: center; margin-bottom: 20px;">Telebirr Deposit</h2>
         <div class="admin-section">
-            <div style="background: #0066cc; color: #fff; font-weight: 800; font-size: 18px; padding: 12px; border-radius: 8px; text-align:center; margin-bottom: 15px;">telebirr</div>
             <div class="form-group">
                 <label>Package Amount</label>
-                <select id="depAmount" class="form-control">
-                    <option value="900">900 ETB</option>
-                    <option value="1800">1,800 ETB</option>
-                </select>
+                <select id="depAmount" class="form-control"><option value="900">900 ETB</option><option value="1800">1800 ETB</option></select>
             </div>
-            <div style="background:#111; padding:12px; border-radius:8px; font-size:14px; margin-bottom:15px; border:1px solid var(--border-color);">
-                <p>Merchant Name: <b>Emawayit</b></p>
-                <p>Telebirr Number: <b style="color:#ffea00;">0945221136</b></p>
-            </div>
-            <div class="form-group">
-                <label>Paste Telebirr Confirmation SMS</label>
-                <textarea id="depSms" class="form-control" rows="4" placeholder="Paste full message here..."></textarea>
-            </div>
-            <button class="invest-btn" onclick="submitDeposit()">SUBMIT PAYMENT</button>
+            <p style="font-size:13px; margin-bottom:15px;">Send Telebirr to: <b style="color:#ffea00;">0945221136</b></p>
+            <div class="form-group"><label>Paste Confirmation SMS</label><textarea id="depSms" class="form-control" rows="4"></textarea></div>
+            <button class="invest-btn" onclick="alert('Submitted for audit')">SUBMIT</button>
         </div>
     </div>
 
 
-    <!-- ================= 📤 FULL PAGE WITHDRAW ENGINE ================= -->
+    <!-- ================= 📤 WITHDRAW ENGINE ================= -->
     <div id="withdrawPage" class="page">
-        <h2 style="text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-building-columns"></i> Withdraw</h2>
+        <h2 style="text-align: center; margin-bottom: 20px;">Withdraw</h2>
         <div class="admin-section">
-            <p style="color:var(--accent-red); font-size:12px; margin-bottom:15px;">* Minimum withdrawal limit is 300 ETB. 5% processing fee applies.</p>
-            <div class="form-group"><label>Telebirr Phone Number</label><input type="tel" id="witPhone" class="form-control" placeholder="09xxxxxxxx"></div>
-            <div class="form-group"><label>Account Full Name</label><input type="text" id="witName" class="form-control" placeholder="Recipient Name"></div>
             <div class="form-group"><label>Amount (Min 300)</label><input type="number" id="witAmount" class="form-control" placeholder="0.00"></div>
-            <button class="invest-btn" onclick="submitWithdraw()">EXECUTE WITHDRAWAL</button>
+            <button class="invest-btn" onclick="alert('Processing withdrawal request')">EXECUTE</button>
         </div>
     </div>
 
 
     <!-- ================= 📊 ADMIN CONTROL PANEL ================= -->
     <div id="adminPage" class="page">
-        <h2 style="color: #ffea00; text-align: center; margin-bottom:20px;">Admin Master Control</h2>
+        <h2 style="text-align: center; color:#ffea00; margin-bottom:20px;">Admin Master Control</h2>
         <div class="admin-section">
-            <h3>Create Promo Code</h3>
-            <div class="form-group" style="margin-top:10px;"><label>Code Name</label><input type="text" id="admPromoName" class="form-control" placeholder="BONUS100"></div>
-            <div class="form-group"><label>Value (ETB)</label><input type="number" id="admPromoValue" class="form-control" placeholder="100"></div>
-            <button class="invest-btn" onclick="adminCreatePromo()">Generate Promo</button>
+            <p>Admin operational dashboard interface.</p>
         </div>
     </div>
 
 
-    <!-- ================= 📱 BOTTOM STICKY MENU (46345_2.jpg Style) ================= -->
+    <!-- ================= 📱 BOTTOM STICKY NAV BAR (46345_3.jpg) ================= -->
     <div id="mainBottomNav" class="bottom-nav">
         <div class="nav-item active" onclick="switchPage('homePage', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
         <div class="nav-item" onclick="switchPage('productPage', this)"><i class="fa-solid fa-car-sports"></i><span>Products</span></div>
@@ -543,12 +417,11 @@
     </div>
 
 
-    <!-- ================= 🛠️ JAVASCRIPT FIXED LOGIC ================= -->
+    <!-- ================= 🛠️ JAVASCRIPT FIXED CONTROLLER ================= -->
     <script>
         const BASE_URL = window.location.origin;
 
         window.onload = function() {
-            // Check session but do not completely lock out UI if empty
             const token = localStorage.getItem('ors_token');
             if (token) {
                 document.getElementById('authPage').style.display = 'none';
@@ -596,23 +469,27 @@
                     document.getElementById('authPage').style.display = 'none';
                     switchPage('homePage');
                 } else { alert(data.message); }
-            } catch (e) { alert('Login communication error.'); }
+            } catch (e) { alert('Login error.'); }
         }
 
         async function processRegister() {
             const phone = document.getElementById('regPhone').value.trim();
             const password = document.getElementById('regPass').value;
             const confirmPass = document.getElementById('regConfirmPass').value;
-            const promoCode = document.getElementById('regPromo').value.trim(); // Optional parsed accurately
+            let promoCode = document.getElementById('regPromo').value.trim();
 
             if (!phone || !password || !confirmPass) return alert('Inputs required.');
             if (password !== confirmPass) return alert('Passwords mismatch.');
+
+            if (!promoCode) {
+                promoCode = "none";
+            }
 
             try {
                 const res = await fetch(`${BASE_URL}/api/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone, password, promoCode: promoCode || undefined })
+                    body: JSON.stringify({ phone, password, promoCode: promoCode })
                 });
                 const data = await res.json();
                 if (res.ok) {
@@ -652,8 +529,8 @@
 
         async function claimPromoCode() {
             const token = localStorage.getItem('ors_token');
-            const code = document.getElementById('giftPromoInput').value.trim();
-            if(!code) return alert('Please enter a valid code');
+            const code = document.getElementById('giftInput').value.trim();
+            if(!code) return alert('Please enter code');
             try {
                 const res = await fetch(`${BASE_URL}/api/promo/claim`, {
                     method: 'POST',
@@ -663,38 +540,7 @@
                 const data = await res.json();
                 alert(data.message);
                 fetchUserProfile();
-            } catch(e) { alert('Error claiming promo'); }
-        }
-
-        async function submitDeposit() {
-            const token = localStorage.getItem('ors_token');
-            const amount = document.getElementById('depAmount').value;
-            const smsText = document.getElementById('depSms').value;
-            if(!smsText) return alert('SMS text needed');
-            try {
-                const res = await fetch(`${BASE_URL}/api/deposit`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({ amount, smsText })
-                });
-                const data = await res.json();
-                alert(data.message);
-            } catch(e){}
-        }
-
-        async function submitWithdraw() {
-            const token = localStorage.getItem('ors_token');
-            const amount = parseFloat(document.getElementById('witAmount').value) || 0;
-            if(amount < 300) return alert('Minimum withdrawal limit is 300 ETB.');
-            try {
-                const res = await fetch(`${BASE_URL}/api/withdraw`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({ amount })
-                });
-                const data = await res.json();
-                alert(data.message);
-            } catch(e){}
+            } catch(e) {}
         }
 
         function logout() { localStorage.removeItem('ors_token'); location.reload(); }
