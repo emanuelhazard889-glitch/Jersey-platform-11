@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ORS Premium Fleet Platform</title>
-    <!-- FontAwesome Icons for Luxury Look -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -367,13 +366,11 @@
     <div class="toast" id="appToast"></div>
 
     <div class="phone-wrapper">
-        <!-- Main Top Bar Layout Header -->
         <div class="app-header">
             <h1 id="headerTitle">ORS PLATFORM</h1>
             <p id="headerSubtitle">Premium Investment Fleet Engine</p>
         </div>
 
-        <!-- SCREEN 1: AUTHENTICATION (LOGIN / REGISTER) -->
         <div id="screen-auth" class="screen active">
             <div class="auth-container">
                 <div class="auth-logo"><i class="fa-solid fa-car-rear"></i></div>
@@ -382,7 +379,6 @@
                     <div class="auth-tab" onclick="switchAuthTab('register')">Register</div>
                 </div>
 
-                <!-- Shared Dynamic Form Area -->
                 <div id="auth-fields">
                     <div class="input-group">
                         <i class="fa-solid fa-phone"></i>
@@ -392,7 +388,6 @@
                         <i class="fa-solid fa-lock"></i>
                         <input type="password" id="auth-pass" placeholder="Password">
                     </div>
-                    <!-- Register specific fields (hidden dynamically initially) -->
                     <div id="register-only-fields" style="display: none;">
                         <div class="input-group">
                             <i class="fa-solid fa-lock"></i>
@@ -408,9 +403,7 @@
             </div>
         </div>
 
-        <!-- SCREEN 2: HOME PORTAL HUB -->
         <div id="screen-home" class="screen">
-            <!-- Modern Electric Vehicle Showcase Banner -->
             <div class="promo-banner" style="background-image: url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=600&auto=format&fit=crop');"></div>
             
             <div class="grid-menu">
@@ -434,7 +427,6 @@
                 </div>
             </div>
 
-            <!-- Dynamic Fleet Stats quick look -->
             <div class="matrix-list" style="margin-top: 15px;">
                 <div class="matrix-row">
                     <div class="matrix-left"><i class="fa-solid fa-circle-info"></i><span>Platform Status</span></div>
@@ -443,7 +435,6 @@
             </div>
         </div>
 
-        <!-- SCREEN 3: DEPOSIT MANAGEMENT SYSTEM -->
         <div id="screen-deposit" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-wallet"></i> Top-up Balance</h3>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">Select deposit target package size:</p>
@@ -473,14 +464,12 @@
             <button class="btn-premium" onclick="processDepositVerification()">VERIFY TRANSACTION</button>
         </div>
 
-        <!-- SCREEN 4: PRODUCTS VIEW (VIP TIERS) -->
         <div id="screen-product" class="screen">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3 style="font-size: 16px;">Investment Fleet Operations</h3>
                 <button class="btn-premium" style="width: auto; padding: 6px 12px; font-size: 12px;" onclick="showMyProducts()">My Active Products</button>
             </div>
 
-            <!-- VIP 1 Card -->
             <div class="vehicle-card">
                 <div class="vehicle-img" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=600&auto=format&fit=crop');">
                     <div class="vip-badge">VIP 1</div>
@@ -494,7 +483,6 @@
                 </div>
             </div>
 
-            <!-- VIP 2 Card -->
             <div class="vehicle-card">
                 <div class="vehicle-img" style="background-image: url('https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=600&auto=format&fit=crop');">
                     <div class="vip-badge">VIP 2</div>
@@ -508,7 +496,6 @@
                 </div>
             </div>
 
-            <!-- VIP 3 Card -->
             <div class="vehicle-card">
                 <div class="vehicle-img" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=600&auto=format&fit=crop');">
                     <div class="vip-badge">VIP 3</div>
@@ -522,7 +509,6 @@
                 </div>
             </div>
 
-            <!-- VIP 4 Card -->
             <div class="vehicle-card">
                 <div class="vehicle-img" style="background-image: url('https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=600&auto=format&fit=crop');">
                     <div class="vip-badge">VIP 4</div>
@@ -536,7 +522,6 @@
                 </div>
             </div>
 
-            <!-- VIP 5 Card -->
             <div class="vehicle-card">
                 <div class="vehicle-img" style="background-image: url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=600&auto=format&fit=crop');">
                     <div class="vip-badge">VIP 5</div>
@@ -551,7 +536,6 @@
             </div>
         </div>
 
-        <!-- SCREEN 5: REFERRAL MANAGEMENT -->
         <div id="screen-referal" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-users"></i> Affiliate Hub</h3>
             
@@ -578,7 +562,6 @@
             </div>
         </div>
 
-        <!-- SCREEN 6: USER PROFILE HUB -->
         <div id="screen-profile" class="screen">
             <div class="profile-card">
                 <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
@@ -612,7 +595,6 @@
             </div>
         </div>
 
-        <!-- SCREEN 7: WITHDRAW MANAGEMENT GATEWAY -->
         <div id="screen-withdraw" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-money-bill-transfer"></i> Payout Processing</h3>
             
@@ -632,16 +614,13 @@
             </div>
         </div>
 
-        <!-- SCREEN 8: SYSTEM TRANSACTION AUDITS HISTORY -->
         <div id="screen-history" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-receipt"></i> Statement Ledger</h3>
             <div id="history-container">
-                <!-- Log instances placed here by code logic loop -->
                 <p style="text-align: center; color: var(--text-muted); font-size: 13px; padding-top: 20px;">No recorded events executed yet.</p>
             </div>
         </div>
 
-        <!-- SCREEN 9: DAILY PROMO CODE BONUS INTERACTION -->
         <div id="screen-promobonus" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-gift"></i> Redeem Action Voucher</h3>
             <div class="input-group">
@@ -655,7 +634,6 @@
             </button>
         </div>
 
-        <!-- SCREEN 10: BACKEND EXECUTIVE COMMAND PANEL (ADMIN PANEL) -->
         <div id="screen-admin" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px; color: var(--accent-gold);"><i class="fa-solid fa-gauge"></i> Executive Matrix Control Panel</h3>
             
@@ -666,7 +644,6 @@
                 <div class="admin-card">Pending Request Queue<div id="adm-total-pending" style="color: #d69e2e;">0</div></div>
             </div>
 
-            <!-- Global Variable Set Links inputs -->
             <div class="profile-card" style="text-align: left; padding: 15px; margin-bottom: 15px;">
                 <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">🔧 Platform Routing Pointers</p>
                 <input type="text" id="adm-support-link" placeholder="Support Chat Link" style="width:100%; padding:10px; background:#111; border:1px solid #333; border-radius:6px; color:white; font-size:12px; margin-bottom:10px;">
@@ -674,7 +651,6 @@
                 <button class="btn-premium" style="font-size:12px; padding:8px;" onclick="saveAdminRoutingLinks()">Update Routing Ecosystem</button>
             </div>
 
-            <!-- Voucher Core Code Logic Builder -->
             <div class="profile-card" style="text-align: left; padding: 15px; margin-bottom: 15px;">
                 <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">🎫 Generate Global Action Code</p>
                 <div style="display: flex; gap: 8px;">
@@ -683,7 +659,6 @@
                 </div>
             </div>
 
-            <!-- Direct Node Tracker Engine Query Tool -->
             <div class="profile-card" style="text-align: left; padding: 15px; margin-bottom: 20px;">
                 <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">🔍 Database Tracker Engine Search</p>
                 <div style="display: flex; gap: 8px; margin-bottom: 15px;">
@@ -713,12 +688,10 @@
                 </div>
             </div>
 
-            <!-- Queue Management Interface Component -->
             <p style="font-size: 13px; font-weight: bold; margin-bottom: 10px;">📋 Withdrawal Validation Queue</p>
             <div id="admin-payout-queue-container"></div>
         </div>
 
-        <!-- NAVIGATION INTERFACE RENDERING PANEL BAR -->
         <div class="bottom-nav" id="appBottomNav" style="display: none;">
             <div class="nav-item active" id="nav-home" onclick="switchScreen('home')">
                 <i class="fa-solid fa-house"></i>Home
@@ -735,7 +708,6 @@
         </div>
     </div>
 
-    <!-- MAIN CORE LOGIC JAVASCRIPT BLOCK ENGINE -->
     <script>
         // Global Default Dynamic Data Store Modules
         let usersDatabase = {
@@ -787,7 +759,7 @@
             return Math.floor(100000 + Math.random() * 900000).toString();
         }
 
-        // Processing Register & Login Rules
+        // FIXED REGISTER & LOGIN LOGIC (Safe Login & One-time Registration)
         function handleAuth() {
             let phone = document.getElementById('auth-phone').value.trim();
             let pass = document.getElementById('auth-pass').value.trim();
@@ -796,16 +768,23 @@
             if (!phone || !pass) return showToast("Please input valid credentials.");
             if (!phone.startsWith("09") || phone.length !== 10) return showToast("Phone format must be 09XXXXXXXX.");
 
+            // 1. ሪጅስተር ለማድረግ ሲሞክር የነበረው ቼከር
             if (isReg) {
                 let pass2 = document.getElementById('auth-pass2').value.trim();
                 let promoUsed = document.getElementById('auth-promo').value.trim();
 
                 if (pass !== pass2) return showToast("Error: Passwords do not match!");
-                if (usersDatabase[phone]) return showToast("Phone already registered. Log In instead.");
+                
+                // ስልኩ ቀድሞ ከተመዘገበ በቀጥታ ወደ ሎጊን እንዲሄድ ማድረግ (ዳታው ሳይነካ)
+                if (usersDatabase[phone]) {
+                    showToast("Phone already registered! Switching to Log In mode.");
+                    switchAuthTab('login');
+                    return;
+                }
 
-                let generatedCode = generateRandomInviteCode().substring(0,4); // 4 Digit System structure
+                let generatedCode = generateRandomInviteCode().substring(0,4);
 
-                // Registration Node Generation
+                // አዲስ አካውንት ሲከፈት ብቻ ነው ይሄ የሚሰራው
                 usersDatabase[phone] = {
                     phone: phone,
                     pass: pass,
@@ -820,11 +799,9 @@
                     telebirrName: null
                 };
 
-                // Tracking Up-line network rules
                 if(promoUsed) {
                     for (let key in usersDatabase) {
                         if(usersDatabase[key].inviteCode === promoUsed) {
-                            showToast("Registered via valid referral link connection!");
                             break;
                         }
                     }
@@ -833,7 +810,7 @@
                 showToast("Account created! 300 Birr startup bonus granted.");
                 switchAuthTab('login');
             } else {
-                // Checking Administrative Console Route Credentials Explicit
+                // 2. ሎጊን ሲያደርግ - አካውንቱ ካለ balance እና ሌላ መረጃ ሳይነካ በቀጥታ ያስገባል
                 if (phone === "0905295422" && pass === "406976") {
                     currentActiveUser = usersDatabase[phone];
                     showToast("System Super-User Administrator authenticated.");
@@ -845,8 +822,9 @@
                 if (!target || target.pass !== pass) return showToast("Invalid credentials provided.");
                 if (target.isBanned) return showToast("Access Denied: This node has been terminated/banned.");
 
+                // ምንም አይነት balance ሳይነካ ሴሽኑን መጀመር
                 currentActiveUser = target;
-                showToast("Welcome to ORS Premium Core Engine.");
+                showToast("Welcome back to ORS Premium Core Engine.");
                 bootAuthenticatedUI(false);
             }
         }
@@ -875,13 +853,11 @@
             let target = document.getElementById('screen-' + id);
             if (target) target.classList.add('active');
 
-            // Handling Nav focus state visually
             let items = document.querySelectorAll('.nav-item');
             items.forEach(i => i.classList.remove('active'));
             let activeNav = document.getElementById('nav-' + id);
             if (activeNav) activeNav.classList.add('active');
 
-            // Header Title Dynamic Adjustment context
             let hTitle = document.getElementById('headerTitle');
             hTitle.innerText = id.toUpperCase() + " HUB";
             if(id === 'home') hTitle.innerText = "ORS PLATFORM";
@@ -892,16 +868,13 @@
         function updateAllInterfaceMetrics() {
             if (!currentActiveUser) return;
 
-            // Updating User Profile Interface elements
             document.getElementById('user-balance-view').innerText = currentActiveUser.balance.toFixed(2);
             document.getElementById('profile-phone-display').innerText = "+251 " + currentActiveUser.phone.substring(1);
             document.getElementById('display-invite-code').innerText = currentActiveUser.inviteCode;
 
-            // Dynamic Render Domain extraction handling for link compilation
             let baseUrl = window.location.href.split('?')[0];
             document.getElementById('share-link-input').value = baseUrl + "?ref=" + currentActiveUser.inviteCode;
 
-            // Counting up referral connections safely
             let tNetwork = 0; let vNetwork = 0;
             for (let k in usersDatabase) {
                 if(usersDatabase[k].refCodeUsed === currentActiveUser.inviteCode) {
@@ -912,7 +885,6 @@
             document.getElementById('ref-count').innerText = tNetwork;
             document.getElementById('ref-valid-count').innerText = vNetwork;
 
-            // Checking bank card state configuration context label
             let label = document.getElementById('bank-row-label');
             if (currentActiveUser.telebirrAcc) {
                 label.innerText = "Telebirr Card: " + currentActiveUser.telebirrAcc + " (" + currentActiveUser.telebirrName + ")";
@@ -920,7 +892,6 @@
                 label.innerText = "Add Telebirr Card Setup";
             }
 
-            // Lock or unlock withdrawal modules based on active investments
             if (currentActiveUser.products.length > 0 || currentActiveUser.phone === "0905295422") {
                 document.getElementById('withdraw-locked-state').style.display = 'none';
                 document.getElementById('withdraw-active-state').style.display = 'block';
@@ -933,7 +904,6 @@
             refreshAdminConsolePanelMetrics();
         }
 
-        // Fixed Referral Link Mobile Copy Engine Handler Routine
         function copyReferralLink() {
             let copyText = document.getElementById("share-link-input");
             
@@ -948,7 +918,7 @@
 
         function fallbackCopyLogic(inputElement) {
             inputElement.select();
-            inputElement.setSelectionRange(0, 99999); /* For mobile devices */
+            inputElement.setSelectionRange(0, 99999);
             try {
                 document.execCommand("copy");
                 showToast("Referral link copied to clipboard!");
@@ -957,10 +927,8 @@
             }
         }
 
-        // Deposit Section Logic Components
         function setDepositAmount(amt) {
             document.getElementById('deposit-amount').value = amt;
-            // Record target generation timestamp window lock context rule
             document.getElementById('screen-deposit').setAttribute('data-opened-time', Date.now());
         }
 
@@ -969,7 +937,6 @@
             switchScreen('deposit');
         }
 
-        // Telebirr Secure SMS Automatic Matching Core Parse Engine
         function processDepositVerification() {
             let selectedAmt = parseFloat(document.getElementById('deposit-amount').value);
             let rawSms = document.getElementById('telebirr-sms').value.trim();
@@ -977,12 +944,10 @@
 
             if (!rawSms) return showToast("Error: Please input or paste the text notification record.");
 
-            // RULE 1: Time validation block window checking structure (30 minutes = 1,800,000 ms)
             if (openedTime && (Date.now() - parseInt(openedTime) > 1800000)) {
                 return showToast("Transaction Rejected: Validation window expired (30 Mins limit). Restart top-up process.");
             }
 
-            // RULE 2 & 3: Content matching strict rules check criteria
             let hasDear = /dear/i.test(rawSms);
             let hasEmawayit = /emawayit/i.test(rawSms);
             let hasTargetAccEnd = /1136/.test(rawSms);
@@ -991,13 +956,11 @@
                 return showToast("Validation Failed: System authentication fingerprint signature missing from message text.");
             }
 
-            // Verify if amount string is dynamically embedded in message structure matched
             let amtRegex = new RegExp(selectedAmt.toString());
             if (!amtRegex.test(rawSms)) {
                 return showToast("Validation Failed: Chosen package amount does not coordinate with the text statement.");
             }
 
-            // Attempt Extraction of Transaction ID tokens to prevent replay vectors
             let txMatch = /(?:txid|transaction id|id:?)\s*([a-zA-Z0-9]+)/i.exec(rawSms);
             let txId = txMatch ? txMatch[1] : "TX" + Math.floor(100000 + Math.random()*900000);
 
@@ -1005,15 +968,12 @@
                 return showToast("Security Violation: This transaction signature has already been claimed.");
             }
 
-            // Commit modifications successfully
             globalUsedTransactionIDs.push(txId);
             currentActiveUser.balance += selectedAmt;
-            currentActiveUser.validInvestor = true; // Flags profile eligibility parameters
+            currentActiveUser.validInvestor = true;
 
-            // Checking upline commission triggers level structures
             executeReferralRewardsCommission(currentActiveUser.refCodeUsed, selectedAmt);
 
-            // Log event profile record updates
             if(!currentActiveUser.depositLogs) currentActiveUser.depositLogs = [];
             currentActiveUser.depositLogs.push({ type: 'Deposit Auto-Verify', amount: selectedAmt, date: new Date().toLocaleDateString(), tx: txId });
 
@@ -1024,13 +984,11 @@
 
         function executeReferralRewardsCommission(uplineCode, baseAmount) {
             if(!uplineCode) return;
-            // Level 1 logic search lookup
             for (let k1 in usersDatabase) {
                 if (usersDatabase[k1].inviteCode === uplineCode) {
                     let lvl1Bonus = baseAmount * 0.20;
                     usersDatabase[k1].balance += lvl1Bonus;
                     
-                    // Level 2 logic tracking lookup cascade
                     let parentCode = usersDatabase[k1].refCodeUsed;
                     if (parentCode) {
                         for (let k2 in usersDatabase) {
@@ -1038,7 +996,6 @@
                                 let lvl2Bonus = baseAmount * 0.02;
                                 usersDatabase[k2].balance += lvl2Bonus;
 
-                                // Level 3 logic tracking lookup cascade
                                 let grandParentCode = usersDatabase[k2].refCodeUsed;
                                 if (grandParentCode) {
                                     for (let k3 in usersDatabase) {
@@ -1057,7 +1014,6 @@
             }
         }
 
-        // Payout Execution Routines Modules
         function calculateWithdrawalFee() {
             let amt = parseFloat(document.getElementById('withdraw-amount').value) || 0;
             let fee = amt * 0.15;
@@ -1076,7 +1032,6 @@
             let computedNetFee = amt * 0.15;
             let finalDisbursementValue = amt - computedNetFee;
 
-            // Debit account asset balance parameters immediately
             currentActiveUser.balance -= amt;
 
             let reqId = "WREQ" + Date.now();
@@ -1097,7 +1052,6 @@
             switchScreen('history');
         }
 
-        // VIP Investment Operations Loop Modules
         function buyProduct(vipLvl, cost, dailyReturn) {
             if (currentActiveUser.balance < cost) {
                 return showToast("Deficit: Insufficient liquidity balance. Complete a top-up sequence.");
@@ -1111,16 +1065,14 @@
                 investmentCost: cost,
                 dailyYield: dailyReturn,
                 boughtAt: purchaseTime,
-                expiry: purchaseTime + (150 * 24 * 60 * 60 * 1000), // 150 Days lifespan metric logic track
+                expiry: purchaseTime + (150 * 24 * 60 * 60 * 1000),
                 lastCollectedTimestamp: purchaseTime
             });
 
             showToast(`VIP ${vipLvl} Fleet Asset unit acquired successfully! Engine engaged.`);
             
-            // Background interval tick emulation simulation setup context block routine
             setInterval(() => {
-                // Automated accumulation update tracking emulation loop trigger pattern rule execution
-                currentActiveUser.balance += (dailyReturn / 86400); // Incremental breakdown allocation tick emulation
+                currentActiveUser.balance += (dailyReturn / 86400);
             }, 1000);
 
             switchScreen('profile');
@@ -1137,7 +1089,6 @@
             alert(text);
         }
 
-        // Daily Check-In & Bonus Interactions
         function triggerCheckIn() {
             let todayStr = new Date().toDateString();
             if (currentActiveUser.lastCheckIn === todayStr) {
@@ -1157,11 +1108,9 @@
                 return showToast("Error: Input code signature invalid or expired.");
             }
 
-            // Generate Random Yield bonus metric context constraints (1 - 10 Birr)
             let randomRewardValue = Math.floor(Math.random() * 10) + 1;
             currentActiveUser.balance += randomRewardValue;
 
-            // Evict voucher code entry from global registry array string mapping to prevent dual exploits
             globalCreatedBonusVouchers = globalCreatedBonusVouchers.filter(c => c !== code);
 
             showToast(`Voucher Claimed! Granted random bonus reward: +${randomRewardValue}.00 ETB.`);
@@ -1169,7 +1118,6 @@
             switchScreen('profile');
         }
 
-        // Account management options modal proxies
         function openPasswordChange() {
             let p = prompt("Enter new security system password string:");
             if(p && p.trim().length > 3) {
@@ -1201,7 +1149,6 @@
                 return;
             }
 
-            // Display Deposit Logs dynamically
             if (currentActiveUser.depositLogs) {
                 currentActiveUser.depositLogs.forEach(d => {
                     let item = document.createElement('div');
@@ -1213,7 +1160,6 @@
                 });
             }
 
-            // Display Payout Requests dynamically
             personalRequests.forEach(r => {
                 let item = document.createElement('div');
                 item.className = "log-item";
@@ -1224,7 +1170,6 @@
             });
         }
 
-        // Administrative Core Engine View Controller Functions
         function refreshAdminConsolePanelMetrics() {
             document.getElementById('adm-total-members').innerText = Object.keys(usersDatabase).length;
             
@@ -1246,7 +1191,6 @@
             document.getElementById('adm-total-withdrawals').innerText = totalWithdrawn.toFixed(2) + " ETB";
             document.getElementById('adm-total-pending').innerText = pendingCount;
 
-            // Render Queue items list
             let qContainer = document.getElementById('admin-payout-queue-container');
             qContainer.innerHTML = "";
 
@@ -1286,7 +1230,6 @@
             showToast("System routing links configuration updated.");
         }
 
-        // Enhanced Full Information Database Search Module
         function searchUserDatabase() {
             let query = document.getElementById('adm-search-phone').value.trim();
             let resNode = document.getElementById('search-result-node');
@@ -1303,15 +1246,12 @@
             document.getElementById('res-bal').innerText = target.balance.toFixed(2);
             document.getElementById('res-status').innerText = target.isBanned ? "BANNED / SHUTDOWN" : "ACTIVE OPERATIONAL";
             
-            // Extract and display full Telebirr / Bank Card Information Node
             document.getElementById('res-bank-acc').innerText = target.telebirrAcc ? target.telebirrAcc : "Not Added Yet";
             document.getElementById('res-bank-name').innerText = target.telebirrName ? target.telebirrName : "-";
             
-            // Extract Promo code structures
             document.getElementById('res-invite').innerText = target.inviteCode;
             document.getElementById('res-invited-by').innerText = target.refCodeUsed ? target.refCodeUsed : "Direct Signup";
 
-            // Extract Active Investment Vehicle Tiers list full output
             if (target.products && target.products.length > 0) {
                 let pList = target.products.map(p => `VIP ${p.vip}`).join(', ');
                 document.getElementById('res-products').innerText = pList;
