@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORS Premium Fleet Platforms</title>
-    <!-- FontAwesome icons ለቀደሙት አይኮኖች በሙሉ -->
+    <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -191,6 +191,12 @@
             color: #fff; padding: 12px; border-radius: 8px; font-size: 15px; outline: none;
         }
 
+        textarea.form-control {
+            resize: none;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
         .invest-btn {
             width: 100%; background-color: var(--accent-red); color: #fff; border: none;
             padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer;
@@ -200,6 +206,20 @@
             background-color: var(--bg-card); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 15px; margin-bottom: 20px;
         }
+
+        /* Admin Table */
+        .admin-table {
+            width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid var(--border-color); padding: 8px; text-align: left;
+        }
+        .admin-table th { background-color: var(--bg-main); color: var(--text-muted); }
+        .action-btn {
+            padding: 4px 8px; border: none; border-radius: 4px; color: #fff; font-size: 11px; cursor: pointer; margin-right: 5px;
+        }
+        .btn-approve { background-color: #00e676; }
+        .btn-reject { background-color: #ff5a5a; }
     </style>
 </head>
 <body>
@@ -207,7 +227,6 @@
     <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
     <div id="authPage">
         <div class="auth-container">
-            <!-- 46308_3.png በ Register/Login ገጽ ላይ -->
             <div class="auth-logo-wrapper">
                 <img src="46308_3.png" class="auth-logo-img" alt="ORS Logo">
             </div>
@@ -257,13 +276,12 @@
     <!-- ================= 🏠 HOME PAGE ================= -->
     <div id="homePage" class="page">
         <div style="text-align: center; padding: 20px 0; background: linear-gradient(180deg, #990000 0%, #06090e 100%); margin: -20px -20px 20px -20px;">
-            <!-- 46308_3.png በሆም ፔጁ ሎጎ ቦታ ላይ -->
             <img src="46308_3.png" style="max-width: 120px; height: auto; margin-bottom: 8px; object-fit: contain;" alt="ORS Logo">
             <h2 style="font-weight: 800;">ORS PLATFORM</h2>
             <p style="font-size: 12px; color: var(--text-muted);">Investment Platform Engine</p>
         </div>
 
-        <!-- 3 ዋና ቁልፎች (Deposit, Withdraw, Check In) -->
+        <!-- 3 ዋና ቁልፎች -->
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
             <div class="menu-grid-box" onclick="switchPage('depositPage')">
                 <i class="fa-solid fa-money-bill-transfer"></i>
@@ -279,10 +297,8 @@
             </div>
         </div>
 
-        <!-- መካከለኛ ባዶ ሳጥን -->
         <div style="width: 100%; height: 45px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px;"></div>
 
-        <!-- የተሽከርካሪ ምስል ባነር -->
         <div style="width:100%; border-radius:12px; overflow:hidden; border:1px solid var(--border-color);">
             <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800" style="width:100%; display:block;" alt="Tesla Banner">
         </div>
@@ -326,14 +342,12 @@
     <!-- ================= 👤 MINE PAGE ================= -->
     <div id="profilePage" class="page">
         <div class="profile-header-card">
-            <!-- 46308_3.png በፕሮፋይል ሎጎ ክረፍ ውስጥ -->
             <div class="profile-avatar-wrapper">
                 <img src="46308_3.png" alt="Profile Branding Logo">
             </div>
             <h3 id="profilePhone" style="font-size: 18px; font-weight: 700;">+251 9********</h3>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Verified ORS Premium Member</p>
 
-            <!-- 6 Matrix Boxes (Grid Layout) -->
             <div class="stats-block-grid">
                 <div class="stat-box-item"><div class="stat-box-title">BALANCE</div><div class="stat-box-value" id="mineBalance">0.00</div></div>
                 <div class="stat-box-item"><div class="stat-box-title">RECHARGE</div><div class="stat-box-value" id="mineRecharge">0.00</div></div>
@@ -344,7 +358,6 @@
             </div>
         </div>
 
-        <!-- Gift ሳጥን -->
         <div id="promoBox" class="admin-section" style="display:none; margin-top:-10px; margin-bottom:15px; border-color: var(--accent-gold);">
             <label style="font-size:13px; color:var(--text-muted); display:block; margin-bottom:6px;">Enter Promo / Gift Code:</label>
             <div style="display:flex; gap:10px;">
@@ -353,7 +366,7 @@
             </div>
         </div>
 
-        <!-- 9 Grid Operations Area -->
+        <!-- 6 Matrix እና 9 Buttons -->
         <div class="menu-grid-items">
             <div class="menu-grid-box" onclick="switchPage('depositPage')"><i class="fa-solid fa-wallet"></i><span>Recharge</span></div>
             <div class="menu-grid-box" onclick="switchPage('withdrawPage')"><i class="fa-solid fa-money-check-dollar"></i><span>Withdraw</span></div>
@@ -368,7 +381,6 @@
             <div class="menu-grid-box" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Sign out</span></div>
         </div>
 
-        <!-- 📞 Support Telegram -->
         <div style="margin-top:20px; text-align:center;">
             <a href="https://t.me/your_telegram_support_username" target="_blank" style="color:var(--accent-red); text-decoration:none; font-size:14px; font-weight:bold;">
                 <i class="fa-solid fa-headset"></i> Contact Telegram Customer Support
@@ -377,17 +389,33 @@
     </div>
 
 
-    <!-- ================= 📥 DEPOSIT ENGINE ================= -->
+    <!-- ================= 📥 DEPOSIT ENGINE (ከጥብቅ ማረጋገጫ ጋር) ================= -->
     <div id="depositPage" class="page">
-        <h2 style="text-align: center; margin-bottom: 20px;">Telebirr Deposit</h2>
+        <h2 style="text-align: center; margin-bottom: 20px;">Telebirr Deposit Engine</h2>
         <div class="admin-section">
             <div class="form-group">
-                <label>Package Amount</label>
-                <select id="depAmount" class="form-control"><option value="900">900 ETB</option><option value="1800">1800 ETB</option></select>
+                <label>Select Package Amount</label>
+                <select id="depAmount" class="form-control">
+                    <option value="900">900 ETB</option>
+                    <option value="1800">1800 ETB</option>
+                </select>
             </div>
-            <p style="font-size:13px; margin-bottom:15px;">Send Telebirr to: <b style="color:#ffea00;">0945221136</b></p>
-            <div class="form-group"><label>Paste Confirmation SMS</label><textarea id="depSms" class="form-control" rows="4"></textarea></div>
-            <button class="invest-btn" onclick="alert('Submitted for audit')">SUBMIT</button>
+            
+            <!-- 0905295422 እና Amanuel መረጃ -->
+            <div style="background-color: var(--bg-main); border: 1px dashed var(--accent-gold); padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 4px;">Please send the exact amount to Telebirr Account:</p>
+                <h3 style="color: #ffea00; letter-spacing: 1px; font-size: 22px; font-weight: 800;">0905295422</h3>
+                <p style="font-size: 14px; color: #00e676; font-weight: 700; margin-top: 5px;">Name: Amanuel</p>
+            </div>
+
+            <!-- ሙሉ የቴሌብር SMS ማስገቢያ ሳጥን -->
+            <div class="form-group">
+                <label>Paste Full Telebirr SMS Below</label>
+                <textarea id="depFullSms" class="form-control" rows="5" placeholder="የደረሰዎትን ሙሉ የቴሌብር ማረጋገጫ የጽሑፍ መልእክት (SMS) እዚህ ጋር ሙሉ በሙሉ አምጥተው ይለጥፉት..."></textarea>
+                <small style="color: var(--text-muted); font-size:11px; display:block; margin-top:5px;">Note: The system strictly validates if the SMS belongs to Amanuel (5422).</small>
+            </div>
+            
+            <button class="invest-btn" onclick="submitDepositToServer()">VERIFY DEPOSIT</button>
         </div>
     </div>
 
@@ -397,16 +425,85 @@
         <h2 style="text-align: center; margin-bottom: 20px;">Withdraw</h2>
         <div class="admin-section">
             <div class="form-group"><label>Amount (Min 300)</label><input type="number" id="witAmount" class="form-control" placeholder="0.00"></div>
-            <button class="invest-btn" onclick="alert('Processing withdrawal request')">EXECUTE</button>
+            <button class="invest-btn" onclick="submitWithdrawalToServer()">EXECUTE</button>
         </div>
     </div>
 
 
     <!-- ================= 📊 ADMIN CONTROL PANEL ================= -->
     <div id="adminPage" class="page">
-        <h2 style="text-align: center; color:#ffea00; margin-bottom:20px;">Admin Master Control</h2>
+        <h2 style="text-align: center; color:#ff5a5a; margin-bottom:20px;"><i class="fa-solid fa-user-shield"></i> ORS Admin Panel</h2>
+        
+        <!-- USER BALANCE ENGINE -->
         <div class="admin-section">
-            <p>Admin operational dashboard interface.</p>
+            <h3 style="font-size:15px; margin-bottom:12px; color:var(--accent-gold);"><i class="fa-solid fa-coins"></i> Manage User Balance</h3>
+            <div class="form-group">
+                <label>User Phone Number</label>
+                <input type="tel" id="admUserPhone" class="form-control" placeholder="09xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>Amount (Use negative like -100 to deduct)</label>
+                <input type="number" id="admAmount" class="form-control" placeholder="500">
+            </div>
+            <button class="invest-btn" style="background-color:var(--accent-gold); color:#000;" onclick="adminModifyBalance()">Update Balance</button>
+        </div>
+
+        <!-- RECHARGE AUDIT TABLE -->
+        <div class="admin-section">
+            <h3 style="font-size:15px; margin-bottom:10px; color:#00e676;"><i class="fa-solid fa-receipt"></i> Pending TXID Verification</h3>
+            <div style="overflow-x:auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Transaction ID / SMS</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminDepositTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align:center; color:var(--text-muted);">No pending transaction IDs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- WITHDRAWAL MANAGEMENT -->
+        <div class="admin-section">
+            <h3 style="font-size:15px; margin-bottom:10px; color:var(--accent-red);"><i class="fa-solid fa-money-check"></i> Withdrawal Requests</h3>
+            <div style="overflow-x:auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminWithdrawTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align:center; color:var(--text-muted);">No pending cashout requests.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PROMO CODE GENERATOR -->
+        <div class="admin-section">
+            <h3 style="font-size:15px; margin-bottom:12px; color:#ffea00;"><i class="fa-solid fa-ticket"></i> Create Gift/Promo Code</h3>
+            <div class="form-group">
+                <label>Code Name</label>
+                <input type="text" id="admPromoName" class="form-control" placeholder="BONUS200">
+            </div>
+            <div class="form-group">
+                <label>Bonus Value (ETB)</label>
+                <input type="number" id="admPromoValue" class="form-control" placeholder="200">
+            </div>
+            <button class="invest-btn" style="background-color:#ffea00; color:#000;" onclick="adminCreatePromo()">Generate Code</button>
         </div>
     </div>
 
@@ -429,7 +526,11 @@
             const token = localStorage.getItem('ors_token');
             if (token) {
                 document.getElementById('authPage').style.display = 'none';
-                switchPage('homePage', document.querySelector('.nav-item'));
+                if(token === 'admin_master_token') {
+                    switchPage('adminPage', document.querySelectorAll('.nav-item')[4]);
+                } else {
+                    switchPage('homePage', document.querySelector('.nav-item'));
+                }
             } else {
                 document.getElementById('authPage').style.display = 'flex';
             }
@@ -457,7 +558,7 @@
             if (phone === "0905295422" && password === "406976") {
                 localStorage.setItem('ors_token', 'admin_master_token');
                 document.getElementById('authPage').style.display = 'none';
-                switchPage('adminPage');
+                switchPage('adminPage', document.querySelectorAll('.nav-item')[4]);
                 return;
             }
 
@@ -508,8 +609,11 @@
             document.getElementById(pageId).classList.add('active');
             if(element) element.classList.add('active');
 
-            if (localStorage.getItem('ors_token') && localStorage.getItem('ors_token') !== 'admin_master_token') {
+            const token = localStorage.getItem('ors_token');
+            if (token && token !== 'admin_master_token') {
                 fetchUserProfile();
+            } else if (token === 'admin_master_token' && pageId === 'adminPage') {
+                fetchAdminData();
             }
         }
 
@@ -527,6 +631,174 @@
                     document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${data.promoCode || ''}`;
                 }
             } catch(e){}
+        }
+
+        // ================= 📥 የተስተካከለው ጥብቅ የቬሪፊኬሽን ሎጂክ =================
+        async function submitDepositToServer() {
+            const token = localStorage.getItem('ors_token');
+            const amount = document.getElementById('depAmount').value;
+            const smsText = document.getElementById('depFullSms').value.trim();
+            
+            if(!smsText || smsText.length < 15) {
+                return alert('Please paste the complete Telebirr verification SMS.');
+            }
+
+            // 🔍 ጥብቅ ፍተሻ (Strict Match Validation)
+            // 1. "Amanuel" ወይም "amanuel" የሚለው ስም መኖሩን ማረጋገጥ
+            const hasName = /amanuel/i.test(smsText);
+            // 2. "5422" የሚለው ቁጥር በጽሑፉ ውስጥ መገኘቱን ማረጋገጥ
+            const hasNumber = /5422/.test(smsText);
+
+            if (!hasName || !hasNumber) {
+                return alert('Invalid SMS! The text must belong to Amanuel and contain the reference account ending in 5422.');
+            }
+
+            // የ 10 አሃዝ የቴሌብር Transaction ID (BP... ወይም CR... ወዘተ) በ Regex ፈልጎ ማውጫ
+            const txIdRegex = /\b([A-Z0-9]{10})\b/;
+            const match = smsText.match(txIdRegex);
+            let extractedTxId = match ? match[1] : "N/A";
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/deposit/request`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ 
+                        amount: amount, 
+                        fullSms: smsText,       
+                        txId: extractedTxId     
+                    })
+                });
+                const data = await res.json();
+                alert(data.message);
+                document.getElementById('depFullSms').value = "";
+            } catch(e) { alert('Deposit error.'); }
+        }
+
+        async function submitWithdrawalToServer() {
+            const token = localStorage.getItem('ors_token');
+            const amount = parseFloat(document.getElementById('witAmount').value);
+            if(!amount || amount < 300) return alert('Minimum withdrawal is 300 ETB.');
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/withdraw/request`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ amount })
+                });
+                const data = await res.json();
+                alert(data.message);
+                document.getElementById('witAmount').value = "";
+                fetchUserProfile();
+            } catch(e) { alert('Withdrawal request error.'); }
+        }
+
+        // ================= 📊 ADMIN DASHBOARD CONTROLLERS =================
+        async function fetchAdminData() {
+            try {
+                const resDep = await fetch(`${BASE_URL}/api/admin/deposits`);
+                if(resDep.ok) {
+                    const deposits = await resDep.json();
+                    const tbody = document.getElementById('adminDepositTableBody');
+                    if(deposits.length > 0) {
+                        tbody.innerHTML = deposits.map(d => `
+                            <tr>
+                                <td>${d.phone}</td>
+                                <td>${d.amount} ETB</td>
+                                <td>
+                                    <div style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${d.fullSms || d.txId}">
+                                        <b style="color:#ffea00;">ID: ${d.txId || 'N/A'}</b><br>
+                                        <span style="font-size:11px; color:var(--text-muted);">${d.fullSms || ''}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="action-btn btn-approve" onclick="verifyDeposit('${d._id}', 'approve')">Approve</button>
+                                    <button class="action-btn btn-reject" onclick="verifyDeposit('${d._id}', 'reject')">Reject</button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+                
+                const resWit = await fetch(`${BASE_URL}/api/admin/withdrawals`);
+                if(resWit.ok) {
+                    const withdraws = await resWit.json();
+                    const tbodyWit = document.getElementById('adminWithdrawTableBody');
+                    if(withdraws.length > 0) {
+                        tbodyWit.innerHTML = withdraws.map(w => `
+                            <tr>
+                                <td>${w.phone}</td>
+                                <td>${w.amount} ETB</td>
+                                <td>${w.status}</td>
+                                <td>
+                                    <button class="action-btn btn-approve" onclick="verifyWithdrawal('${w._id}', 'approve')">Approve</button>
+                                    <button class="action-btn btn-reject" onclick="verifyWithdrawal('${w._id}', 'reject')">Reject</button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+            } catch(e) {}
+        }
+
+        async function adminModifyBalance() {
+            const phone = document.getElementById('admUserPhone').value.trim();
+            const amount = parseFloat(document.getElementById('admAmount').value);
+            if(!phone || !amount) return alert('Enter phone and amount');
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/update-balance`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, amount })
+                });
+                const data = await res.json();
+                alert(data.message);
+                document.getElementById('admAmount').value = "";
+            } catch(e) { alert('Failed to update balance'); }
+        }
+
+        async function verifyDeposit(id, status) {
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/action-deposit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, status })
+                });
+                const data = await res.json();
+                alert(data.message);
+                fetchAdminData();
+            } catch(e) {}
+        }
+
+        async function verifyWithdrawal(id, status) {
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/action-withdraw`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, status })
+                });
+                const data = await res.json();
+                alert(data.message);
+                fetchAdminData();
+            } catch(e) {}
+        }
+
+        async function adminCreatePromo() {
+            const code = document.getElementById('admPromoName').value.trim();
+            const value = parseFloat(document.getElementById('admPromoValue').value);
+            if(!code || !value) return alert('Enter code and value');
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/create-promo`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ promoCode: code, value })
+                });
+                const data = await res.json();
+                alert(data.message);
+                document.getElementById('admPromoName').value = "";
+                document.getElementById('admPromoValue').value = "";
+            } catch(e) { alert('Failed to create code'); }
         }
 
         async function claimPromoCode() {
