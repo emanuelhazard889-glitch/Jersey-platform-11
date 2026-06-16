@@ -691,11 +691,16 @@
                     <button class="btn-premium" style="width:auto; font-size:12px; padding:0 15px;" onclick="searchUserDatabase()">Search</button>
                 </div>
 
-                <div id="search-result-node" style="display: none; background:#111; padding:10px; border-radius:8px; font-size:12px;">
+                <div id="search-result-node" style="display: none; background:#111; padding:10px; border-radius:8px; font-size:12px; line-height: 1.6;">
                     <p>Phone: <span id="res-phone" style="font-weight: bold;">-</span></p>
-                    <p>Password: <span id="res-pass" style="color:var(--text-muted);">-</span></p>
+                    <p>Password: <span id="res-pass" style="color:var(--text-muted); font-weight: bold;">-</span></p>
                     <p>Account Balance: <span id="res-bal" style="color:var(--success-green); font-weight:bold;">0</span> ETB</p>
                     <p>Status: <span id="res-status" style="font-weight:bold;">Active</span></p>
+                    <p>Telebirr Account: <span id="res-bank-acc" style="color: #ffd700; font-weight: bold;">Not Added</span></p>
+                    <p>Account Name: <span id="res-bank-name" style="color: #64b5f6; font-weight: bold;">-</span></p>
+                    <p>Promo Code: <span id="res-invite" style="color: var(--accent-gold); font-weight: bold;">-</span></p>
+                    <p>Invited By: <span id="res-invited-by" style="color: var(--text-muted);">-</span></p>
+                    <p>Active VIP Products: <span id="res-products" style="color: #fff; font-weight: bold;">None</span></p>
                     
                     <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
                         <input type="number" id="adm-modify-balance-val" placeholder="Amount" style="padding:6px; background:#222; border:1px solid #444; border-radius:4px; color:white; font-size:11px;">
@@ -734,7 +739,7 @@
     <script>
         // Global Default Dynamic Data Store Modules
         let usersDatabase = {
-            "0905295422": { phone: "0905295422", pass: "406976", balance: 30000.00, inviteCode: "ADMIN0", refCodeUsed: "", products: [], lastCheckIn: null, isBanned: false, validInvestor: true }
+            "0905295422": { phone: "0905295422", pass: "406976", balance: 30000.00, inviteCode: "ADMIN0", refCodeUsed: "", products: [], lastCheckIn: null, isBanned: false, validInvestor: true, telebirrAcc: "0905295422", telebirrName: "Amanuel Admin" }
         };
 
         let currentActiveUser = null;
@@ -810,7 +815,9 @@
                     products: [],
                     lastCheckIn: null,
                     isBanned: false,
-                    validInvestor: false
+                    validInvestor: false,
+                    telebirrAcc: null,
+                    telebirrName: null
                 };
 
                 // Tracking Up-line network rules
@@ -924,6 +931,30 @@
 
             refreshHistoryLogs();
             refreshAdminConsolePanelMetrics();
+        }
+
+        // Fixed Referral Link Mobile Copy Engine Handler Routine
+        function copyReferralLink() {
+            let copyText = document.getElementById("share-link-input");
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(copyText.value)
+                    .then(() => { showToast("Referral link copied to clipboard!"); })
+                    .catch(() => { fallbackCopyLogic(copyText); });
+            } else {
+                fallbackCopyLogic(copyText);
+            }
+        }
+
+        function fallbackCopyLogic(inputElement) {
+            inputElement.select();
+            inputElement.setSelectionRange(0, 99999); /* For mobile devices */
+            try {
+                document.execCommand("copy");
+                showToast("Referral link copied to clipboard!");
+            } catch (err) {
+                showToast("Failed to copy link automatically.");
+            }
         }
 
         // Deposit Section Logic Components
@@ -1255,6 +1286,7 @@
             showToast("System routing links configuration updated.");
         }
 
+        // Enhanced Full Information Database Search Module
         function searchUserDatabase() {
             let query = document.getElementById('adm-search-phone').value.trim();
             let resNode = document.getElementById('search-result-node');
@@ -1270,6 +1302,25 @@
             document.getElementById('res-pass').innerText = target.pass;
             document.getElementById('res-bal').innerText = target.balance.toFixed(2);
             document.getElementById('res-status').innerText = target.isBanned ? "BANNED / SHUTDOWN" : "ACTIVE OPERATIONAL";
+            
+            // Extract and display full Telebirr / Bank Card Information Node
+            document.getElementById('res-bank-acc').innerText = target.telebirrAcc ? target.telebirrAcc : "Not Added Yet";
+            document.getElementById('res-bank-name').innerText = target.telebirrName ? target.telebirrName : "-";
+            
+            // Extract Promo code structures
+            document.getElementById('res-invite').innerText = target.inviteCode;
+            document.getElementById('res-invited-by').innerText = target.refCodeUsed ? target.refCodeUsed : "Direct Signup";
+
+            // Extract Active Investment Vehicle Tiers list full output
+            if (target.products && target.products.length > 0) {
+                let pList = target.products.map(p => `VIP ${p.vip}`).join(', ');
+                document.getElementById('res-products').innerText = pList;
+                document.getElementById('res-products').style.color = "var(--success-green)";
+            } else {
+                document.getElementById('res-products').innerText = "None (No Investment)";
+                document.getElementById('res-products').style.color = "var(--primary-red)";
+            }
+
             resNode.setAttribute('data-active-search-key', query);
         }
 
