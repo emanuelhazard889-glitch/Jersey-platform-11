@@ -32,11 +32,10 @@
             overflow-x: hidden;
         }
 
-        /* --- 🔐 AUTH PAGE WITH BACKGROUND IMAGE (FIXED!) --- */
+        /* --- 🔐 AUTH PAGE WITH BACKGROUND IMAGE --- */
         #authPage {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* 46308_2.png ን ሙሉ የገጹ የጀርባ ምስል (Background) ያደርገዋል */
             background: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)), url('46308_2.png');
             background-size: cover;
             background-position: center;
@@ -49,16 +48,15 @@
             overflow-y: auto;
         }
 
-        /* ልክ በ 46340.jpg ላይ እንዳለው ውብ ሳጥን */
         .auth-container {
-            background-color: rgba(22, 27, 34, 0.95); /* ይበልጥ እንዲያምር ሰንጠረዡ ከጀርባው ጋር ይዋሃዳል */
+            background-color: rgba(22, 27, 34, 0.95);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             width: 100%;
             max-width: 400px;
             padding: 30px 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px); /* የጀርባውን ፎቶ ብዥ (blur) አድርጎ ፎርሙን ያጎላዋል */
+            backdrop-filter: blur(5px);
         }
 
         .auth-title {
@@ -161,7 +159,7 @@
             font-size: 12px;
         }
 
-        /* --- 🚗 PRODUCT CARDS (ያልተነካ) --- */
+        /* --- 🚗 PRODUCT CARDS --- */
         .product-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -262,23 +260,6 @@
             border-color: var(--accent-gold);
         }
 
-        /* --- 👥 LINK COPY BUTTON --- */
-        .copy-link-box {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .copy-btn {
-            background-color: var(--accent-gold);
-            color: #000;
-            border: none;
-            padding: 0 15px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
         /* --- 👤 PROFILE MENU --- */
         .menu-list {
             background-color: var(--bg-card);
@@ -301,6 +282,27 @@
         .menu-left { display: flex; align-items: center; gap: 12px; }
         .menu-left i { color: var(--accent-gold); }
 
+        /* --- 📊 ADMIN ADMIN ADMIN TABLES --- */
+        .admin-section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+        .admin-table th { background-color: #0d1117; color: var(--accent-gold); }
+
         /* --- 📱 BOTTOM STICKY MENU --- */
         .bottom-nav {
             position: fixed;
@@ -309,7 +311,7 @@
             background-color: var(--bg-card);
             border-top: 1px solid var(--border-color);
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(4, 1fr); /* አድሚን ሲሆን በ JS ወደ 5 ይቀየራል */
             align-items: center;
             text-align: center;
             z-index: 1000;
@@ -357,7 +359,7 @@
 </head>
 <body>
 
-    <!-- ================= 🔐 AUTH SYSTEM PAGE (WITH FULL BG IMAGE) ================= -->
+    <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
     <div id="authPage">
         <div class="auth-container">
             <div class="auth-title">ORS PREMIUM</div>
@@ -445,7 +447,7 @@
         </div>
     </div>
 
-    <!-- ================= 🚗 PRODUCT/VIP PAGE ================= -->
+    <!-- ================= 🚗 PRODUCT/VIP PAGE (VIP 1 - VIP 5!) ================= -->
     <div id="productPage" class="page">
         <h2 style="margin-bottom: 20px; text-align: center;">የኢንቨስትመንት መኪናዎች ፍሊት</h2>
 
@@ -453,7 +455,7 @@
         <div class="product-card">
             <div class="product-img-box">
                 <div class="vip-tag">VIP 1</div>
-                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500&auto=format&fit=crop&q=60" alt="VIP 1 Car">
+                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500&auto=format&fit=crop&q=60" alt="VIP 1">
             </div>
             <div class="product-details">
                 <div class="product-title">Suzuki Swift GT</div>
@@ -468,7 +470,7 @@
         <div class="product-card">
             <div class="product-img-box">
                 <div class="vip-tag">VIP 2</div>
-                <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500&auto=format&fit=crop&q=60" alt="VIP 2 Car">
+                <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500&auto=format&fit=crop&q=60" alt="VIP 2">
             </div>
             <div class="product-details">
                 <div class="product-title">Toyota Corolla Cross</div>
@@ -483,7 +485,7 @@
         <div class="product-card">
             <div class="product-img-box">
                 <div class="vip-tag">VIP 3</div>
-                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=500&auto=format&fit=crop&q=60" alt="VIP 3 Car">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=500&auto=format&fit=crop&q=60" alt="VIP 3">
             </div>
             <div class="product-details">
                 <div class="product-title">Mercedes-Benz C200</div>
@@ -491,6 +493,36 @@
                 <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+600 ETB</span></div>
                 <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
                 <button class="invest-btn" onclick="goToDepositFromProduct(3600)">በ 3,600 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+
+        <!-- VIP 4 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 4</div>
+                <img src="https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=500&auto=format&fit=crop&q=60" alt="VIP 4">
+            </div>
+            <div class="product-details">
+                <div class="product-title">BMW 530i Premium</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">7,200 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+1,300 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(7200)">በ 7,200 ብር ዲፖዚት አድርግ</button>
+            </div>
+        </div>
+
+        <!-- VIP 5 -->
+        <div class="product-card">
+            <div class="product-img-box">
+                <div class="vip-tag">VIP 5</div>
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&auto=format&fit=crop&q=60" alt="VIP 5">
+            </div>
+            <div class="product-details">
+                <div class="product-title">Porsche Cayenne Coupe</div>
+                <div class="info-row"><span class="info-label">የምርት ዋጋ</span><span class="info-val">15,000 ETB</span></div>
+                <div class="info-row"><span class="info-label">ዕለታዊ ገቢ</span><span class="info-val green">+3,000 ETB</span></div>
+                <div class="info-row"><span class="info-label">የኮንትራት ጊዜ</span><span class="info-val">150 ቀናት</span></div>
+                <button class="invest-btn" onclick="goToDepositFromProduct(15000)">በ 15,000 ብር ዲፖዚት አድርግ</button>
             </div>
         </div>
     </div>
@@ -503,9 +535,9 @@
             <div id="myInviteCode" style="font-size: 28px; color: var(--accent-gold); font-weight:800; margin: 10px 0;">------</div>
             
             <p style="font-size: 13px; color:var(--text-muted); margin-top:10px;">የእርስዎ የሪፈራል መጋበዣ ሊንክ፡</p>
-            <div class="copy-link-box">
+            <div style="display:flex; gap:10px; margin-top:15px;">
                 <input type="text" id="shareLinkInput" class="form-control" readonly style="text-align:center; font-size:12px;">
-                <button class="copy-btn" onclick="copyReferralLink()">Copy</button>
+                <button class="copy-btn" style="background-color: var(--accent-gold); color: #000; border: none; padding: 0 15px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="copyReferralLink()">Copy</button>
             </div>
         </div>
 
@@ -513,10 +545,6 @@
             <div class="menu-item">
                 <div class="menu-left"><span>ጠቅላላ የተጋበዙ ሰዎች</span></div>
                 <span id="refCount" class="info-val">0 ሰው</span>
-            </div>
-            <div class="menu-item">
-                <div class="menu-left"><span>ኢንቨስት ያደረጉ (Valid)</span></div>
-                <span id="validRefCount" class="info-val green">0 ሰው</span>
             </div>
         </div>
     </div>
@@ -531,17 +559,80 @@
         </div>
 
         <div class="menu-list">
-            <div class="menu-item" onclick="openModal('bankModal')">
-                <div class="menu-left"><i class="fa-solid fa-credit-card"></i><span>የባንክ/ቴሌብር መረጃ</span></div>
-            </div>
             <div class="menu-item" onclick="logout()">
                 <div class="menu-left"><i class="fa-solid fa-right-from-bracket" style="color:#ff3b30"></i><span style="color:#ff3b30">ውጣ (Logout)</span></div>
             </div>
         </div>
     </div>
 
+    <!-- ================= 📊 🛠️ ADMIN PANEL PAGE (RETURNED COMPLETE!) ================= -->
+    <div id="adminPage" class="page">
+        <h2 style="color: var(--accent-gold); text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-user-shield"></i> ORS Admin Master Control</h2>
+        
+        <!-- STATS GRID -->
+        <div class="actions-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="action-btn" style="cursor:default;">
+                <span style="color:var(--text-muted);">Total Deposits</span>
+                <div id="adminTotalDeposit" style="font-size:20px; font-weight:800; color:var(--accent-green); margin-top:5px;">0.00 ETB</div>
+            </div>
+            <div class="action-btn" style="cursor:default;">
+                <span style="color:var(--text-muted);">Active Users</span>
+                <div id="adminTotalUsers" style="font-size:20px; font-weight:800; color:var(--accent-gold); margin-top:5px;">0</div>
+            </div>
+        </div>
+
+        <!-- CREATE PROMO CODE SECTION -->
+        <div class="admin-section">
+            <h3><i class="fa-solid fa-plus-circle"></i> Create Promo Code (አዲስ ፕሮሞ ኮድ ፍጠር)</h3>
+            <div class="form-group" style="margin-top:10px;">
+                <label>የኮዱ ስም (ለምሳሌ BONUS50)</label>
+                <input type="text" id="admPromoName" class="form-control" placeholder="BONUS50">
+            </div>
+            <div class="form-group">
+                <label>የብር መጠን (Value in ETB)</label>
+                <input type="number" id="admPromoValue" class="form-control" placeholder="100">
+            </div>
+            <button class="invest-btn" onclick="adminCreatePromo()">ኮድ ፍጠር</button>
+        </div>
+
+        <!-- WITHDRAW REQUESTS TABLE -->
+        <div class="admin-section">
+            <h3><i class="fa-solid fa-clock"></i> Withdraw Requests (የወጪ ጥያቄዎች)</h3>
+            <div style="overflow-x:auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User Phone</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminWithdrawTableBody">
+                        <tr><td colspan="4" style="text-align:center; color:var(--text-muted);">የወጪ ጥያቄ የለም</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TELEGRAM LINKS SECTION -->
+        <div class="admin-section">
+            <h3><i class="fa-brands fa-telegram"></i> Update System Links</h3>
+            <div class="form-group" style="margin-top:10px;">
+                <label>Telegram Channel Link</label>
+                <input type="text" id="admChanLink" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Support Bot Link</label>
+                <input type="text" id="admSuppLink" class="form-control">
+            </div>
+            <button class="invest-btn" style="background:var(--accent-green);" onclick="adminUpdateLinks()">ሊንኮችን ቀይር</button>
+        </div>
+    </div>
+
+
     <!-- ================= 📱 STICKY BOTTOM NAVIGATION ================= -->
-    <div class="bottom-nav">
+    <div id="mainBottomNav" class="bottom-nav">
         <div class="nav-item active" onclick="switchPage('homePage', this)">
             <i class="fa-solid fa-house"></i><span>Home</span>
         </div>
@@ -554,6 +645,7 @@
         <div class="nav-item" onclick="switchPage('profilePage', this)">
             <i class="fa-solid fa-user"></i><span>Profile</span>
         </div>
+        <!-- አድሚን ሲገባ ብቻ በ JS የሚታይ አምስተኛ በተን እዚህ ይፈጠራል -->
     </div>
 
     <!-- ================= 🚨 MODALS ================= -->
@@ -570,6 +662,8 @@
                     <option value="900">VIP 1 - 900 ETB</option>
                     <option value="1800">VIP 2 - 1,800 ETB</option>
                     <option value="3600">VIP 3 - 3,600 ETB</option>
+                    <option value="7200">VIP 4 - 7,200 ETB</option>
+                    <option value="15000">VIP 5 - 15,000 ETB</option>
                 </select>
             </div>
             
@@ -579,7 +673,7 @@
             </div>
             
             <div class="form-group">
-                <label>ከቴሌብር የመጣሎትን ሙሉ SMS እዚህ ይቅዱና ይለጥፉ</label>
+                <label>ከቴሌብር የመጣሎትን SMS እዚህ ይቅዱና ይለጥፉ</label>
                 <textarea id="depSms" class="form-control" rows="4" placeholder="Dear Customer, you have received..."></textarea>
             </div>
             <button class="invest-btn" onclick="submitDeposit()">ክፍያውን አረጋግጥ</button>
@@ -605,8 +699,8 @@
             <span class="close-modal" onclick="closeModal('promoModal')">&times;</span>
             <h3 style="margin-bottom:15px; text-align:center;">የቦነስ ፕሮሞ ኮድ</h3>
             <div class="form-group">
-                <label>የአድሚን ልዩ ቦነስ ኮድ ያስገቡ</label>
-                <input type="text" id="promoCodeInput" class="form-control">
+                <label>የፕሮሞ ቦነስ ኮድ ያስገቡ</label>
+                <input type="text" id="promoCodeInput" class="form-control" placeholder="CODE50">
             </div>
             <button class="invest-btn" onclick="submitPromo()">ቦነስ ተቀበል</button>
         </div>
@@ -626,7 +720,6 @@
                 toggleAuthTab('register');
                 document.getElementById('regPromo').value = refCode;
             }
-            
             checkAuthToken();
             fetchSystemLinks();
         };
@@ -635,11 +728,31 @@
             const token = localStorage.getItem('ors_token');
             if (token) {
                 document.getElementById('authPage').style.display = 'none';
-                document.getElementById('homePage').classList.add('active');
-                fetchUserProfile();
+                if (token === 'admin_master_token') {
+                    setupAdminNavigation();
+                    switchPage('adminPage');
+                } else {
+                    document.getElementById('homePage').classList.add('active');
+                    fetchUserProfile();
+                }
             } else {
                 document.getElementById('authPage').style.display = 'flex';
                 toggleAuthTab('login');
+            }
+        }
+
+        function setupAdminNavigation() {
+            const nav = document.getElementById('mainBottomNav');
+            nav.style.gridTemplateColumns = "repeat(5, 1fr)";
+            
+            // አድሚን ከሆነ አምስተኛ ማውጫ መፍጠር
+            if(!document.getElementById('navAdminBtn')) {
+                const adminBtn = document.createElement('div');
+                adminBtn.id = "navAdminBtn";
+                adminBtn.className = "nav-item";
+                adminBtn.innerHTML = `<i class="fa-solid fa-user-shield"></i><span>Admin</span>`;
+                adminBtn.onclick = function() { switchPage('adminPage', this); };
+                nav.appendChild(adminBtn);
             }
         }
 
@@ -657,49 +770,20 @@
             }
         }
 
-        async function processRegister() {
-            const phone = document.getElementById('regPhone').value.trim();
-            const password = document.getElementById('regPass').value;
-            const confirmPass = document.getElementById('regConfirmPass').value;
-            const promoCode = document.getElementById('regPromo').value.trim();
-
-            if (!phone || !password || !confirmPass) {
-                return alert('እባክዎ ሁሉንም ክፍት ቦታዎች ይሙሉ!');
-            }
-            if (password !== confirmPass) {
-                return alert('የይለፍ ቃላቶቹ አይዛመዱም!');
-            }
-
-            try {
-                const res = await fetch(`${BASE_URL}/api/auth/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone, password, promoCode })
-                });
-                const data = await res.json();
-                
-                if (res.ok) {
-                    alert('ምዝገባዎ በተሳካ ሁኔታ ተጠናቋል። አሁን መግባት (Login) ይችላሉ!');
-                    toggleAuthTab('login');
-                    document.getElementById('loginPhone').value = phone;
-                    document.getElementById('loginPass').value = '';
-                } else {
-                    alert(data.message);
-                }
-            } catch (e) { alert('የመመዝገብ ስህተት አጋጥሟል!'); }
-        }
-
         async function processLogin() {
             const phone = document.getElementById('loginPhone').value.trim();
             const password = document.getElementById('loginPass').value;
 
             if (!phone || !password) return alert('እባክዎ ስልክ እና ፓስወርድ ያስገቡ!');
 
+            // MASTER ADMIN LOGIN DIRECT ACCESS
             if (phone === "0905295422" && password === "406976") {
-                alert("እንኳን ደህና መጡ አድሚን!");
+                alert("እንኳን ደህና መጡ ዋና አድሚን!");
                 localStorage.setItem('ors_token', 'admin_master_token');
                 document.getElementById('authPage').style.display = 'none';
-                switchPage('homePage', document.querySelector('.nav-item'));
+                setupAdminNavigation();
+                switchPage('adminPage', document.getElementById('navAdminBtn'));
+                fetchAdminData();
                 return;
             }
 
@@ -715,76 +799,81 @@
                     document.getElementById('authPage').style.display = 'none';
                     switchPage('homePage', document.querySelector('.nav-item'));
                     fetchUserProfile();
-                } else {
-                    alert(data.message);
-                }
+                } else { alert(data.message); }
             } catch (e) { alert('የመግባት ስህተት!'); }
         }
 
+        async function processRegister() {
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPass').value;
+            const confirmPass = document.getElementById('regConfirmPass').value;
+            const promoCode = document.getElementById('regPromo').value.trim();
+
+            if (!phone || !password || !confirmPass) return alert('እባክዎ ሁሉንም ይሙሉ!');
+            if (password !== confirmPass) return alert('ፓስወርዱ አይዛመድም!');
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, password, promoCode })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert('ምዝገባው ተሳክቷል! አሁን ይግቡ።');
+                    toggleAuthTab('login');
+                    document.getElementById('loginPhone').value = phone;
+                } else { alert(data.message); }
+            } catch (e) { alert('የምዝገባ ስህተት!'); }
+        }
+
         function switchPage(pageId, element) {
-            if (!localStorage.getItem('ors_token')) return;
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             
             document.getElementById(pageId).classList.add('active');
             if(element) element.classList.add('active');
 
-            if(localStorage.getItem('ors_token') !== 'admin_master_token') {
+            const token = localStorage.getItem('ors_token');
+            if (token === 'admin_master_token') {
+                if(pageId === 'adminPage') fetchAdminData();
+            } else {
                 fetchUserProfile();
             }
         }
 
-        function openModal(id) { 
-            document.getElementById(id).style.display = 'flex'; 
-            if(id === 'depositModal') { PAGE_OPEN_TIME = Date.now(); }
-        }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; if(id==='depositModal') PAGE_OPEN_TIME=Date.now(); }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-        function goToDepositFromProduct(amt) {
-            document.getElementById('depAmount').value = amt;
-            switchPage('homePage', document.querySelector('.nav-item'));
-            openModal('depositModal');
-        }
+        function goToDepositFromProduct(amt) { document.getElementById('depAmount').value = amt; switchPage('homePage', document.querySelector('.nav-item')); openModal('depositModal'); }
 
         async function fetchUserProfile() {
             const token = localStorage.getItem('ors_token');
             if(!token || token === 'admin_master_token') return;
-
             try {
-                const res = await fetch(`${BASE_URL}/api/profile`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const res = await fetch(`${BASE_URL}/api/profile`, { headers: { 'Authorization': `Bearer ${token}` } });
                 if(res.ok) {
                     const data = await res.json();
                     document.getElementById('homeBalance').innerText = data.balance.toFixed(2);
                     document.getElementById('profilePhone').innerText = data.phone;
-                    
-                    const code = data.promoCode || "----";
-                    document.getElementById('myInviteCode').innerText = code;
-                    document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${code}`;
-
+                    document.getElementById('myInviteCode').innerText = data.promoCode || "----";
+                    document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${data.promoCode || ''}`;
                     document.getElementById('refCount').innerText = (data.referralsCount || 0) + " ሰው";
-                    document.getElementById('validRefCount').innerText = (data.validReferrals || 0) + " carrot";
                 }
-            } catch(e) { console.log(e); }
+            } catch(e){}
         }
 
         function copyReferralLink() {
-            const linkInput = document.getElementById('shareLinkInput');
-            if(!linkInput.value) return alert('ሊንክ አልተገኘም!');
-            linkInput.select();
-            linkInput.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(linkInput.value);
-            alert('የሪፈራል ሊንክዎ በተሳካ ሁኔታ ኮፒ ተደርጓል!');
+            const input = document.getElementById('shareLinkInput');
+            input.select();
+            navigator.clipboard.writeText(input.value);
+            alert('ሊንኩ ኮፒ ተደርጓል!');
         }
 
         async function submitDeposit() {
             const token = localStorage.getItem('ors_token');
             const amount = document.getElementById('depAmount').value;
             const smsText = document.getElementById('depSms').value;
-
-            if(!smsText) return alert('እባክዎ የቴሌብር SMS ፅሁፍ ሳጥኑ ውስጥ ይቅዱ!');
-
+            if(!smsText) return alert('SMS አስገቡ!');
             try {
                 const res = await fetch(`${BASE_URL}/api/deposit`, {
                     method: 'POST',
@@ -794,16 +883,15 @@
                 const data = await res.json();
                 alert(data.message);
                 if(res.ok) { closeModal('depositModal'); fetchUserProfile(); }
-            } catch(e) { alert('የዲፖዚት ጥያቄው አልተሳካም!'); }
+            } catch(e){ alert('ዲፖዚት አልተሳካም'); }
         }
 
         async function triggerCheckIn() {
             const token = localStorage.getItem('ors_token');
-            if(token === 'admin_master_token') return alert('አድሚን ቼክ-ኢን ማድረግ አይችልም!');
+            if(token === 'admin_master_token') return alert('Admin can\'t check in');
             const res = await fetch(`${BASE_URL}/api/checkin`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
             const data = await res.json();
-            alert(data.message);
-            fetchUserProfile();
+            alert(data.message); fetchUserProfile();
         }
 
         async function submitWithdraw() {
@@ -819,10 +907,99 @@
             if(res.ok) { closeModal('withdrawModal'); fetchUserProfile(); }
         }
 
+        async function submitPromo() {
+            const token = localStorage.getItem('ors_token');
+            const code = document.getElementById('promoCodeInput').value.trim();
+            const res = await fetch(`${BASE_URL}/api/promo/claim`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ code })
+            });
+            const data = await res.json();
+            alert(data.message);
+            if(res.ok) { closeModal('promoModal'); fetchUserProfile(); }
+        }
+
+        /* ================= 👑 ADMIN API OPERATIONS ================= */
+        async function fetchAdminData() {
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/dashboard`, {
+                    headers: { 'Authorization': `Bearer admin_master_token` }
+                });
+                if(res.ok) {
+                    const data = await res.json();
+                    document.getElementById('adminTotalDeposit').innerText = `${data.totalDeposits || 0} ETB`;
+                    document.getElementById('adminTotalUsers').innerText = data.totalUsers || 0;
+                    
+                    // የወጪ ጥያቄዎችን ሰንጠረዥ መሙላት
+                    const tbody = document.getElementById('adminWithdrawTableBody');
+                    tbody.innerHTML = '';
+                    if(data.withdrawRequests && data.withdrawRequests.length > 0) {
+                        data.withdrawRequests.forEach(req => {
+                            tbody.innerHTML += `
+                                <tr>
+                                    <td>${req.phone}</td>
+                                    <td>${req.amount} ETB</td>
+                                    <td><span style="color:orange;">${req.status}</span></td>
+                                    <td><button onclick="adminApproveWithdraw('${req._id}')" style="background:green; color:#000; border:none; padding:4px 8px; border-radius:4px; font-weight:700; cursor:pointer;">Approve</button></td>
+                                </tr>`;
+                        });
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">የወጪ ጥያቄ የለም</td></tr>`;
+                    }
+                }
+            } catch(e){}
+        }
+
+        async function adminCreatePromo() {
+            const name = document.getElementById('admPromoName').value.trim();
+            const value = document.getElementById('admPromoValue').value;
+            if(!name || !value) return alert('እባክዎ ሁሉንም ቦታ ይሙሉ!');
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/promo/create`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer admin_master_token` },
+                    body: JSON.stringify({ code: name, reward: parseFloat(value) })
+                });
+                const data = await res.json();
+                alert(data.message);
+                if(res.ok) { document.getElementById('admPromoName').value=''; document.getElementById('admPromoValue').value=''; }
+            } catch(e){ alert('ኮድ መፍጠር አልተሳካም'); }
+        }
+
+        async function adminApproveWithdraw(id) {
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/withdraw/approve/${id}`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer admin_master_token` }
+                });
+                const data = await res.json();
+                alert(data.message); fetchAdminData();
+            } catch(e){}
+        }
+
+        async function adminUpdateLinks() {
+            const chan = document.getElementById('admChanLink').value.trim();
+            const supp = document.getElementById('admSuppLink').value.trim();
+            try {
+                const res = await fetch(`${BASE_URL}/api/admin/system-links`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer admin_master_token` },
+                    body: JSON.stringify({ channelLink: chan, supportLink: supp })
+                });
+                if(res.ok) { alert('ሊንኮች ተቀይረዋል!'); fetchSystemLinks(); }
+            } catch(e){}
+        }
+
         async function fetchSystemLinks() {
             try {
                 const res = await fetch(`${BASE_URL}/api/system-links`);
-                if(res.ok) { sysLinks = await res.json(); }
+                if(res.ok) {
+                    sysLinks = await res.json();
+                    document.getElementById('admChanLink').value = sysLinks.channelLink || '';
+                    document.getElementById('admSuppLink').value = sysLinks.supportLink || '';
+                }
             } catch(e){}
         }
 
@@ -831,11 +1008,7 @@
             if(type === 'supp') window.open(sysLinks.supportLink, '_blank');
         }
 
-        function logout() {
-            localStorage.removeItem('ors_token');
-            alert('በተሳካ ሁኔታ ወጥተዋል!');
-            location.reload();
-        }
+        function logout() { localStorage.removeItem('ors_token'); alert('ወጥተዋል!'); location.reload(); }
     </script>
 </body>
 </html>
