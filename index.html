@@ -32,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* --- 🔐 AUTH SYSTEM PAGE (46347.jpg Style) --- */
+        /* --- 🔐 AUTH SYSTEM PAGE --- */
         #authPage {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -88,7 +88,7 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
 
-        /* --- 📱 BOTTOM NAVIGATION (46345_3.jpg Style) --- */
+        /* --- 📱 BOTTOM NAVIGATION --- */
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; width: 100%; height: 65px;
@@ -118,7 +118,7 @@
         .page { display: none; padding: 20px; }
         .page.active { display: block; }
 
-        /* --- 👤 MINE PAGE HEADER (46344_3.jpg) --- */
+        /* --- 👤 MINE PAGE HEADER --- */
         .profile-header-card {
             background: linear-gradient(180deg, #990000 0%, #06090e 100%);
             padding: 30px 20px;
@@ -159,7 +159,7 @@
         .stat-box-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
         .stat-box-value { font-size: 14px; font-weight: 700; color: var(--accent-red); }
 
-        /* --- 🎛️ MENU GRID LAYOUT (46344_3.jpg) --- */
+        /* --- 🎛️ MENU GRID LAYOUT --- */
         .menu-grid-items {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -174,12 +174,16 @@
             padding: 18px 10px;
             text-align: center;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .menu-grid-box i { font-size: 22px; color: var(--accent-red); display: block; margin-bottom: 8px; }
         .menu-grid-box span { font-size: 12px; color: var(--text-main); }
 
-        /* --- FORMS & INPUTS --- */
+        /* FORMS & INPUTS */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
         .form-control {
@@ -200,10 +204,10 @@
 </head>
 <body>
 
-    <!-- ================= 🔐 AUTH SYSTEM PAGE (46347.jpg) ================= -->
+    <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
     <div id="authPage">
         <div class="auth-container">
-            <!-- 46308_3.png እዚህ ላይ በጽሑፉ ምትክ ገብቷል -->
+            <!-- 46308_3.png በ Register/Login ገጽ ላይ -->
             <div class="auth-logo-wrapper">
                 <img src="46308_3.png" class="auth-logo-img" alt="ORS Logo">
             </div>
@@ -242,7 +246,7 @@
                 </div>
                 <div class="form-group">
                     <label>Invitation Code (Optional)</label>
-                    <input type="text" id="regPromo" class="form-control" placeholder="Optional - Leave empty if none">
+                    <input type="text" id="regPromo" class="form-control" placeholder="Optional">
                 </div>
                 <button class="invest-btn" onclick="processRegister()">CREATE ACCOUNT</button>
             </div>
@@ -250,10 +254,10 @@
     </div>
 
 
-    <!-- ================= 🏠 HOME PAGE (46345_3.jpg) ================= -->
+    <!-- ================= 🏠 HOME PAGE ================= -->
     <div id="homePage" class="page">
         <div style="text-align: center; padding: 20px 0; background: linear-gradient(180deg, #990000 0%, #06090e 100%); margin: -20px -20px 20px -20px;">
-            <!-- 46308_3.png በሆም ፔጁ ሎጎ ቦታ ላይ ገብቷል -->
+            <!-- 46308_3.png በሆም ፔጁ ሎጎ ቦታ ላይ -->
             <img src="46308_3.png" style="max-width: 120px; height: auto; margin-bottom: 8px; object-fit: contain;" alt="ORS Logo">
             <h2 style="font-weight: 800;">ORS PLATFORM</h2>
             <p style="font-size: 12px; color: var(--text-muted);">Investment Platform Engine</p>
@@ -275,7 +279,7 @@
             </div>
         </div>
 
-        <!-- ባዶ መካከለኛ ሳጥን (ከ46345_3.jpg ጋር አንድ አይነት) -->
+        <!-- መካከለኛ ባዶ ሳጥን -->
         <div style="width: 100%; height: 45px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px;"></div>
 
         <!-- የተሽከርካሪ ምስል ባነር -->
@@ -300,7 +304,7 @@
     </div>
 
 
-    <!-- ================= 👥 TEAM PAGE (46346_3.jpg) ================= -->
+    <!-- ================= 👥 TEAM PAGE ================= -->
     <div id="referralPage" class="page">
         <h2 style="text-align: center; margin-bottom: 20px;">Referral System Hub</h2>
         <div class="admin-section">
@@ -319,17 +323,17 @@
     </div>
 
 
-    <!-- ================= 👤 MINE PAGE (46344_3.jpg 100% ተመሳሳይ) ================= -->
+    <!-- ================= 👤 MINE PAGE ================= -->
     <div id="profilePage" class="page">
         <div class="profile-header-card">
-            <!-- 46308_3.png በፕሮፋይል ሎጎ ክፈፍ ውስጥ ገብቷል -->
+            <!-- 46308_3.png በፕሮፋይል ሎጎ ክረፍ ውስጥ -->
             <div class="profile-avatar-wrapper">
                 <img src="46308_3.png" alt="Profile Branding Logo">
             </div>
             <h3 id="profilePhone" style="font-size: 18px; font-weight: 700;">+251 9********</h3>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Verified ORS Premium Member</p>
 
-            <!-- 6 Matrix Boxes EXACTLY as 46344_3.jpg -->
+            <!-- 6 Matrix Boxes (Grid Layout) -->
             <div class="stats-block-grid">
                 <div class="stat-box-item"><div class="stat-box-title">BALANCE</div><div class="stat-box-value" id="mineBalance">0.00</div></div>
                 <div class="stat-box-item"><div class="stat-box-title">RECHARGE</div><div class="stat-box-value" id="mineRecharge">0.00</div></div>
@@ -340,7 +344,7 @@
             </div>
         </div>
 
-        <!-- Gift ሲነካ የሚከፈት የፕሮሞ ኮድ ማስገቢያ ሳጥን (ከተፈለገ ብቻ ይከፈታል) -->
+        <!-- Gift ሳጥን -->
         <div id="promoBox" class="admin-section" style="display:none; margin-top:-10px; margin-bottom:15px; border-color: var(--accent-gold);">
             <label style="font-size:13px; color:var(--text-muted); display:block; margin-bottom:6px;">Enter Promo / Gift Code:</label>
             <div style="display:flex; gap:10px;">
@@ -349,7 +353,7 @@
             </div>
         </div>
 
-        <!-- 9 Grid Operations Area (EXACTLY from 46344_3.jpg) -->
+        <!-- 9 Grid Operations Area -->
         <div class="menu-grid-items">
             <div class="menu-grid-box" onclick="switchPage('depositPage')"><i class="fa-solid fa-wallet"></i><span>Recharge</span></div>
             <div class="menu-grid-box" onclick="switchPage('withdrawPage')"><i class="fa-solid fa-money-check-dollar"></i><span>Withdraw</span></div>
@@ -359,12 +363,12 @@
             <div class="menu-grid-box" onclick="alert('No logs available')"><i class="fa-solid fa-clock-rotate-left"></i><span>Withdraw Log</span></div>
             <div class="menu-grid-box" onclick="alert('No active orders')"><i class="fa-solid fa-boxes-stacked"></i><span>Ordered Logs</span></div>
             
-            <div class="menu-box menu-grid-box" onclick="alert('Security protection layer active.')"><i class="fa-solid fa-shield-halved"></i><span>Security</span></div>
-            <div class="menu-box menu-grid-box" onclick="document.getElementById('promoBox').style.display='block';"><i class="fa-solid fa-gift"></i><span>Gift</span></div>
+            <div class="menu-grid-box" onclick="alert('Security protection layer active.')"><i class="fa-solid fa-shield-halved"></i><span>Security</span></div>
+            <div class="menu-grid-box" onclick="document.getElementById('promoBox').style.display='block';"><i class="fa-solid fa-gift"></i><span>Gift</span></div>
             <div class="menu-grid-box" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Sign out</span></div>
         </div>
 
-        <!-- 📞 Support Telegram Link Element -->
+        <!-- 📞 Support Telegram -->
         <div style="margin-top:20px; text-align:center;">
             <a href="https://t.me/your_telegram_support_username" target="_blank" style="color:var(--accent-red); text-decoration:none; font-size:14px; font-weight:bold;">
                 <i class="fa-solid fa-headset"></i> Contact Telegram Customer Support
@@ -407,7 +411,7 @@
     </div>
 
 
-    <!-- ================= 📱 BOTTOM STICKY NAV BAR (46345_3.jpg) ================= -->
+    <!-- ================= 📱 BOTTOM STICKY NAV BAR ================= -->
     <div id="mainBottomNav" class="bottom-nav">
         <div class="nav-item active" onclick="switchPage('homePage', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
         <div class="nav-item" onclick="switchPage('productPage', this)"><i class="fa-solid fa-car-sports"></i><span>Products</span></div>
@@ -417,7 +421,7 @@
     </div>
 
 
-    <!-- ================= 🛠️ JAVASCRIPT FIXED CONTROLLER ================= -->
+    <!-- ================= 🛠️ JAVASCRIPT Fixed CONTROLLER ================= -->
     <script>
         const BASE_URL = window.location.origin;
 
@@ -481,9 +485,7 @@
             if (!phone || !password || !confirmPass) return alert('Inputs required.');
             if (password !== confirmPass) return alert('Passwords mismatch.');
 
-            if (!promoCode) {
-                promoCode = "none";
-            }
+            if (!promoCode) { promoCode = "none"; }
 
             try {
                 const res = await fetch(`${BASE_URL}/api/auth/register`, {
