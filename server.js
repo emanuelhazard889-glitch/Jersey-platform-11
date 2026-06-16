@@ -105,13 +105,8 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-// ቋሚ የኤችቲኤምኤል ሰነዶችን ከህዝብ ማህደር (public folder) ለመጫን
-app.use(express.static(path.join(__dirname)));
-
-// --- SERVE HOMEPAGE DIRECTLY ---
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+// 💡 ማስተካከያ 1፦ ሁሉንም ስታቲክ ፋይሎች (HTML, CSS, JS) ከዋናው ዳይሬክተሪ በትክክል መጫኛ መስመር
+app.use(express.static(__dirname));
 
 // --- AUTH ROUTES ---
 app.post('/api/register', async (req, res) => {
@@ -119,7 +114,6 @@ app.post('/api/register', async (req, res) => {
         let { phone, password, confirmPassword, promoCode } = req.body;
         if (!phone || !password || !confirmPassword) return res.status(400).json({ message: 'የሚያስፈልጉ መረጃዎችን ሙሉ ያድርጉ' });
         
-        // የስልክ ቁጥሩን ፎርማት ማስተካከያ
         phone = formatPhoneNumber(phone.trim());
         password = password.trim();
         confirmPassword = confirmPassword.trim();
@@ -129,7 +123,6 @@ app.post('/api/register', async (req, res) => {
         const existingUser = await User.findOne({ phone });
         if (existingUser) return res.status(400).json({ message: 'ይህ ስልክ ቁጥር ከዚህ በፊት ተመዝግቧል!' });
 
-        // የራሱ አውቶማቲክ 6 ዲጂት የሪፈራል ፕሮሞ ኮድ ማመንጫ
         let uniquePromo = Math.floor(100000 + Math.random() * 900000).toString();
         let referredByUser = null;
         if (promoCode) { referredByUser = await User.findOne({ promoCode: promoCode.trim() }); }
@@ -140,7 +133,7 @@ app.post('/api/register', async (req, res) => {
             password: hashedPassword,
             promoCode: uniquePromo,
             referredBy: referredByUser ? referredByUser.phone : null,
-            balance: 300 // በሪጅስተር ሰዓት 300 ብር ቦነስ መስጫ
+            balance: 300 
         });
 
         await newUser.save();
@@ -161,7 +154,6 @@ app.post('/api/login', async (req, res) => {
         phone = formatPhoneNumber(phone.trim());
         password = password.trim();
         
-        // የአድሚን መግቢያ ቁጥጥር
         if (phone === '0905295422' && password === '406976') {
             const token = jwt.sign({ id: 'ADMIN', isAdmin: true }, 'ORS_SECRET_KEY_2026');
             return res.json({ token, isAdmin: true });
@@ -333,7 +325,7 @@ app.post('/api/withdraw', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: 'እባክዎ መጀመሪያ በፕሮፋይልዎ ገጽ ላይ የባንክ አካውንት እና ሙሉ ስምዎን ይመዝግቡ!' });
     }
     if (withdrawAmount < 300) {
-        return res.status(400).json({ message: 'አነስተኛው የወጪ መጠን ገደብ 300 ብር ነው።' });
+        return res.status(400).json({ message: 'አነስተኛው የወጪ መጠንገደብ 300 ብር ነው።' });
     }
     if (req.user.balance < withdrawAmount) {
         return res.status(400).json({ message: 'በቂ ቀሪ ሂሳብ (Balance) በአካውንትዎ ላይ የለም።' });
@@ -455,7 +447,12 @@ app.post('/api/admin/update-links', verifyAdmin, async (req, res) => {
     res.json({ message: 'ኦፊሴላዊ የቴሌግራም መጋጠሚያ ሊንኮች ተለውጠዋል!' });
 });
 
-// PASSIVE DYNAMIC VIP DAILY INCOME AUTOMATION SIMULATOR (Every 24 Hours)
+// 💡 ማስተካከያ 2፦ ሁሉንም ሌሎች የኤችቲኤምኤል ጥያቄዎችን (index.html, game.html ወዘተ) በትክክል ማዞሪያ (Wildcard Router)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// PASSIVE DYNAMIC VIP DAILY INCOME AUTOMATION SIMULATOR
 setInterval(async () => {
     try {
         const users = await User.find({ "products.0": { $exists: true } });
