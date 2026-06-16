@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// የዳታቤዝ ግንኙነት መስመር
+// የዳታቤዝ ግንኙነት መስመር (MongoDB Atlas Connection)
 const MONGODB_URI = "mongodb+srv://Alpha:406976aaa@cluster0.sgcjmyi.mongodb.net/ors_platform?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose.connect(MONGODB_URI)
@@ -75,6 +75,17 @@ async function initConfig() {
 }
 initConfig();
 
+// የፓስወርድ እና የስልክ ቁጥር ቅርጸትን ለማስተካከል የሚረዳ አጋዥ ፋንክሽን
+function formatPhoneNumber(phone) {
+    let clean = phone.replace(/[\s+]/g, ''); // ክፍት ቦታዎችን እና + ምልክትን ያጠፋል
+    if (clean.startsWith('2510')) {
+        clean = '0' + clean.slice(4);
+    } else if (clean.startsWith('251')) {
+        clean = '0' + clean.slice(3);
+    }
+    return clean; // ሁልጊዜም በ '09...' ወይም '07...' እንዲጀምር ያደርጋል
+}
+
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -94,6 +105,9 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+// ቋሚ የኤችቲኤምኤል ሰነዶችን ከህዝብ ማህደር (public folder) ለመጫን
+app.use(express.static(path.join(__dirname)));
+
 // --- SERVE HOMEPAGE DIRECTLY ---
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -102,8 +116,14 @@ app.get('/', (req, res) => {
 // --- AUTH ROUTES ---
 app.post('/api/register', async (req, res) => {
     try {
-        const { phone, password, confirmPassword, promoCode } = req.body;
+        let { phone, password, confirmPassword, promoCode } = req.body;
         if (!phone || !password || !confirmPassword) return res.status(400).json({ message: 'የሚያስፈልጉ መረጃዎችን ሙሉ ያድርጉ' });
+        
+        // የስልክ ቁጥሩን ፎርማት ማስተካከያ
+        phone = formatPhoneNumber(phone.trim());
+        password = password.trim();
+        confirmPassword = confirmPassword.trim();
+
         if (password !== confirmPassword) return res.status(400).json({ message: 'የገቡት ሁለቱ የይለፍ ቃላት አይመሳሰሉም!' });
 
         const existingUser = await User.findOne({ phone });
@@ -134,23 +154,31 @@ app.post('/api/register', async (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
-    const { phone, password } = req.body;
-    
-    // የአድሚን መግቢያ ቁጥጥር
-    if (phone === '0905295422' && password === '406976') {
-        const token = jwt.sign({ id: 'ADMIN', isAdmin: true }, 'ORS_SECRET_KEY_2026');
-        return res.json({ token, isAdmin: true });
+    try {
+        let { phone, password } = req.body;
+        if (!phone || !password) return res.status(400).json({ message: 'እባክዎ ስልክ እና ፓስወርድ ያስገቡ!' });
+
+        phone = formatPhoneNumber(phone.trim());
+        password = password.trim();
+        
+        // የአድሚን መግቢያ ቁጥጥር
+        if (phone === '0905295422' && password === '406976') {
+            const token = jwt.sign({ id: 'ADMIN', isAdmin: true }, 'ORS_SECRET_KEY_2026');
+            return res.json({ token, isAdmin: true });
+        }
+
+        const user = await User.findOne({ phone });
+        if (!user) return res.status(400).json({ message: 'ያልተመዘገበ ስልክ ወይም የተሳሳተ ሚስጥር ቃል!' });
+        if (user.isBanned) return res.status(400).json({ message: 'አካውንትዎ በህግ ታግዷል! እባክዎ ሰፓርት ያነጋግሩ።' });
+
+        const validPass = await bcrypt.compare(password, user.password);
+        if (!validPass) return res.status(400).json({ message: 'የተሳሳተ ሚስጥር ቃል ገብቷል!' });
+
+        const token = jwt.sign({ id: user._id, isAdmin: false }, 'ORS_SECRET_KEY_2026');
+        res.json({ token, isAdmin: false });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-
-    const user = await User.findOne({ phone });
-    if (!user) return res.status(400).json({ message: 'ያልተመዘገበ ስልክ ወይም የተሳሳተ ሚስጥር ቃል!' });
-    if (user.isBanned) return res.status(400).json({ message: 'አካውንትዎ በህግ ታግዷል! እባክዎ ሰፓርት ያነጋግሩ።' });
-
-    const validPass = await bcrypt.compare(password, user.password);
-    if (!validPass) return res.status(400).json({ message: 'የተሳሳተ ሚስጥር ቃል ገብቷል!' });
-
-    const token = jwt.sign({ id: user._id, isAdmin: false }, 'ORS_SECRET_KEY_2026');
-    res.json({ token, isAdmin: false });
 });
 
 // --- USER FEATURES ---
@@ -197,7 +225,6 @@ app.post('/api/promo-bonus', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: 'ይህንን የቦነስ ኮድ ከዚህ በፊት ተጠቅመውበታል!' });
     }
 
-    // ከ1 እስከ 10 ብር በዘፈቀደ (Randomly) መደብ
     const bonus = Math.floor(Math.random() * 10) + 1;
     req.user.balance += bonus;
     
@@ -212,19 +239,16 @@ app.post('/api/promo-bonus', authenticateToken, async (req, res) => {
 app.post('/api/deposit', authenticateToken, async (req, res) => {
     const { amount, smsText, pageOpenTime } = req.body;
     
-    // 1. የ30 ደቂቃ የገጽ ክፍታ ጊዜ መቆጣጠሪያ
     const timeElapsed = (Date.now() - new Date(pageOpenTime).getTime()) / 1000 / 60;
     if (timeElapsed > 30) {
         return res.status(400).json({ message: 'የዲፖዚት ገጽ ክፍለ-ጊዜ (30 ደቂቃ) አልፏል! እባክዎ ገጹን ሪፍሬሽ አድርገው በድጋሚ ይሞክሩ።' });
     }
 
-    // 3. በSMS ውስጥ "Emawayit", "1136" እና "Dear" መኖራቸውን ማረጋገጫ (Case-Insensitive)
     const lowerSms = smsText.toLowerCase();
     if (!lowerSms.includes('emawayit') || !lowerSms.includes('1136') || !lowerSms.includes('dear')) {
         return res.status(400).json({ message: 'የገቡት የቴሌብር SMS ይዘት ትክክለኛ አይደለም ወይም የ"Emawayit/1136" መረጃ የለውም።' });
     }
 
-    // 2. ከSMS ላይ የብር መጠንን ፈልጎ ማውጣትና ከመረጡት መጠን ጋር ማነጻጸር
     const matchAmt = smsText.match(/(?:received|sent|transferred)\s([0-9.,\d]+)\s?ETB/i) || smsText.match(/([0-9.,\d]+)\s?Birr/i);
     const parsedAmount = matchAmt ? parseFloat(matchAmt[1].replace(/,/g, '')) : null;
 
@@ -232,7 +256,6 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: 'በSMS ላይ ያለው የገንዘብ መጠንና በመረጡት የፓኬጅ መጠን ላይ ልዩነት አለ!' });
     }
 
-    // የትራንዛክሽን አይዲ (TxID) ማውጫ ሎጂክ
     const matchTx = smsText.match(/Transaction\s?ID\s?([A-Z0-9]+)/i) || smsText.match(/Ref\s?No\.?\s?([A-Z0-9]+)/i);
     const txId = matchTx ? matchTx[1].toUpperCase() : null;
 
@@ -240,7 +263,6 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: 'የቴሌብር የትራንዛክሽን መለያ ቁጥር (Transaction ID) ከፅሁፉ ላይ ማግኘት አልተቻለም።' });
     }
 
-    // 4. የትራንዛክሽን መለያው ከዚህ በፊት ጥቅም ላይ መዋሉን ማረጋገጫ
     const config = await SystemConfig.findOne();
     if (config.usedTxIds.includes(txId)) {
         return res.status(400).json({ message: 'ይህ የትራንዛክሽን መለያ ቁጥር (Transaction ID) ቀደም ሲል ጥቅም ላይ ውሏል!' });
@@ -248,7 +270,6 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
 
     req.user.balance += parsedAmount;
     
-    // በዲፖዚት መጠን ልክ ራሱ አውቶማቲክ ምርቱን (VIP) የመግዛት መዋቅር
     let autoVip = null;
     let dailyInc = 0;
     if (parsedAmount === 900) { autoVip = 1; dailyInc = 100; }
@@ -267,24 +288,23 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
         });
     }
 
-    // የ3 ደረጃ የሪፈራል ክፍያ ክፍፍል (ዲፖዚት ሲያደርጉ ብቻ የሚታሰብ)
     if (req.user.referredBy) {
         const lvl1 = await User.findOne({ phone: req.user.referredBy });
         if (lvl1) {
-            lvl1.balance += (parsedAmount * 0.20); // Level 1 = 20%
+            lvl1.balance += (parsedAmount * 0.20);
             lvl1.validReferrals += 1;
             await lvl1.save();
 
             if (lvl1.referredBy) {
                 const lvl2 = await User.findOne({ phone: lvl1.referredBy });
                 if (lvl2) {
-                    lvl2.balance += (parsedAmount * 0.02); // Level 2 = 2%
+                    lvl2.balance += (parsedAmount * 0.02);
                     await lvl2.save();
 
                     if (lvl2.referredBy) {
                         const lvl3 = await User.findOne({ phone: lvl2.referredBy });
                         if (lvl3) {
-                            lvl3.balance += (parsedAmount * 0.01); // Level 3 = 1%
+                            lvl3.balance += (parsedAmount * 0.01);
                             await lvl3.save();
                         }
                     }
@@ -301,12 +321,11 @@ app.post('/api/deposit', authenticateToken, async (req, res) => {
     res.json({ message: autoVip ? `ክፍያዎ ተረጋግጧል! VIP ${autoVip} ምርት በራስ-ሰር ተገዝቷል!` : 'Deposit Approved!', balance: req.user.balance });
 });
 
-// WITHDRAW REQUESTS WITH 15% DEDUCTION & BANK INFO SAVE
+// WITHDRAW REQUESTS
 app.post('/api/withdraw', authenticateToken, async (req, res) => {
     const { amount } = req.body;
     const withdrawAmount = parseFloat(amount);
 
-    // ምርት (VIP) ያልገዛ ሰው ወጪ ማድረግ አይችልም
     if (req.user.products.length === 0) {
         return res.status(400).json({ message: 'የወጪ ጥያቄ ለማቅረብ ቢያንስ አንድ የቪአይፒ (VIP) ምርት መግዛት ይኖርብዎታል።' });
     }
@@ -320,20 +339,18 @@ app.post('/api/withdraw', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: 'በቂ ቀሪ ሂሳብ (Balance) በአካውንትዎ ላይ የለም።' });
     }
 
-    // የ 15% አገልግሎት ክፍያ ስሌት እና የተጣራ መጠን ማውጫ
     const fee = withdrawAmount * 0.15;
     const netAmount = withdrawAmount - fee;
 
     req.user.balance -= withdrawAmount;
     await req.user.save();
 
-    // እዚህ ላይ bankName እና bankAccount አብረው ይመዘገባሉ
     await Transaction.create({
         phone: req.user.phone,
         type: 'withdraw',
         amount: withdrawAmount,
         fee: fee,
-        netAmount: netAmount, // በአድሚን ፓናል ላይ 15% ቀንሶ የሚታየው
+        netAmount: netAmount,
         bankName: req.user.bankName,
         bankAccount: req.user.bankAccount,
         status: 'pending'
@@ -369,7 +386,6 @@ app.get('/api/admin/dashboard', verifyAdmin, async (req, res) => {
     const totalWith = await Transaction.aggregate([ { $match: { type: 'withdraw', status: 'success' } }, { $group: { _id: null, total: { $sum: '$amount' } } } ]);
     const pendingWith = await Transaction.aggregate([ { $match: { type: 'withdraw', status: 'pending' } }, { $group: { _id: null, total: { $sum: '$netAmount' } } } ]);
     
-    // ሁሉንም የዊዝድሮው ጥያቄዎች ከአካውንት መረጃቸው ጋር አውጥቶ መላኪያ
     const pendingRequests = await Transaction.find({ type: 'withdraw', status: 'pending' })
                                              .select('phone amount fee netAmount bankName bankAccount createdAt')
                                              .sort({ createdAt: -1 });
@@ -378,7 +394,7 @@ app.get('/api/admin/dashboard', verifyAdmin, async (req, res) => {
         totalMembers: totalUsers,
         totalDeposit: totalDep[0]?.total || 0,
         totalWithdraw: totalWith[0]?.total || 0,
-        pendingWithdraw: pendingWith[0]?.total || 0, // 15% ተቀንሶ የቀረው ጠቅላላ በሂደት ላይ ያለ
+        pendingWithdraw: pendingWith[0]?.total || 0, 
         pendingRequests
     });
 });
@@ -391,7 +407,7 @@ app.post('/api/admin/generate-promo', verifyAdmin, async (req, res) => {
             generatedCode += letters.charAt(Math.floor(Math.random() * letters.length));
         }
         const expires = new Date();
-        expires.setHours(expires.getHours() + 24); // ለ24 ሰዓት ብቻ የሚያገለግል ኮድ
+        expires.setHours(expires.getHours() + 24);
 
         const newPromo = new AdminPromo({
             code: generatedCode,
@@ -406,14 +422,16 @@ app.post('/api/admin/generate-promo', verifyAdmin, async (req, res) => {
 });
 
 app.post('/api/admin/search-user', verifyAdmin, async (req, res) => {
-    const { phone } = req.body;
+    let { phone } = req.body;
+    phone = formatPhoneNumber(phone.trim());
     const target = await User.findOne({ phone }).select('-password');
     if (!target) return res.status(404).json({ message: 'የተጠቃሚው ስልክ ቁጥር በሲስተሙ ላይ አልተገኘም!' });
     res.json(target);
 });
 
 app.post('/api/admin/action-user', verifyAdmin, async (req, res) => {
-    const { phone, action, amount } = req.body;
+    let { phone, action, amount } = req.body;
+    phone = formatPhoneNumber(phone.trim());
     const target = await User.findOne({ phone });
     if (!target) return res.status(404).json({ message: 'User not found' });
 
@@ -426,7 +444,7 @@ app.post('/api/admin/action-user', verifyAdmin, async (req, res) => {
 });
 
 app.post('/api/admin/approve-withdraw', verifyAdmin, async (req, res) => {
-    const { id } = req.body; // የትራንዛክሽን ሰነድ መለያ ID
+    const { id } = req.body;
     await Transaction.findByIdAndUpdate(id, { status: 'success' });
     res.json({ message: 'የወጪ ጥያቄው ፀድቋል (Approved Successfully)!' });
 });
@@ -465,7 +483,7 @@ setInterval(async () => {
     } catch (err) {
         console.error('Error in Daily Income Scheduler:', err);
     }
-}, 1000 * 60 * 30); // በየ30 ደቂቃው ቼክ ያደርጋል
+}, 1000 * 60 * 30); 
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`ORS Database cluster engine online on port ${PORT}`));
