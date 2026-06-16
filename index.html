@@ -1307,9 +1307,6 @@ function performLogout() {
     switchAuthTab('login');
     showToast("Secure context token destroyed. Signed out.");
 }
-
-// --- መስመር 1308 አካባቢ ---
-// ይህንን ክፍል ከ </script> በፊት አክል
 window.onload = function() {
     const savedUser = localStorage.getItem('activeUser');
     const savedDB = localStorage.getItem('usersDatabase');
