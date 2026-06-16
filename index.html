@@ -1298,13 +1298,32 @@
         function openSupportLink() { window.open(targetSupportLink, '_blank'); }
         function openOfficialChannel() { window.open(targetTelegramChannel, '_blank'); }
         
-        function performLogout() {
-            currentActiveUser = null;
-            document.getElementById('appBottomNav').style.display = 'none';
-            switchScreen('auth');
-            switchAuthTab('login');
-            showToast("Secure context token destroyed. Signed out.");
-        }
-    </script>
+        // --- መስመር 1300 አካባቢ ---
+function performLogout() {
+    currentUser = null;
+    localStorage.removeItem('activeUser'); // መረጃውን ያጠፋል
+    document.getElementById('appBottomNav').style.display = 'none';
+    switchScreen('auth');
+    switchAuthTab('login');
+    showToast("Secure context token destroyed. Signed out.");
+}
+
+// --- መስመር 1308 አካባቢ ---
+// ይህንን ክፍል ከ </script> በፊት አክል
+window.onload = function() {
+    const savedUser = localStorage.getItem('activeUser');
+    const savedDB = localStorage.getItem('usersDatabase');
+    
+    if (savedDB) {
+        usersDatabase = JSON.parse(savedDB);
+    }
+    
+    if (savedUser && usersDatabase[savedUser]) {
+        currentUser = savedUser;
+        switchScreen('home'); // ወይም ወደ ዋናው ገጽ
+        updateAllInterfaceMetrics();
+    }
+};
+</script>
 </body>
 </html>
