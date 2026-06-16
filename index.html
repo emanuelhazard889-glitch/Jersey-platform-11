@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-main: #0d1117;
-            --bg-card: #161b22;
-            --accent-red: #ea4335;
-            --accent-gold: #ffea00;
+            --bg-main: #06090e;
+            --bg-card: #0b0e14;
+            --accent-red: #ff5a5a;
+            --accent-gold: #b58928;
             --accent-green: #00e676;
             --text-main: #ffffff;
-            --text-muted: #8b949e;
-            --border-color: #30363d;
+            --text-muted: #a0a5b5;
+            --border-color: #1a1f29;
         }
 
         * {
@@ -33,14 +33,11 @@
             overflow-x: hidden;
         }
 
-        /* --- 🔐 AUTH PAGE WITH BACKGROUND IMAGE --- */
+        /* --- 🔐 AUTH PAGE --- */
         #authPage {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)), url('46308_2.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: var(--bg-main);
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -50,27 +47,27 @@
         }
 
         .auth-container {
-            background-color: rgba(22, 27, 34, 0.95);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             width: 100%;
             max-width: 400px;
             padding: 30px 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
         }
 
         .auth-logo-top {
             display: block;
-            max-width: 120px;
+            max-width: 100px;
             margin: 0 auto 15px;
+            border-radius: 50%;
         }
 
         .auth-title {
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
-            color: var(--accent-gold);
+            color: #fff;
             margin-bottom: 25px;
             letter-spacing: 1px;
         }
@@ -88,12 +85,11 @@
             cursor: pointer;
             color: var(--text-muted);
             font-weight: 600;
-            font-size: 16px;
         }
 
         .auth-tab.active {
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--accent-gold);
+            color: var(--accent-red);
+            border-bottom: 2px solid var(--accent-red);
         }
 
         .auth-form {
@@ -104,35 +100,28 @@
             display: block;
         }
 
-        /* --- 📱 PAGES & NAVIGATION --- */
+        /* --- 📱 PAGES --- */
         .page {
             display: none;
             padding: 20px;
-            animation: fadeIn 0.4s ease-in-out;
         }
 
         .page.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- 💳 DASHBOARD BOX (Profile Top Red Style like 46343.jpg) --- */
+        /* --- 💳 DASHBOARD BOX (46344_2.jpg Style) --- */
         .profile-header-card {
-            background: linear-gradient(180deg, #990000 0%, #161b22 100%);
+            background: linear-gradient(180deg, #990000 0%, #06090e 100%);
             padding: 30px 20px;
             text-align: center;
-            border-bottom: 1px solid var(--border-color);
             margin: -20px -20px 20px -20px;
         }
 
         .profile-avatar-wrapper {
             width: 80px;
             height: 80px;
-            background-color: var(--bg-main);
+            background-color: var(--bg-card);
             border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
@@ -148,7 +137,6 @@
             object-fit: cover;
         }
 
-        /* Stats Grid from 46343.jpg */
         .stats-block-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -157,7 +145,7 @@
         }
 
         .stat-box-item {
-            background-color: rgba(13, 17, 23, 0.6);
+            background-color: rgba(11, 14, 20, 0.8);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 12px 5px;
@@ -177,136 +165,7 @@
             color: var(--accent-red);
         }
 
-        /* --- 🎛️ ACTION GRID --- */
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .action-btn {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px 10px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .action-btn i {
-            font-size: 24px;
-            margin-bottom: 8px;
-            color: var(--accent-gold);
-            display: block;
-        }
-
-        .action-btn span {
-            font-size: 12px;
-        }
-
-        /* --- 🚗 PRODUCT CARDS --- */
-        .product-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .product-img-box {
-            width: 100%;
-            height: 200px;
-            background-color: #0b0e14;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 10px;
-        }
-
-        .product-img-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .vip-tag {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: linear-gradient(45deg, #b58928, #ffea00);
-            color: #000;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            z-index: 10;
-        }
-
-        .product-details {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .info-label { color: var(--text-muted); }
-        .info-val { font-weight: 600; }
-        .info-val.green { color: var(--accent-green); }
-
-        .invest-btn {
-            width: 100%;
-            background: linear-gradient(90deg, #ffc107, #ffea00);
-            color: #000;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        /* --- 📥 FORMS & INPUTS --- */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .form-control {
-            width: 100%;
-            background-color: #0d1117;
-            border: 1px solid var(--border-color);
-            color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-gold);
-        }
-
-        /* --- 👤 PROFILE MENU --- */
+        /* --- 🎛️ MENU GRID (46344_2.jpg Layout) --- */
         .menu-grid-items {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -335,7 +194,93 @@
             color: var(--text-main);
         }
 
-        /* --- 📊 ADMIN ADMIN ADMIN TABLES --- */
+        /* --- 🚗 PRODUCT CARDS --- */
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .product-img-box {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .vip-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(45deg, #b58928, #ffea00);
+            color: #000;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-label { color: var(--text-muted); }
+        .info-val { font-weight: 600; }
+
+        .invest-btn {
+            width: 100%;
+            background-color: var(--accent-red);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* --- 📥 FORMS & INPUTS --- */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        /* --- 📊 TABLES --- */
         .admin-section {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -343,18 +288,6 @@
             padding: 15px;
             margin-bottom: 20px;
         }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 12px;
-        }
-        .admin-table th, .admin-table td {
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            text-align: left;
-        }
-        .admin-table th { background-color: #0d1117; color: var(--accent-gold); }
 
         /* --- 📱 BOTTOM STICKY MENU --- */
         .bottom-nav {
@@ -364,7 +297,7 @@
             background-color: var(--bg-card);
             border-top: 1px solid var(--border-color);
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             align-items: center;
             text-align: center;
             z-index: 1000;
@@ -382,24 +315,16 @@
 
         .nav-item i { font-size: 20px; }
         .nav-item.active { color: var(--accent-red); }
-
-        .fee-calc-box {
-            background: #0d1117;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 8px;
-            border: 1px dashed var(--border-color);
-            font-size: 13px;
-        }
     </style>
 </head>
 <body>
 
-    <!-- ================= 🔐 AUTH SYSTEM PAGE ================= -->
+    <!-- ================= 🔐 AUTH SYSTEM PAGE WITH ORS LOGO ================= -->
     <div id="authPage">
         <div class="auth-container">
-            <img src="46308_2.png" class="auth-logo-top" alt="ORS Logo">
-            <div class="auth-title">ORS PREMIUM</div>
+            <!-- ORS Version Logo Added Here -->
+            <img src="46308_2.png" class="auth-logo-top" alt="ORS Logo" onerror="this.src='https://via.placeholder.com/100'">
+            <div class="auth-title">ORS PREMIUM FLEET</div>
             
             <div class="auth-tabs">
                 <div id="tabLogin" class="auth-tab active" onclick="toggleAuthTab('login')">Login</div>
@@ -416,7 +341,7 @@
                     <label>Password</label>
                     <input type="password" id="loginPass" class="form-control" placeholder="******">
                 </div>
-                <button class="invest-btn" style="background: var(--accent-red); color:#fff;" onclick="processLogin()">LOG IN</button>
+                <button class="invest-btn" onclick="processLogin()">LOG IN</button>
             </div>
 
             <!-- REGISTER FORM -->
@@ -435,422 +360,203 @@
                 </div>
                 <div class="form-group">
                     <label>Invitation Code (Optional)</label>
-                    <input type="text" id="regPromo" class="form-control" placeholder="Referral code">
+                    <input type="text" id="regPromo" class="form-control" placeholder="Optional - Leave empty if none">
                 </div>
-                <button class="invest-btn" style="background: var(--accent-red); color:#fff;" onclick="processRegister()">CREATE ACCOUNT</button>
+                <button class="invest-btn" onclick="processRegister()">CREATE ACCOUNT</button>
             </div>
         </div>
     </div>
 
 
-    <!-- ================= 🏠 HOME PAGE (46342.jpg Style) ================= -->
-    <div id="homePage" class="page active">
-        <div style="text-align: center; padding: 20px 0; background: linear-gradient(180deg, #990000 0%, #0d1117 100%); margin: -20px -20px 20px -20px;">
-            <img src="46308_2.png" style="max-width: 100px; margin-bottom: 10px;" alt="ORS Logo">
-            <h2 style="font-weight: 800; letter-spacing: 1px;">ORS PLATFORM</h2>
+    <!-- ================= 🏠 HOME PAGE (46345_2.jpg Style) ================= -->
+    <div id="homePage" class="page">
+        <div style="text-align: center; padding: 20px 0; background: linear-gradient(180deg, #990000 0%, #06090e 100%); margin: -20px -20px 20px -20px;">
+            <img src="46308_2.png" style="max-width: 80px; margin-bottom: 10px; border-radius: 50%;" alt="ORS Logo">
+            <h2 style="font-weight: 800;">ORS PLATFORM</h2>
             <p style="font-size: 12px; color: var(--text-muted);">Investment Platform Engine</p>
         </div>
 
-        <div class="actions-grid">
-            <div class="action-btn" onclick="switchPage('depositPage')">
-                <i class="fa-solid fa-money-bill-transfer" style="color: var(--accent-red);"></i>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+            <div class="menu-grid-box" onclick="switchPage('depositPage')">
+                <i class="fa-solid fa-money-bill-transfer"></i>
                 <span>Deposit</span>
             </div>
-            <div class="action-btn" onclick="switchPage('withdrawPage')">
-                <i class="fa-solid fa-building-columns" style="color: var(--accent-red);"></i>
+            <div class="menu-grid-box" onclick="switchPage('withdrawPage')">
+                <i class="fa-solid fa-building-columns"></i>
                 <span>Withdraw</span>
             </div>
-            <div class="action-btn" onclick="triggerCheckIn()">
-                <i class="fa-solid fa-calendar-check" style="color: var(--accent-red);"></i>
+            <div class="menu-grid-box" onclick="triggerCheckIn()">
+                <i class="fa-solid fa-calendar-check"></i>
                 <span>Check In</span>
             </div>
         </div>
 
-        <!-- Sliding Notice Placeholder -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; font-size: 13px; color: var(--accent-red); margin-bottom: 20px; overflow: hidden; white-space: nowrap;">
-            <marquee scrollamount="4">Investment Daily Revenue Update • Financial Performance Stable • Platform Systems Active</marquee>
-        </div>
-
-        <!-- Banner Asset Element -->
+        <!-- Car Image Asset -->
         <div style="width:100%; border-radius:12px; overflow:hidden; margin-bottom:20px; border:1px solid var(--border-color);">
-            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&auto=format&fit=crop&q=60" style="width:100%; display:block;" alt="ORS Fleet Banner">
+            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&auto=format&fit=crop&q=60" style="width:100%; display:block;" alt="Tesla Banner">
         </div>
     </div>
 
-    <!-- ================= 🚗 PRODUCT/VIP PAGE ================= -->
+
+    <!-- ================= 🚗 PRODUCTS PAGE ================= -->
     <div id="productPage" class="page">
         <h2 style="margin-bottom: 20px; text-align: center;">Investment Fleet Vehicles</h2>
-
         <!-- VIP 1 -->
         <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 1</div>
-                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500&auto=format&fit=crop&q=60" alt="VIP 1">
-            </div>
+            <div class="product-img-box"><div class="vip-tag">VIP 1</div><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500" alt="Car"></div>
             <div class="product-details">
-                <div class="product-title">Suzuki Swift GT</div>
+                <div style="font-size:18px; font-weight:700; margin-bottom:10px;">Suzuki Swift GT</div>
                 <div class="info-row"><span class="info-label">Product Price</span><span class="info-val">900 ETB</span></div>
-                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val green">+100 ETB</span></div>
-                <div class="info-row"><span class="info-label">Contract Period</span><span class="info-val">150 Days</span></div>
+                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val" style="color:var(--accent-green)">+100 ETB</span></div>
                 <button class="invest-btn" onclick="goToDepositFromProduct(900)">Invest 900 ETB</button>
             </div>
         </div>
-
-        <!-- VIP 2 -->
-        <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 2</div>
-                <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500&auto=format&fit=crop&q=60" alt="VIP 2">
-            </div>
-            <div class="product-details">
-                <div class="product-title">Toyota Corolla Cross</div>
-                <div class="info-row"><span class="info-label">Product Price</span><span class="info-val">1,800 ETB</span></div>
-                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val green">+300 ETB</span></div>
-                <div class="info-row"><span class="info-label">Contract Period</span><span class="info-val">150 Days</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(1800)">Invest 1,800 ETB</button>
-            </div>
-        </div>
-
-        <!-- VIP 3 -->
-        <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 3</div>
-                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=500&auto=format&fit=crop&q=60" alt="VIP 3">
-            </div>
-            <div class="product-details">
-                <div class="product-title">Mercedes-Benz C200</div>
-                <div class="info-row"><span class="info-label">Product Price</span><span class="info-val">3,600 ETB</span></div>
-                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val green">+600 ETB</span></div>
-                <div class="info-row"><span class="info-label">Contract Period</span><span class="info-val">150 Days</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(3600)">Invest 3,600 ETB</button>
-            </div>
-        </div>
-
-        <!-- VIP 4 -->
-        <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 4</div>
-                <img src="https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=500&auto=format&fit=crop&q=60" alt="VIP 4">
-            </div>
-            <div class="product-details">
-                <div class="product-title">BMW 530i Premium</div>
-                <div class="info-row"><span class="info-label">Product Price</span><span class="info-val">7,200 ETB</span></div>
-                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val green">+1,300 ETB</span></div>
-                <div class="info-row"><span class="info-label">Contract Period</span><span class="info-val">150 Days</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(7200)">Invest 7,200 ETB</button>
-            </div>
-        </div>
-
-        <!-- VIP 5 -->
-        <div class="product-card">
-            <div class="product-img-box">
-                <div class="vip-tag">VIP 5</div>
-                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&auto=format&fit=crop&q=60" alt="VIP 5">
-            </div>
-            <div class="product-details">
-                <div class="product-title">Porsche Cayenne Coupe</div>
-                <div class="info-row"><span class="info-label">Product Price</span><span class="info-val">15,000 ETB</span></div>
-                <div class="info-row"><span class="info-label">Daily Income</span><span class="info-val green">+3000 ETB</span></div>
-                <div class="info-row"><span class="info-label">Contract Period</span><span class="info-val">150 Days</span></div>
-                <button class="invest-btn" onclick="goToDepositFromProduct(15000)">Invest 15,000 ETB</button>
-            </div>
-        </div>
     </div>
 
-    <!-- ================= 👥 TEAM/REFERRAL PAGE ================= -->
+
+    <!-- ================= 👥 TEAM PAGE (46346_2.jpg Style) ================= -->
     <div id="referralPage" class="page">
         <h2 style="text-align: center; margin-bottom: 20px;">Referral System Hub</h2>
-        <div class="wallet-card" style="background: #111;">
+        <div class="admin-section">
             <h4 style="color:var(--text-muted)">Your Invitation Code</h4>
-            <div id="myInviteCode" style="font-size: 28px; color: var(--accent-gold); font-weight:800; margin: 10px 0;">------</div>
-            
-            <p style="font-size: 13px; color:var(--text-muted); margin-top:10px;">Your Invitation Link:</p>
-            <div style="display:flex; gap:10px; margin-top:15px;">
-                <input type="text" id="shareLinkInput" class="form-control" readonly style="text-align:center; font-size:12px;">
-                <button class="copy-btn" style="background-color: var(--accent-gold); color: #000; border: none; padding: 0 15px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="copyReferralLink()">Copy</button>
+            <div id="myInviteCode" style="font-size: 28px; color: #ffea00; font-weight:800; margin: 10px 0;">------</div>
+            <p style="font-size: 13px; color:var(--text-muted);">Your Invitation Link:</p>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <input type="text" id="shareLinkInput" class="form-control" readonly>
+                <button onclick="copyReferralLink()" style="background-color: #b58928; color: #000; border: none; padding: 0 15px; border-radius: 8px; font-weight: 700; cursor: pointer;">Copy</button>
             </div>
         </div>
-
-        <div class="admin-section" style="margin-top: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span>Total Invited Members</span>
-                <span id="refCount" class="info-val" style="color: var(--accent-red);">0 People</span>
-            </div>
+        <div class="admin-section" style="display: flex; justify-content: space-between;">
+            <span>Total Invited Members</span>
+            <span id="refCount" style="color: var(--accent-red); font-weight: 700;">0 People</span>
         </div>
     </div>
 
-    <!-- ================= 👤 MINE/PROFILE PAGE (46343.jpg Complete Restructuring) ================= -->
+
+    <!-- ================= 👤 MINE/PROFILE PAGE (46344_2.jpg Complete Style) ================= -->
     <div id="profilePage" class="page">
         <div class="profile-header-card">
             <div class="profile-avatar-wrapper">
-                <img src="46308_2.png" alt="Profile Branding Logo">
+                <img src="46308_2.png" alt="Logo" onerror="this.src='https://via.placeholder.com/80'">
             </div>
             <h3 id="profilePhone" style="font-size: 18px; font-weight: 700;">+251 9********</h3>
             <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Verified ORS Premium Member</p>
 
-            <!-- 6 Matrix Box Layout like 46343.jpg -->
+            <!-- 6 Matrix Box Layout -->
             <div class="stats-block-grid">
-                <div class="stat-box-item">
-                    <div class="stat-box-title">Balance</div>
-                    <div class="stat-box-value"><span id="mineBalance">0.00</span></div>
-                </div>
-                <div class="stat-box-item">
-                    <div class="stat-box-title">Recharge</div>
-                    <div class="stat-box-value"><span id="mineRecharge">0.00</span></div>
-                </div>
-                <div class="stat-box-item">
-                    <div class="stat-box-title">Total Earn</div>
-                    <div class="stat-box-value">0.00</div>
-                </div>
-                <div class="stat-box-item">
-                    <div class="stat-box-title">Withdraw</div>
-                    <div class="stat-box-value">0.00</div>
-                </div>
-                <div class="stat-box-item">
-                    <div class="stat-box-title">Today</div>
-                    <div class="stat-box-value">0.00</div>
-                </div>
-                <div class="stat-box-item">
-                    <div class="stat-box-title">Team Com.</div>
-                    <div class="stat-box-value">0.00</div>
-                </div>
+                <div class="stat-box-item"><div class="stat-box-title">Balance</div><div class="stat-box-value" id="mineBalance">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">Recharge</div><div class="stat-box-value" id="mineRecharge">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">Total Earn</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">Withdraw</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">Today</div><div class="stat-box-value">0.00</div></div>
+                <div class="stat-box-item"><div class="stat-box-title">Team Com.</div><div class="stat-box-value">0.00</div></div>
             </div>
         </div>
 
-        <!-- 9 Grid Operations Area like 46343.jpg -->
-        <div class="menu-grid-items">
-            <div class="menu-grid-box" onclick="switchPage('depositPage')">
-                <i class="fa-solid fa-wallet"></i>
-                <span>Recharge</span>
-            </div>
-            <div class="menu-grid-box" onclick="switchPage('withdrawPage')">
-                <i class="fa-solid fa-money-check-dollar"></i>
-                <span>Withdraw</span>
-            </div>
-            <div class="menu-grid-box" onclick="alert('Feature coming soon')">
-                <i class="fa-solid fa-credit-card"></i>
-                <span>Add Bank</span>
-            </div>
-            <div class="menu-grid-box" onclick="alert('No records found')">
-                <i class="fa-solid fa-list-check"></i>
-                <span>Recharge Log</span>
-            </div>
-            <div class="menu-grid-box" onclick="alert('No records found')">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Withdraw Log</span>
-            </div>
-            <div class="menu-grid-box" onclick="alert('No orders active')">
-                <i class="fa-solid fa-boxes-stacked"></i>
-                <span>Ordered Logs</span>
-            </div>
-            <div class="menu-grid-box" onclick="alert('Security system optimal')">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Security</span>
-            </div>
-            <div class="menu-grid-box" onclick="switchPage('homePage'); alert('Use Promo Code Option on Dashboard');">
-                <i class="fa-solid fa-gift"></i>
-                <span>Gift</span>
-            </div>
-            <div class="menu-grid-box" onclick="logout()">
-                <i class="fa-solid fa-right-from-bracket" style="color: #666;"></i>
-                <span style="color: #666;">Sign out</span>
+        <!-- Promo Code Input (Gift) Panel directly inside Mine Page -->
+        <div class="admin-section" style="margin: 10px 0;">
+            <label style="font-size:13px; color:var(--text-muted); display:block; margin-bottom:8px;">Redeem Gift / Promo Code:</label>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="giftPromoInput" class="form-control" placeholder="Enter code here" style="padding:8px;">
+                <button onclick="claimPromoCode()" style="background:var(--accent-red); border:none; padding:0 15px; border-radius:8px; color:#fff; font-weight:700; cursor:pointer;">Apply</button>
             </div>
         </div>
+
+        <!-- 9 Grid Operations Area with Telegram Support embedded -->
+        <div class="menu-grid-items">
+            <div class="menu-grid-box" onclick="switchPage('depositPage')"><i class="fa-solid fa-wallet"></i><span>Recharge</span></div>
+            <div class="menu-grid-box" onclick="switchPage('withdrawPage')"><i class="fa-solid fa-money-check-dollar"></i><span>Withdraw</span></div>
+            <div class="menu-grid-box" onclick="alert('Bank Card Module Active')"><i class="fa-solid fa-credit-card"></i><span>Add Bank</span></div>
+            <div class="menu-grid-box" onclick="alert('No recharge logs')"><i class="fa-solid fa-list-check"></i><span>Recharge Log</span></div>
+            <div class="menu-grid-box" onclick="alert('No withdraw logs')"><i class="fa-solid fa-clock-rotate-left"></i><span>Withdraw Log</span></div>
+            <div class="menu-grid-box" onclick="alert('No active fleet orders')"><i class="fa-solid fa-boxes-stacked"></i><span>Ordered Logs</span></div>
+            <div class="menu-grid-box" onclick="alert('Security layer active')"><i class="fa-solid fa-shield-halved"></i><span>Security</span></div>
+            
+            <!-- Telegram Support Button -->
+            <div class="menu-grid-box" onclick="window.open('https://t.me/your_telegram_support_username', '_blank')">
+                <i class="fa-solid fa-headset" style="color:#0088cc;"></i>
+                <span style="color:#0088cc; font-weight:700;">Support</span>
+            </div>
+
+            <div class="menu-grid-box" onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#666;"></i><span>Sign out</span></div>
+        </div>
     </div>
+
 
     <!-- ================= 📥 FULL PAGE DEPOSIT ENGINE ================= -->
     <div id="depositPage" class="page">
-        <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent-red);"><i class="fa-solid fa-wallet"></i> Quick Deposit via Telebirr</h2>
-        
-        <div class="admin-section" style="text-align: center; padding: 20px;">
-            <!-- Telebirr Simulated Badge Image Graphic -->
-            <div style="background: #0066cc; color: #fff; font-weight: 800; font-size: 20px; padding: 15px; border-radius: 8px; margin-bottom: 20px; letter-spacing: 1px;">
-                <i class="fa-solid fa-mobile-screen-button"></i> telebirr
-            </div>
-
-            <div class="form-group" style="text-align: left;">
-                <label>Select Deposit Amount Package</label>
+        <h2 style="text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-wallet"></i> Telebirr Deposit</h2>
+        <div class="admin-section">
+            <div style="background: #0066cc; color: #fff; font-weight: 800; font-size: 18px; padding: 12px; border-radius: 8px; text-align:center; margin-bottom: 15px;">telebirr</div>
+            <div class="form-group">
+                <label>Package Amount</label>
                 <select id="depAmount" class="form-control">
-                    <option value="900">VIP 1 - 900 ETB</option>
-                    <option value="1800">VIP 2 - 1,800 ETB</option>
-                    <option value="3600">VIP 3 - 3,600 ETB</option>
-                    <option value="7200">VIP 4 - 7,200 ETB</option>
-                    <option value="15000">VIP 5 - 15,000 ETB</option>
+                    <option value="900">900 ETB</option>
+                    <option value="1800">1,800 ETB</option>
                 </select>
             </div>
-
-            <div style="background:#111; padding:15px; border-radius:8px; font-size:14px; text-align: left; margin-bottom:20px; border:1px solid var(--border-color); line-height: 1.8;">
-                <p>Merchant Account Name: <b>Emawayit</b></p>
-                <p>Telebirr Account Number: <b style="color:var(--accent-gold); font-size:16px;">0945221136</b></p>
+            <div style="background:#111; padding:12px; border-radius:8px; font-size:14px; margin-bottom:15px; border:1px solid var(--border-color);">
+                <p>Merchant Name: <b>Emawayit</b></p>
+                <p>Telebirr Number: <b style="color:#ffea00;">0945221136</b></p>
             </div>
-
-            <div class="form-group" style="text-align: left;">
-                <label>Paste the Complete Telebirr Confirmation SMS below</label>
-                <textarea id="depSms" class="form-control" rows="5" placeholder="Dear Customer, you have received..."></textarea>
+            <div class="form-group">
+                <label>Paste Telebirr Confirmation SMS</label>
+                <textarea id="depSms" class="form-control" rows="4" placeholder="Paste full message here..."></textarea>
             </div>
-
-            <button class="invest-btn" style="background: var(--accent-red); color:#fff;" onclick="submitDeposit()">CONFIRM DEPOSIT PAYMENT</button>
-            <button class="invest-btn" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); margin-top: 10px;" onclick="switchPage('homePage')">Cancel & Back</button>
+            <button class="invest-btn" onclick="submitDeposit()">SUBMIT PAYMENT</button>
         </div>
     </div>
+
 
     <!-- ================= 📤 FULL PAGE WITHDRAW ENGINE ================= -->
     <div id="withdrawPage" class="page">
-        <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent-red);"><i class="fa-solid fa-building-columns"></i> Secure Withdrawal Request</h2>
-        
-        <div class="admin-section" style="padding: 20px;">
-            <div style="background: rgba(234,67,53,0.1); border: 1px solid var(--accent-red); padding: 12px; border-radius: 8px; color: #ff8a80; font-size: 13px; margin-bottom: 20px;">
-                <i class="fa-solid fa-circle-info"></i> <b>Minimum Limit Warning:</b> The minimum allowable withdrawal amount is <b>300 ETB</b>. System processing transaction fee is automatically parsed below.
-            </div>
-
-            <!-- Enhanced Bank Details Parameters -->
-            <div class="form-group">
-                <label>Withdrawal Gateway Provider</label>
-                <input type="text" class="form-control" value="Telebirr Official Gateway" readonly style="color: var(--accent-green); font-weight:700;">
-            </div>
-
-            <div class="form-group">
-                <label>Telebirr Target Mobile Phone Number</label>
-                <input type="tel" id="witPhone" class="form-control" placeholder="09xxxxxxxx">
-            </div>
-
-            <div class="form-group">
-                <label>Account Holder Full Legal Name</label>
-                <input type="text" id="witName" class="form-control" placeholder="Enter matching recipient name">
-            </div>
-
-            <div class="form-group">
-                <label>Withdrawal Amount (ETB)</label>
-                <input type="number" id="witAmount" class="form-control" placeholder="Minimum 300 ETB" oninput="calculateWithdrawalFee(this.value)">
-                
-                <div class="fee-calc-box">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                        <span style="color:var(--text-muted)">Processing Fee (5%):</span>
-                        <span id="witFeeLabel">0.00 ETB</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; font-weight:700;">
-                        <span style="color:var(--text-muted)">Net Payout Yield:</span>
-                        <span id="witNetLabel" style="color:var(--accent-green)">0.00 ETB</span>
-                    </div>
-                </div>
-            </div>
-
-            <button class="invest-btn" style="background: var(--accent-red); color:#fff;" onclick="submitWithdraw()">EXECUTE WITHDRAWAL</button>
-            <button class="invest-btn" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); margin-top: 10px;" onclick="switchPage('homePage')">Cancel & Return</button>
+        <h2 style="text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-building-columns"></i> Withdraw</h2>
+        <div class="admin-section">
+            <p style="color:var(--accent-red); font-size:12px; margin-bottom:15px;">* Minimum withdrawal limit is 300 ETB. 5% processing fee applies.</p>
+            <div class="form-group"><label>Telebirr Phone Number</label><input type="tel" id="witPhone" class="form-control" placeholder="09xxxxxxxx"></div>
+            <div class="form-group"><label>Account Full Name</label><input type="text" id="witName" class="form-control" placeholder="Recipient Name"></div>
+            <div class="form-group"><label>Amount (Min 300)</label><input type="number" id="witAmount" class="form-control" placeholder="0.00"></div>
+            <button class="invest-btn" onclick="submitWithdraw()">EXECUTE WITHDRAWAL</button>
         </div>
     </div>
 
 
-    <!-- ================= 📊 🛠️ ADMIN PANEL PAGE ================= -->
+    <!-- ================= 📊 ADMIN CONTROL PANEL ================= -->
     <div id="adminPage" class="page">
-        <h2 style="color: var(--accent-gold); text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-user-shield"></i> ORS Admin Master Control</h2>
-        
-        <div class="actions-grid" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="action-btn" style="cursor:default;">
-                <span style="color:var(--text-muted);">Total Deposits</span>
-                <div id="adminTotalDeposit" style="font-size:20px; font-weight:800; color:var(--accent-green); margin-top:5px;">0.00 ETB</div>
-            </div>
-            <div class="action-btn" style="cursor:default;">
-                <span style="color:var(--text-muted);">Active Users</span>
-                <div id="adminTotalUsers" style="font-size:20px; font-weight:800; color:var(--accent-gold); margin-top:5px;">0</div>
-            </div>
-        </div>
-
+        <h2 style="color: #ffea00; text-align: center; margin-bottom:20px;">Admin Master Control</h2>
         <div class="admin-section">
-            <h3><i class="fa-solid fa-plus-circle"></i> Create Promo Code</h3>
-            <div class="form-group" style="margin-top:10px;">
-                <label>Promo Code Text (e.g. BONUS100)</label>
-                <input type="text" id="admPromoName" class="form-control" placeholder="BONUS100">
-            </div>
-            <div class="form-group">
-                <label>Value in ETB</label>
-                <input type="number" id="admPromoValue" class="form-control" placeholder="100">
-            </div>
-            <button class="invest-btn" onclick="adminCreatePromo()">Generate Code</button>
-        </div>
-
-        <div class="admin-section">
-            <h3><i class="fa-solid fa-clock"></i> Pending Withdraw Requests</h3>
-            <div style="overflow-x:auto;">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>User Phone</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminWithdrawTableBody">
-                        <tr><td colspan="4" style="text-align:center; color:var(--text-muted);">No logs registered</td></tr>
-                    </tbody>
-                </table>
-            </div>
+            <h3>Create Promo Code</h3>
+            <div class="form-group" style="margin-top:10px;"><label>Code Name</label><input type="text" id="admPromoName" class="form-control" placeholder="BONUS100"></div>
+            <div class="form-group"><label>Value (ETB)</label><input type="number" id="admPromoValue" class="form-control" placeholder="100"></div>
+            <button class="invest-btn" onclick="adminCreatePromo()">Generate Promo</button>
         </div>
     </div>
 
 
-    <!-- ================= 📱 STICKY BOTTOM NAVIGATION (46342.jpg Layout Matching) ================= -->
+    <!-- ================= 📱 BOTTOM STICKY MENU (46345_2.jpg Style) ================= -->
     <div id="mainBottomNav" class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('homePage', this)">
-            <i class="fa-solid fa-house"></i><span>Home</span>
-        </div>
-        <div class="nav-item" onclick="switchPage('productPage', this)">
-            <i class="fa-solid fa-car-sports"></i><span>Products</span>
-        </div>
-        <div class="nav-item" onclick="switchPage('referralPage', this)">
-            <i class="fa-solid fa-users-viewfinder"></i><span>Team</span>
-        </div>
-        <div class="nav-item" onclick="switchPage('profilePage', this)">
-            <i class="fa-solid fa-user"></i><span>Mine</span>
-        </div>
+        <div class="nav-item active" onclick="switchPage('homePage', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
+        <div class="nav-item" onclick="switchPage('productPage', this)"><i class="fa-solid fa-car-sports"></i><span>Products</span></div>
+        <div class="nav-item" onclick="switchPage('referralPage', this)"><i class="fa-solid fa-users-viewfinder"></i><span>Team</span></div>
+        <div class="nav-item" onclick="switchPage('profilePage', this)"><i class="fa-solid fa-user"></i><span>Mine</span></div>
+        <div class="nav-item" onclick="switchPage('adminPage', this)"><i class="fa-solid fa-user-shield"></i><span>Admin</span></div>
     </div>
 
 
-    <!-- ================= 🛠️ FRONTEND JAVASCRIPT LOGIC ================= -->
+    <!-- ================= 🛠️ JAVASCRIPT FIXED LOGIC ================= -->
     <script>
         const BASE_URL = window.location.origin;
-        let PAGE_OPEN_TIME = Date.now();
-        let sysLinks = { supportLink: '#', channelLink: '#' };
 
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const refCode = urlParams.get('ref');
-            if (refCode) {
-                toggleAuthTab('register');
-                document.getElementById('regPromo').value = refCode;
-            }
-            checkAuthToken();
-        };
-
-        function checkAuthToken() {
+            // Check session but do not completely lock out UI if empty
             const token = localStorage.getItem('ors_token');
             if (token) {
                 document.getElementById('authPage').style.display = 'none';
-                if (token === 'admin_master_token') {
-                    setupAdminNavigation();
-                    switchPage('adminPage');
-                } else {
-                    switchPage('homePage', document.querySelector('.nav-item'));
-                }
+                switchPage('homePage', document.querySelector('.nav-item'));
             } else {
                 document.getElementById('authPage').style.display = 'flex';
-                toggleAuthTab('login');
             }
-        }
-
-        function setupAdminNavigation() {
-            const nav = document.getElementById('mainBottomNav');
-            nav.style.gridTemplateColumns = "repeat(5, 1fr)";
-            if(!document.getElementById('navAdminBtn')) {
-                const adminBtn = document.createElement('div');
-                adminBtn.id = "navAdminBtn";
-                adminBtn.className = "nav-item";
-                adminBtn.innerHTML = `<i class="fa-solid fa-user-shield"></i><span>Admin</span>`;
-                adminBtn.onclick = function() { switchPage('adminPage', this); };
-                nav.appendChild(adminBtn);
-            }
-        }
+        };
 
         function toggleAuthTab(type) {
             if (type === 'login') {
@@ -869,14 +575,12 @@
         async function processLogin() {
             const phone = document.getElementById('loginPhone').value.trim();
             const password = document.getElementById('loginPass').value;
-            if (!phone || !password) return alert('Please complete credentials entry.');
+            if (!phone || !password) return alert('Fill fields.');
 
             if (phone === "0905295422" && password === "406976") {
-                alert("Master Admin Session Verified.");
                 localStorage.setItem('ors_token', 'admin_master_token');
                 document.getElementById('authPage').style.display = 'none';
-                setupAdminNavigation();
-                switchPage('adminPage', document.getElementById('navAdminBtn'));
+                switchPage('adminPage');
                 return;
             }
 
@@ -890,31 +594,30 @@
                 if (res.ok) {
                     localStorage.setItem('ors_token', data.token);
                     document.getElementById('authPage').style.display = 'none';
-                    switchPage('homePage', document.querySelector('.nav-item'));
+                    switchPage('homePage');
                 } else { alert(data.message); }
-            } catch (e) { alert('Authentication failure protocol occurred.'); }
+            } catch (e) { alert('Login communication error.'); }
         }
 
         async function processRegister() {
             const phone = document.getElementById('regPhone').value.trim();
             const password = document.getElementById('regPass').value;
             const confirmPass = document.getElementById('regConfirmPass').value;
-            const promoCode = document.getElementById('regPromo').value.trim();
+            const promoCode = document.getElementById('regPromo').value.trim(); // Optional parsed accurately
 
-            if (!phone || !password || !confirmPass) return alert('Inputs cannot be vacant.');
-            if (password !== confirmPass) return alert('Passwords do not match confirmation mapping.');
+            if (!phone || !password || !confirmPass) return alert('Inputs required.');
+            if (password !== confirmPass) return alert('Passwords mismatch.');
 
             try {
                 const res = await fetch(`${BASE_URL}/api/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone, password, promoCode })
+                    body: JSON.stringify({ phone, password, promoCode: promoCode || undefined })
                 });
                 const data = await res.json();
                 if (res.ok) {
-                    alert('Registration complete. Please access via Login credentials.');
+                    alert('Registered! Please login.');
                     toggleAuthTab('login');
-                    document.getElementById('loginPhone').value = phone;
                 } else { alert(data.message); }
             } catch (e) { alert('Registration system error.'); }
         }
@@ -926,157 +629,75 @@
             document.getElementById(pageId).classList.add('active');
             if(element) element.classList.add('active');
 
-            const token = localStorage.getItem('ors_token');
-            if (token === 'admin_master_token') {
-                if(pageId === 'adminPage') fetchAdminData();
-            } else {
+            if (localStorage.getItem('ors_token') && localStorage.getItem('ors_token') !== 'admin_master_token') {
                 fetchUserProfile();
             }
-            if(pageId === 'depositPage') PAGE_OPEN_TIME = Date.now();
-        }
-
-        function goToDepositFromProduct(amt) {
-            switchPage('depositPage');
-            document.getElementById('depAmount').value = amt;
         }
 
         async function fetchUserProfile() {
             const token = localStorage.getItem('ors_token');
-            if(!token || token === 'admin_master_token') return;
+            if(!token) return;
             try {
                 const res = await fetch(`${BASE_URL}/api/profile`, { headers: { 'Authorization': `Bearer ${token}` } });
                 if(res.ok) {
                     const data = await res.json();
                     document.getElementById('mineBalance').innerText = data.balance.toFixed(2);
-                    document.getElementById('mineRecharge').innerText = data.balance.toFixed(2); 
+                    document.getElementById('mineRecharge').innerText = data.balance.toFixed(2);
                     document.getElementById('profilePhone').innerText = "+251 " + data.phone;
-                    document.getElementById('myInviteCode').innerText = data.promoCode || "----";
+                    document.getElementById('myInviteCode').innerText = data.promoCode || "------";
                     document.getElementById('shareLinkInput').value = `${window.location.origin}?ref=${data.promoCode || ''}`;
-                    document.getElementById('refCount').innerText = (data.referralsCount || 0) + " People";
                 }
             } catch(e){}
         }
 
-        function calculateWithdrawalFee(val) {
-            const amount = parseFloat(val) || 0;
-            const fee = amount * 0.05;
-            const net = amount - fee;
-            
-            document.getElementById('witFeeLabel').innerText = `${fee.toFixed(2)} ETB`;
-            document.getElementById('witNetLabel').innerText = `${(net > 0 ? net : 0).toFixed(2)} ETB`;
-        }
-
-        function copyReferralLink() {
-            const input = document.getElementById('shareLinkInput');
-            input.select();
-            navigator.clipboard.writeText(input.value);
-            alert('Link copied to dashboard clip layer.');
+        async function claimPromoCode() {
+            const token = localStorage.getItem('ors_token');
+            const code = document.getElementById('giftPromoInput').value.trim();
+            if(!code) return alert('Please enter a valid code');
+            try {
+                const res = await fetch(`${BASE_URL}/api/promo/claim`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ promoCode: code })
+                });
+                const data = await res.json();
+                alert(data.message);
+                fetchUserProfile();
+            } catch(e) { alert('Error claiming promo'); }
         }
 
         async function submitDeposit() {
             const token = localStorage.getItem('ors_token');
             const amount = document.getElementById('depAmount').value;
             const smsText = document.getElementById('depSms').value;
-            if(!smsText) return alert('Please enter transaction mapping confirmation data.');
+            if(!smsText) return alert('SMS text needed');
             try {
                 const res = await fetch(`${BASE_URL}/api/deposit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({ amount, smsText, verificationCode: "1136", pageOpenTime: new Date(PAGE_OPEN_TIME).toISOString() })
+                    body: JSON.stringify({ amount, smsText })
                 });
                 const data = await res.json();
                 alert(data.message);
-                if(res.ok) { switchPage('profilePage'); }
-            } catch(e){ alert('Deposit communication parsing breakdown.'); }
-        }
-
-        async function triggerCheckIn() {
-            const token = localStorage.getItem('ors_token');
-            if(token === 'admin_master_token') return alert('Admin accounts bypass checking layer.');
-            const res = await fetch(`${BASE_URL}/api/checkin`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
-            const data = await res.json();
-            alert(data.message); fetchUserProfile();
+            } catch(e){}
         }
 
         async function submitWithdraw() {
             const token = localStorage.getItem('ors_token');
             const amount = parseFloat(document.getElementById('witAmount').value) || 0;
-            const phone = document.getElementById('witPhone').value.trim();
-            const name = document.getElementById('witName').value.trim();
-
-            if(!phone || !name || !amount) return alert('All payout data inputs must be configured.');
-            if(amount < 300) return alert('Transaction terminated. Minimum allowable constraint threshold is 300 ETB.');
-
+            if(amount < 300) return alert('Minimum withdrawal limit is 300 ETB.');
             try {
                 const res = await fetch(`${BASE_URL}/api/withdraw`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({ amount, metadata: { targetPhone: phone, holderName: name } })
+                    body: JSON.stringify({ amount })
                 });
                 const data = await res.json();
                 alert(data.message);
-                if(res.ok) { switchPage('profilePage'); }
-            } catch(e){ alert('Withdraw processing validation crash.'); }
-        }
-
-        async function fetchAdminData() {
-            try {
-                const res = await fetch(`${BASE_URL}/api/admin/dashboard`, {
-                    headers: { 'Authorization': `Bearer admin_master_token` }
-                });
-                if(res.ok) {
-                    const data = await res.json();
-                    document.getElementById('adminTotalDeposit').innerText = `${data.totalDeposits || 0} ETB`;
-                    document.getElementById('adminTotalUsers').innerText = data.totalUsers || 0;
-                    
-                    const tbody = document.getElementById('adminWithdrawTableBody');
-                    tbody.innerHTML = '';
-                    if(data.withdrawRequests && data.withdrawRequests.length > 0) {
-                        data.withdrawRequests.forEach(req => {
-                            tbody.innerHTML += `
-                                <tr>
-                                    <td>${req.phone}</td>
-                                    <td>${req.amount} ETB</td>
-                                    <td><span style="color:orange;">${req.status}</span></td>
-                                    <td><button onclick="adminApproveWithdraw('${req._id}')" style="background:green; color:#000; border:none; padding:4px 8px; border-radius:4px; font-weight:700; cursor:pointer;">Approve</button></td>
-                                </tr>`;
-                        });
-                    } else {
-                        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">No logs registered</td></tr>`;
-                    }
-                }
             } catch(e){}
         }
 
-        async function adminCreatePromo() {
-            const name = document.getElementById('admPromoName').value.trim();
-            const value = document.getElementById('admPromoValue').value;
-            if(!name || !value) return alert('Missing metrics validation variables.');
-
-            try {
-                const res = await fetch(`${BASE_URL}/api/admin/promo/create`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer admin_master_token` },
-                    body: JSON.stringify({ code: name, reward: parseFloat(value) })
-                });
-                const data = await res.json();
-                alert(data.message);
-                if(res.ok) { document.getElementById('admPromoName').value=''; document.getElementById('admPromoValue').value=''; }
-            } catch(e){ alert('Error generating payload string code.'); }
-        }
-
-        async function adminApproveWithdraw(id) {
-            try {
-                const res = await fetch(`${BASE_URL}/api/admin/withdraw/approve/${id}`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer admin_master_token` }
-                });
-                const data = await res.json();
-                alert(data.message); fetchAdminData();
-            } catch(e){}
-        }
-
-        function logout() { localStorage.removeItem('ors_token'); alert('Session killed securely.'); location.reload(); }
+        function logout() { localStorage.removeItem('ors_token'); location.reload(); }
     </script>
 </body>
 </html>
