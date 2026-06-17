@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #0b0c10;
-            --card-bg: #1f2833;
-            --primary-red: #c3073f;
-            --accent-gold: #f13c20;
-            --text-main: #ffffff;
-            --text-muted: #c5c6c7;
-            --success-green: #4fef73;
+            /* አዲስ የከለር ስኬም - ጥልቅ ሰማያዊ እና ኢንዲጎ */
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --primary-red: #3b82f6; 
+            --accent-gold: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success-green: #10b981;
         }
 
         * {
@@ -38,7 +39,7 @@
         .phone-wrapper {
             width: 100%;
             max-width: 480px;
-            background: linear-gradient(180deg, #121212 0%, #050505 100%);
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -49,7 +50,7 @@
 
         /* Premium Header */
         .app-header {
-            background: linear-gradient(90deg, var(--primary-red) 0%, #1f2833 100%);
+            background: linear-gradient(90deg, var(--primary-red) 0%, #1e293b 100%);
             padding: 20px;
             text-align: center;
             border-bottom: 2px solid var(--primary-red);
@@ -104,7 +105,7 @@
             background: var(--card-bg);
             border-radius: 8px;
             margin-bottom: 25px;
-            border: 1px solid #333;
+            border: 1px solid #334155;
         }
         .auth-tab {
             flex: 1;
@@ -133,8 +134,8 @@
         .input-group input {
             width: 100%;
             padding: 14px 15px 14px 45px;
-            background: #111;
-            border: 1px solid #333;
+            background: #0f172a;
+            border: 1px solid #334155;
             border-radius: 8px;
             color: white;
             font-size: 14px;
@@ -154,7 +155,7 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(195,7,63,0.4);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
             transition: 0.2s;
         }
         .btn-premium:active { transform: scale(0.98); }
@@ -167,8 +168,8 @@
             transform: translateX(-50%);
             width: 100%;
             max-width: 480px;
-            background: #0f1115;
-            border-top: 1px solid #222;
+            background: #0f172a;
+            border-top: 1px solid #334155;
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
@@ -193,7 +194,7 @@
         }
         .grid-item {
             background: var(--card-bg);
-            border: 1px solid #2d3748;
+            border: 1px solid #334155;
             border-radius: 12px;
             padding: 15px 10px;
             text-align: center;
@@ -211,17 +212,17 @@
             background-size: cover;
             background-position: center;
             margin-bottom: 20px;
-            border: 1px solid #222;
+            border: 1px solid #334155;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         /* VIP Vehicle Cards */
         .vehicle-card {
-            background: #151922;
+            background: #1e293b;
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 20px;
-            border: 1px solid #252d3a;
+            border: 1px solid #334155;
         }
         .vehicle-img {
             width: 100%;
@@ -234,7 +235,7 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            background: rgba(195, 7, 63, 0.9);
+            background: rgba(59, 130, 246, 0.9);
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 12px;
@@ -255,18 +256,18 @@
 
         /* Profile Block */
         .profile-card {
-            background: linear-gradient(135deg, #1f2833 0%, #111 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             padding: 20px;
             border-radius: 15px;
             text-align: center;
             margin-bottom: 20px;
-            border: 1px solid #333;
+            border: 1px solid #334155;
         }
         .avatar {
             width: 75px;
             height: 75px;
             border-radius: 50%;
-            background: #333;
+            background: #334155;
             margin: 0 auto 10px auto;
             display: flex;
             align-items: center;
@@ -279,17 +280,17 @@
 
         /* Sub matrix for Profile Info rows */
         .matrix-list {
-            background: #151922;
+            background: #1e293b;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #222;
+            border: 1px solid #334155;
         }
         .matrix-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #334155;
             cursor: pointer;
         }
         .matrix-row:last-child { border-bottom: none; }
@@ -298,18 +299,18 @@
 
         /* Telebirr Verification Framework Box */
         .telebirr-box {
-            background: #2d3748;
+            background: #334155;
             border: 2px dashed var(--accent-gold);
             border-radius: 10px;
             padding: 15px;
             margin: 15px 0;
             font-size: 13px;
         }
-        .telebirr-box strong { color: #f6ad55; font-size: 15px; }
+        .telebirr-box strong { color: #818cf8; font-size: 15px; }
 
         /* History Table Log entries */
         .log-item {
-            background: #1a202c;
+            background: #0f172a;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 10px;
@@ -353,7 +354,7 @@
             margin-bottom: 20px;
         }
         .admin-card {
-            background: #2d3748;
+            background: #334155;
             padding: 12px;
             border-radius: 8px;
             text-align: center;
@@ -440,11 +441,11 @@
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">Select deposit target package size:</p>
             
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
-                <button class="btn-premium" style="background: #222; border: 1px solid #44;" onclick="setDepositAmount(900)">900 ETB</button>
-                <button class="btn-premium" style="background: #222; border: 1px solid #44;" onclick="setDepositAmount(1800)">1800 ETB</button>
-                <button class="btn-premium" style="background: #222; border: 1px solid #44;" onclick="setDepositAmount(3600)">3600 ETB</button>
-                <button class="btn-premium" style="background: #222; border: 1px solid #44;" onclick="setDepositAmount(7200)">7200 ETB</button>
-                <button class="btn-premium" style="background: #222; border: 1px solid #44; grid-column: span 2;" onclick="setDepositAmount(10000)">10000 ETB</button>
+                <button class="btn-premium" style="background: #334155; border: 1px solid #44;" onclick="setDepositAmount(900)">900 ETB</button>
+                <button class="btn-premium" style="background: #334155; border: 1px solid #44;" onclick="setDepositAmount(1800)">1800 ETB</button>
+                <button class="btn-premium" style="background: #334155; border: 1px solid #44;" onclick="setDepositAmount(3600)">3600 ETB</button>
+                <button class="btn-premium" style="background: #334155; border: 1px solid #44;" onclick="setDepositAmount(7200)">7200 ETB</button>
+                <button class="btn-premium" style="background: #334155; border: 1px solid #44; grid-column: span 2;" onclick="setDepositAmount(10000)">10000 ETB</button>
             </div>
 
             <div class="input-group">
@@ -459,7 +460,7 @@
             </div>
 
             <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Paste the FULL Telebirr confirmation text below:</p>
-            <textarea id="telebirr-sms" style="width:100%; height: 110px; background:#111; border:1px solid #333; border-radius:8px; color:white; padding:10px; font-size:12px; outline:none; margin-bottom:15px; resize:none;" placeholder="Paste the complete text message received here..."></textarea>
+            <textarea id="telebirr-sms" style="width:100%; height: 110px; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white; padding:10px; font-size:12px; outline:none; margin-bottom:15px; resize:none;" placeholder="Paste the complete text message received here..."></textarea>
             
             <button class="btn-premium" onclick="processDepositVerification()">VERIFY TRANSACTION</button>
         </div>
@@ -542,7 +543,7 @@
             <div class="profile-card" style="text-align: left; padding: 15px;">
                 <p style="font-size: 12px; color: var(--text-muted);">Your Personal Invitation Link</p>
                 <div style="display: flex; gap: 8px; margin-top: 5px; margin-bottom: 15px;">
-                    <input type="text" id="share-link-input" style="flex:1; background:#111; border:1px solid #333; border-radius:6px; color:white; padding:8px; font-size:12px;" readonly>
+                    <input type="text" id="share-link-input" style="flex:1; background:#0f172a; border:1px solid #334155; border-radius:6px; color:white; padding:8px; font-size:12px;" readonly>
                     <button class="btn-premium" style="width:auto; padding: 0 15px;" onclick="copyReferralLink()">Copy</button>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 13px;">
@@ -646,15 +647,15 @@
 
             <div class="profile-card" style="text-align: left; padding: 15px; margin-bottom: 15px;">
                 <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">🔧 Platform Routing Pointers</p>
-                <input type="text" id="adm-support-link" placeholder="Support Chat Link" style="width:100%; padding:10px; background:#111; border:1px solid #333; border-radius:6px; color:white; font-size:12px; margin-bottom:10px;">
-                <input type="text" id="adm-channel-link" placeholder="Telegram Channel Link" style="width:100%; padding:10px; background:#111; border:1px solid #333; border-radius:6px; color:white; font-size:12px; margin-bottom:10px;">
+                <input type="text" id="adm-support-link" placeholder="Support Chat Link" style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:white; font-size:12px; margin-bottom:10px;">
+                <input type="text" id="adm-channel-link" placeholder="Telegram Channel Link" style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:white; font-size:12px; margin-bottom:10px;">
                 <button class="btn-premium" style="font-size:12px; padding:8px;" onclick="saveAdminRoutingLinks()">Update Routing Ecosystem</button>
             </div>
 
             <div class="profile-card" style="text-align: left; padding: 15px; margin-bottom: 15px;">
                 <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">🎫 Generate Global Action Code</p>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="adm-new-promo-code" placeholder="Example: BONUS77" style="flex:1; padding:10px; background:#111; border:1px solid #333; border-radius:6px; color:white; font-size:12px;">
+                    <input type="text" id="adm-new-promo-code" placeholder="Example: BONUS77" style="flex:1; padding:10px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:white; font-size:12px;">
                     <button class="btn-premium" style="width:auto; font-size:12px; padding:0 15px;" onclick="createAdminPromoBonus()">Create</button>
                 </div>
             </div>
@@ -662,11 +663,11 @@
             <div class="profile-card" style="text-align: left; padding: 15px; margin-bottom: 20px;">
                 <p style="font-size: 12px; font-weight: bold; margin-bottom: 8px;">🔍 Database Tracker Engine Search</p>
                 <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                    <input type="tel" id="adm-search-phone" placeholder="Enter Phone (09...)" style="flex:1; padding:10px; background:#111; border:1px solid #333; border-radius:6px; color:white; font-size:12px;">
+                    <input type="tel" id="adm-search-phone" placeholder="Enter Phone (09...)" style="flex:1; padding:10px; background:#0f172a; border:1px solid #334155; border-radius:6px; color:white; font-size:12px;">
                     <button class="btn-premium" style="width:auto; font-size:12px; padding:0 15px;" onclick="searchUserDatabase()">Search</button>
                 </div>
 
-                <div id="search-result-node" style="display: none; background:#111; padding:10px; border-radius:8px; font-size:12px; line-height: 1.6;">
+                <div id="search-result-node" style="display: none; background:#0f172a; padding:10px; border-radius:8px; font-size:12px; line-height: 1.6;">
                     <p>Phone: <span id="res-phone" style="font-weight: bold;">-</span></p>
                     <p>Password: <span id="res-pass" style="color:var(--text-muted); font-weight: bold;">-</span></p>
                     <p>Account Balance: <span id="res-bal" style="color:var(--success-green); font-weight:bold;">0</span> ETB</p>
@@ -678,7 +679,7 @@
                     <p>Active VIP Products: <span id="res-products" style="color: #fff; font-weight: bold;">None</span></p>
                     
                     <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-                        <input type="number" id="adm-modify-balance-val" placeholder="Amount" style="padding:6px; background:#222; border:1px solid #444; border-radius:4px; color:white; font-size:11px;">
+                        <input type="number" id="adm-modify-balance-val" placeholder="Amount" style="padding:6px; background:#1e293b; border:1px solid #444; border-radius:4px; color:white; font-size:11px;">
                         <button class="btn-premium" style="font-size:11px; padding:5px;" onclick="executeAdminBalanceAdjustment()">Add Balance</button>
                     </div>
                     <div style="margin-top: 5px; display: flex; gap: 5px;">
@@ -1222,7 +1223,7 @@
                     card.className = "admin-card";
                     card.style.textAlign = "left";
                     card.style.marginBottom = "10px";
-                    card.style.background = "#1a202c";
+                    card.style.background = "#0f172a";
                     card.innerHTML = `
                         <p><strong>User:</strong> ${r.phone} (${r.accountName})</p>
                         <p><strong>Telebirr Acc:</strong> ${r.accountNo}</p>
