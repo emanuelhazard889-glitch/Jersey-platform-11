@@ -710,7 +710,8 @@
 
     <script>
         // Global Default Dynamic Data Store Modules
-        let usersDatabase = {
+        let savedDB = localStorage.getItem('usersDatabase');
+        let usersDatabase = savedDB ? JSON.parse(savedDB) : {
             "0905295422": { phone: "0905295422", pass: "406976", balance: 30000.00, inviteCode: "ADMIN0", refCodeUsed: "", products: [], lastCheckIn: null, isBanned: false, validInvestor: true, telebirrAcc: "0905295422", telebirrName: "Amanuel Admin" }
         };
 
@@ -727,6 +728,21 @@
         window.onload = function() {
             document.getElementById('adm-support-link').value = targetSupportLink;
             document.getElementById('adm-channel-link').value = targetTelegramChannel;
+
+            // 1. Referral Auto-fill
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref');
+            if (refCode) {
+                document.getElementById('auth-promo').value = refCode;
+                switchAuthTab('register');
+            }
+
+            // 2. Persistent Login Check
+            const savedUserPhone = localStorage.getItem('activeUserPhone');
+            if (savedUserPhone && usersDatabase[savedUserPhone]) {
+                currentActiveUser = usersDatabase[savedUserPhone];
+                bootAuthenticatedUI(currentActiveUser.phone === "0905295422");
+            }
         };
 
         function showToast(msg) {
@@ -759,7 +775,7 @@
             return Math.floor(100000 + Math.random() * 900000).toString();
         }
 
-        // FIXED REGISTER & LOGIN LOGIC (Safe Login & One-time Registration)
+        // FIXED REGISTER & LOGIN LOGIC
         function handleAuth() {
             let phone = document.getElementById('auth-phone').value.trim();
             let pass = document.getElementById('auth-pass').value.trim();
@@ -768,14 +784,12 @@
             if (!phone || !pass) return showToast("Please input valid credentials.");
             if (!phone.startsWith("09") || phone.length !== 10) return showToast("Phone format must be 09XXXXXXXX.");
 
-            // 1. ሪጅስተር ለማድረግ ሲሞክር የነበረው ቼከር
             if (isReg) {
                 let pass2 = document.getElementById('auth-pass2').value.trim();
                 let promoUsed = document.getElementById('auth-promo').value.trim();
 
                 if (pass !== pass2) return showToast("Error: Passwords do not match!");
                 
-                // ስልኩ ቀድሞ ከተመዘገበ በቀጥታ ወደ ሎጊን እንዲሄድ ማድረግ (ዳታው ሳይነካ)
                 if (usersDatabase[phone]) {
                     showToast("Phone already registered! Switching to Log In mode.");
                     switchAuthTab('login');
@@ -784,11 +798,10 @@
 
                 let generatedCode = generateRandomInviteCode().substring(0,4);
 
-                // አዲስ አካውንት ሲከፈት ብቻ ነው ይሄ የሚሰራው
                 usersDatabase[phone] = {
                     phone: phone,
                     pass: pass,
-                    balance: 300.00, // 300 Birr Welcome Signup Bonus
+                    balance: 300.00,
                     inviteCode: generatedCode,
                     refCodeUsed: promoUsed,
                     products: [],
@@ -799,20 +812,15 @@
                     telebirrName: null
                 };
 
-                if(promoUsed) {
-                    for (let key in usersDatabase) {
-                        if(usersDatabase[key].inviteCode === promoUsed) {
-                            break;
-                        }
-                    }
-                }
+                // Save updated DB to localStorage
+                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
 
                 showToast("Account created! 300 Birr startup bonus granted.");
                 switchAuthTab('login');
             } else {
-                // 2. ሎጊን ሲያደርግ - አካውንቱ ካለ balance እና ሌላ መረጃ ሳይነካ በቀጥታ ያስገባል
                 if (phone === "0905295422" && pass === "406976") {
                     currentActiveUser = usersDatabase[phone];
+                    localStorage.setItem('activeUserPhone', phone); // Save Session
                     showToast("System Super-User Administrator authenticated.");
                     bootAuthenticatedUI(true);
                     return;
@@ -822,8 +830,8 @@
                 if (!target || target.pass !== pass) return showToast("Invalid credentials provided.");
                 if (target.isBanned) return showToast("Access Denied: This node has been terminated/banned.");
 
-                // ምንም አይነት balance ሳይነካ ሴሽኑን መጀመር
                 currentActiveUser = target;
+                localStorage.setItem('activeUserPhone', phone); // Save Session
                 showToast("Welcome back to ORS Premium Core Engine.");
                 bootAuthenticatedUI(false);
             }
@@ -977,6 +985,9 @@
             if(!currentActiveUser.depositLogs) currentActiveUser.depositLogs = [];
             currentActiveUser.depositLogs.push({ type: 'Deposit Auto-Verify', amount: selectedAmt, date: new Date().toLocaleDateString(), tx: txId });
 
+            // Update Database
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+
             showToast(`Success! Verified ${selectedAmt} ETB added to wallet database.`);
             document.getElementById('telebirr-sms').value = "";
             switchScreen('profile');
@@ -1033,6 +1044,7 @@
             let finalDisbursementValue = amt - computedNetFee;
 
             currentActiveUser.balance -= amt;
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
 
             let reqId = "WREQ" + Date.now();
             systemWithdrawalRequests.push({
@@ -1069,6 +1081,8 @@
                 lastCollectedTimestamp: purchaseTime
             });
 
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+
             showToast(`VIP ${vipLvl} Fleet Asset unit acquired successfully! Engine engaged.`);
             
             setInterval(() => {
@@ -1096,6 +1110,8 @@
             }
             currentActiveUser.balance += 20.00;
             currentActiveUser.lastCheckIn = todayStr;
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+            
             showToast("Check-In Confirmed! Daily +20.00 ETB added.");
             updateAllInterfaceMetrics();
         }
@@ -1112,6 +1128,7 @@
             currentActiveUser.balance += randomRewardValue;
 
             globalCreatedBonusVouchers = globalCreatedBonusVouchers.filter(c => c !== code);
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
 
             showToast(`Voucher Claimed! Granted random bonus reward: +${randomRewardValue}.00 ETB.`);
             document.getElementById('input-promo-bonus-code').value = "";
@@ -1122,6 +1139,7 @@
             let p = prompt("Enter new security system password string:");
             if(p && p.trim().length > 3) {
                 currentActiveUser.pass = p.trim();
+                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
                 showToast("Terminal system password registry mutated successfully.");
             }
         }
@@ -1132,6 +1150,7 @@
             if (acc && name) {
                 currentActiveUser.telebirrAcc = acc.trim();
                 currentActiveUser.telebirrName = name.trim();
+                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
                 showToast("Payout receiving credentials bound successfully.");
                 updateAllInterfaceMetrics();
             }
@@ -1270,6 +1289,8 @@
             if(!amt || !usersDatabase[key]) return showToast("Invalid operation.");
 
             usersDatabase[key].balance += amt;
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+            
             showToast(`Added ${amt} ETB balance override modification directly.`);
             document.getElementById('adm-modify-balance-val').value = "";
             searchUserDatabase();
@@ -1281,6 +1302,8 @@
             if(!usersDatabase[key]) return;
 
             usersDatabase[key].isBanned = shouldBan;
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+
             showToast(shouldBan ? "Account structural Node suspended/banned." : "Account ban status revoked.");
             searchUserDatabase();
         }
@@ -1298,29 +1321,15 @@
         function openSupportLink() { window.open(targetSupportLink, '_blank'); }
         function openOfficialChannel() { window.open(targetTelegramChannel, '_blank'); }
         
-        // --- መስመር 1300 አካባቢ ---
-function performLogout() {
-    currentUser = null;
-    localStorage.removeItem('activeUser'); // መረጃውን ያጠፋል
-    document.getElementById('appBottomNav').style.display = 'none';
-    switchScreen('auth');
-    switchAuthTab('login');
-    showToast("Secure context token destroyed. Signed out.");
-}
-window.onload = function() {
-    const savedUser = localStorage.getItem('activeUser');
-    const savedDB = localStorage.getItem('usersDatabase');
-    
-    if (savedDB) {
-        usersDatabase = JSON.parse(savedDB);
-    }
-    
-    if (savedUser && usersDatabase[savedUser]) {
-        currentUser = savedUser;
-        switchScreen('home'); // ወይም ወደ ዋናው ገጽ
-        updateAllInterfaceMetrics();
-    }
-};
-</script>
+        // FIXED LOGOUT FUNCTION
+        function performLogout() {
+            currentActiveUser = null;
+            localStorage.removeItem('activeUserPhone'); // ያስቀመጠውን ስልክ ቁጥር ያጠፋል
+            document.getElementById('appBottomNav').style.display = 'none';
+            switchScreen('auth');
+            switchAuthTab('login');
+            showToast("Secure context token destroyed. Signed out.");
+        }
+    </script>
 </body>
 </html>
