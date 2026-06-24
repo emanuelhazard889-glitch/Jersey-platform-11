@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* አዲስ የከለር ስኬም - ጥልቅ ሰማያዊ እና ኢንዲጎ */
             --bg-dark: #0f172a;
             --card-bg: #1e293b;
             --primary-red: #3b82f6; 
@@ -26,7 +25,11 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-image: url('46444.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -35,22 +38,24 @@
             overflow-x: hidden;
         }
 
-        /* Responsive Phone Container */
+        /* Responsive Phone Container with glassmorphism to look premium over background */
         .phone-wrapper {
             width: 100%;
             max-width: 480px;
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
             padding-bottom: 75px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
         /* Premium Header */
         .app-header {
-            background: linear-gradient(90deg, var(--primary-red) 0%, #1e293b 100%);
+            background: linear-gradient(90deg, var(--primary-red) 0%, rgba(30, 41, 59, 0.9) 100%);
             padding: 20px;
             text-align: center;
             border-bottom: 2px solid var(--primary-red);
@@ -102,7 +107,7 @@
         }
         .auth-tabs {
             display: flex;
-            background: var(--card-bg);
+            background: rgba(30, 41, 59, 0.6);
             border-radius: 8px;
             margin-bottom: 25px;
             border: 1px solid #334155;
@@ -134,7 +139,7 @@
         .input-group input {
             width: 100%;
             padding: 14px 15px 14px 45px;
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.7);
             border: 1px solid #334155;
             border-radius: 8px;
             color: white;
@@ -192,8 +197,8 @@
             gap: 12px;
             margin-bottom: 20px;
         }
-        .grid-item {
-            background: var(--card-bg);
+        .grid-menu .grid-item {
+            background: rgba(30, 41, 59, 0.7);
             border: 1px solid #334155;
             border-radius: 12px;
             padding: 15px 10px;
@@ -218,7 +223,7 @@
 
         /* VIP Vehicle Cards */
         .vehicle-card {
-            background: #1e293b;
+            background: rgba(30, 41, 59, 0.7);
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 20px;
@@ -256,7 +261,7 @@
 
         /* Profile Block */
         .profile-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
             padding: 20px;
             border-radius: 15px;
             text-align: center;
@@ -280,7 +285,7 @@
 
         /* Sub matrix for Profile Info rows */
         .matrix-list {
-            background: #1e293b;
+            background: rgba(30, 41, 59, 0.7);
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #334155;
@@ -310,7 +315,7 @@
 
         /* History Table Log entries */
         .log-item {
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.8);
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 10px;
@@ -328,6 +333,7 @@
         }
         .status-pending { background: #d69e2e; color: #fff; }
         .status-success { background: #38a169; color: #fff; }
+        .status-rejected { background: #e53935; color: #fff; }
 
         /* Quick modal or alert fallback banner */
         .toast {
@@ -354,12 +360,29 @@
             margin-bottom: 20px;
         }
         .admin-card {
-            background: #334155;
+            background: rgba(51, 65, 85, 0.8);
             padding: 12px;
             border-radius: 8px;
             text-align: center;
         }
         .admin-card div { font-size: 18px; font-weight: bold; margin-top: 5px; color: var(--success-green); }
+
+        .admin-nav-btn {
+            background: linear-gradient(90deg, #6366f1, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
@@ -638,6 +661,10 @@
         <div id="screen-admin" class="screen">
             <h3 style="margin-bottom: 15px; font-size: 16px; color: var(--accent-gold);"><i class="fa-solid fa-gauge"></i> Executive Matrix Control Panel</h3>
             
+            <button class="admin-nav-btn" onclick="scrollToWithdrawQueue()">
+                <i class="fa-solid fa-money-bill-trend-up"></i> Go to Withdraw Requests Queue
+            </button>
+
             <div class="admin-stat-grid">
                 <div class="admin-card">Total Members<div id="adm-total-members">1</div></div>
                 <div class="admin-card">Total Deposited<div id="adm-total-deposits">0.00 ETB</div></div>
@@ -689,7 +716,7 @@
                 </div>
             </div>
 
-            <p style="font-size: 13px; font-weight: bold; margin-bottom: 10px;">📋 Withdrawal Validation Queue</p>
+            <p id="admin-withdraw-section-anchor" style="font-size: 14px; font-weight: bold; margin-bottom: 10px; color: var(--accent-gold); border-top: 1px solid #334155; padding-top: 15px;"><i class="fa-solid fa-cash-register"></i> 📋 Withdrawal Validation Queue</p>
             <div id="admin-payout-queue-container"></div>
         </div>
 
@@ -710,27 +737,26 @@
     </div>
 
     <script>
-        // Global Default Dynamic Data Store Modules
+        // Synchronized Database Core Memory Modules
         let savedDB = localStorage.getItem('usersDatabase');
         let usersDatabase = savedDB ? JSON.parse(savedDB) : {
             "0905295422": { phone: "0905295422", pass: "406976", balance: 30000.00, inviteCode: "ADMIN0", refCodeUsed: "", products: [], lastCheckIn: null, isBanned: false, validInvestor: true, telebirrAcc: "0905295422", telebirrName: "Amanuel Admin" }
         };
 
+        let savedWithdrawals = localStorage.getItem('systemWithdrawalRequests');
+        let systemWithdrawalRequests = savedWithdrawals ? JSON.parse(savedWithdrawals) : [];
+
         let currentActiveUser = null;
         let globalUsedTransactionIDs = [];
-        let systemWithdrawalRequests = [];
         let globalCreatedBonusVouchers = ["WELCOME77"]; 
 
-        // Editable System Variables Managed by Admin Control Panel
         let targetTelegramChannel = "https://t.me/your_channel";
         let targetSupportLink = "https://t.me/your_support";
 
-        // Initializer Engine Runtime Boot
         window.onload = function() {
             document.getElementById('adm-support-link').value = targetSupportLink;
             document.getElementById('adm-channel-link').value = targetTelegramChannel;
 
-            // 1. Referral Auto-fill
             const urlParams = new URLSearchParams(window.location.search);
             const refCode = urlParams.get('ref');
             if (refCode) {
@@ -738,7 +764,6 @@
                 switchAuthTab('register');
             }
 
-            // 2. Persistent Login Check
             const savedUserPhone = localStorage.getItem('activeUserPhone');
             if (savedUserPhone && usersDatabase[savedUserPhone]) {
                 currentActiveUser = usersDatabase[savedUserPhone];
@@ -776,7 +801,6 @@
             return Math.floor(100000 + Math.random() * 900000).toString();
         }
 
-        // FIXED REGISTER & LOGIN LOGIC
         function handleAuth() {
             let phone = document.getElementById('auth-phone').value.trim();
             let pass = document.getElementById('auth-pass').value.trim();
@@ -813,15 +837,13 @@
                     telebirrName: null
                 };
 
-                // Save updated DB to localStorage
                 localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-
                 showToast("Account created! 300 Birr startup bonus granted.");
                 switchAuthTab('login');
             } else {
                 if (phone === "0905295422" && pass === "406976") {
                     currentActiveUser = usersDatabase[phone];
-                    localStorage.setItem('activeUserPhone', phone); // Save Session
+                    localStorage.setItem('activeUserPhone', phone); 
                     showToast("System Super-User Administrator authenticated.");
                     bootAuthenticatedUI(true);
                     return;
@@ -832,7 +854,7 @@
                 if (target.isBanned) return showToast("Access Denied: This node has been terminated/banned.");
 
                 currentActiveUser = target;
-                localStorage.setItem('activeUserPhone', phone); // Save Session
+                localStorage.setItem('activeUserPhone', phone); 
                 showToast("Welcome back to ORS Premium Core Engine.");
                 bootAuthenticatedUI(false);
             }
@@ -986,7 +1008,6 @@
             if(!currentActiveUser.depositLogs) currentActiveUser.depositLogs = [];
             currentActiveUser.depositLogs.push({ type: 'Deposit Auto-Verify', amount: selectedAmt, date: new Date().toLocaleDateString(), tx: txId });
 
-            // Update Database
             localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
 
             showToast(`Success! Verified ${selectedAmt} ETB added to wallet database.`);
@@ -1044,6 +1065,7 @@
             let computedNetFee = amt * 0.15;
             let finalDisbursementValue = amt - computedNetFee;
 
+            // Deduct full gross amount from balance initially
             currentActiveUser.balance -= amt;
             localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
 
@@ -1058,6 +1080,8 @@
                 accountName: currentActiveUser.telebirrName,
                 status: 'pending'
             });
+
+            localStorage.setItem('systemWithdrawalRequests', JSON.stringify(systemWithdrawalRequests));
 
             showToast("Payout queued. Dispatched to Administration node verification engine.");
             document.getElementById('withdraw-amount').value = "";
@@ -1083,7 +1107,6 @@
             });
 
             localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-
             showToast(`VIP ${vipLvl} Fleet Asset unit acquired successfully! Engine engaged.`);
             
             setInterval(() => {
@@ -1183,11 +1206,19 @@
             personalRequests.forEach(r => {
                 let item = document.createElement('div');
                 item.className = "log-item";
-                let badgeClass = r.status === 'pending' ? 'status-pending' : 'status-success';
-                item.innerHTML = `<div><strong>Payout Request</strong><br><small style="color:#888;">Net Payable (15% Deduced): ${r.netPayable} ETB</small></div>
+                
+                let badgeClass = 'status-pending';
+                if(r.status === 'success') badgeClass = 'status-success';
+                if(r.status === 'rejected') badgeClass = 'status-rejected';
+
+                item.innerHTML = `<div><strong>Payout Request</strong><br><small style="color:#888;">Net Payable (15% Deduced): ${r.netPayable.toFixed(2)} ETB</small></div>
                                   <div style="text-align:right;"><span class="status-badge ${badgeClass}">${r.status.toUpperCase()}</span><br><small style="color:#888; display:block; margin-top:4px;">${r.totalRequested} ETB</small></div>`;
                 container.appendChild(item);
             });
+        }
+
+        function scrollToWithdrawQueue() {
+            document.getElementById('admin-withdraw-section-anchor').scrollIntoView({ behavior: 'smooth' });
         }
 
         function refreshAdminConsolePanelMetrics() {
@@ -1225,112 +1256,51 @@
                     card.style.marginBottom = "10px";
                     card.style.background = "#0f172a";
                     card.innerHTML = `
-                        <p><strong>User:</strong> ${r.phone} (${r.accountName})</p>
-                        <p><strong>Telebirr Acc:</strong> ${r.accountNo}</p>
-                        <p><strong>Gross Claim Amount:</strong> ${r.totalRequested} ETB</p>
-                        <p style="color:var(--success-green);"><strong>Net Approved (After 15% system fee deduction):</strong> ${r.netPayable} ETB</p>
-                        <button class="btn-premium" style="font-size:11px; padding:5px; margin-top:8px; background:#38a169;" onclick="approveWithdrawRequest('${r.id}')">Approve Disbursement</button>
+                        <p><strong>User Node:</strong> ${r.phone}</p>
+                        <p><strong>Bank Account Number:</strong> <span style="color:#ffd700; font-weight:bold;">${r.accountNo}</span></p>
+                        <p><strong>Registered Account Name:</strong> <span style="color:#64b5f6; font-weight:bold;">${r.accountName}</span></p>
+                        <p><strong>Gross Claimed:</strong> ${r.totalRequested} ETB</p>
+                        <p style="color:var(--success-green);"><strong>Net Approved Disbursal (-15%):</strong> ${r.netPayable.toFixed(2)} ETB</p>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <button class="btn-premium" style="font-size:12px; padding:8px; background:#38a169; flex:1;" onclick="approveWithdrawRequest('${r.id}')">Approve</button>
+                            <button class="btn-premium" style="font-size:12px; padding:8px; background:#e53935; flex:1;" onclick="rejectWithdrawRequest('${r.id}')">Reject</button>
+                        </div>
                     `;
                     qContainer.appendChild(card);
                 });
             }
         }
 
-        function createAdminPromoBonus() {
-            let code = document.getElementById('adm-new-promo-code').value.trim();
-            if(!code) return showToast("Input string value.");
-            globalCreatedBonusVouchers.push(code);
-            showToast(`Global Promo Code [ ${code} ] registered into memory cache.`);
-            document.getElementById('adm-new-promo-code').value = "";
-        }
-
-        function saveAdminRoutingLinks() {
-            targetSupportLink = document.getElementById('adm-support-link').value.trim();
-            targetTelegramChannel = document.getElementById('adm-channel-link').value.trim();
-            showToast("System routing links configuration updated.");
-        }
-
-        function searchUserDatabase() {
-            let query = document.getElementById('adm-search-phone').value.trim();
-            let resNode = document.getElementById('search-result-node');
-            let target = usersDatabase[query];
-
-            if(!target) {
-                resNode.style.display = 'none';
-                return showToast("Query empty: No account record correlated with that string phone input.");
-            }
-
-            resNode.style.display = 'block';
-            document.getElementById('res-phone').innerText = target.phone;
-            document.getElementById('res-pass').innerText = target.pass;
-            document.getElementById('res-bal').innerText = target.balance.toFixed(2);
-            document.getElementById('res-status').innerText = target.isBanned ? "BANNED / SHUTDOWN" : "ACTIVE OPERATIONAL";
-            
-            document.getElementById('res-bank-acc').innerText = target.telebirrAcc ? target.telebirrAcc : "Not Added Yet";
-            document.getElementById('res-bank-name').innerText = target.telebirrName ? target.telebirrName : "-";
-            
-            document.getElementById('res-invite').innerText = target.inviteCode;
-            document.getElementById('res-invited-by').innerText = target.refCodeUsed ? target.refCodeUsed : "Direct Signup";
-
-            if (target.products && target.products.length > 0) {
-                let pList = target.products.map(p => `VIP ${p.vip}`).join(', ');
-                document.getElementById('res-products').innerText = pList;
-                document.getElementById('res-products').style.color = "var(--success-green)";
-            } else {
-                document.getElementById('res-products').innerText = "None (No Investment)";
-                document.getElementById('res-products').style.color = "var(--primary-red)";
-            }
-
-            resNode.setAttribute('data-active-search-key', query);
-        }
-
-        function executeAdminBalanceAdjustment() {
-            let key = document.getElementById('search-result-node').getAttribute('data-active-search-key');
-            let amt = parseFloat(document.getElementById('adm-modify-balance-val').value);
-            if(!amt || !usersDatabase[key]) return showToast("Invalid operation.");
-
-            usersDatabase[key].balance += amt;
-            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-            
-            showToast(`Added ${amt} ETB balance override modification directly.`);
-            document.getElementById('adm-modify-balance-val').value = "";
-            searchUserDatabase();
-            updateAllInterfaceMetrics();
-        }
-
-        function toggleUserBanState(shouldBan) {
-            let key = document.getElementById('search-result-node').getAttribute('data-active-search-key');
-            if(!usersDatabase[key]) return;
-
-            usersDatabase[key].isBanned = shouldBan;
-            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-
-            showToast(shouldBan ? "Account structural Node suspended/banned." : "Account ban status revoked.");
-            searchUserDatabase();
-        }
-
         function approveWithdrawRequest(id) {
             systemWithdrawalRequests.forEach(r => {
                 if(r.id === id) {
                     r.status = 'success';
-                    showToast("Payout authorization successful.");
+                    showToast("Payout disbursement execution successful.");
                 }
             });
+            localStorage.setItem('systemWithdrawalRequests', JSON.stringify(systemWithdrawalRequests));
             updateAllInterfaceMetrics();
         }
 
-        function openSupportLink() { window.open(targetSupportLink, '_blank'); }
-        function openOfficialChannel() { window.open(targetTelegramChannel, '_blank'); }
-        
-        // FIXED LOGOUT FUNCTION
-        function performLogout() {
-            currentActiveUser = null;
-            localStorage.removeItem('activeUserPhone'); // ያስቀመጠውን ስልክ ቁጥር ያጠፋል
-            document.getElementById('appBottomNav').style.display = 'none';
-            switchScreen('auth');
-            switchAuthTab('login');
-            showToast("Secure context token destroyed. Signed out.");
+        function rejectWithdrawRequest(id) {
+            systemWithdrawalRequests.forEach(r => {
+                if(r.id === id) {
+                    r.status = 'rejected';
+                    
+                    // Refund full gross amount back to user wallet balance
+                    if(usersDatabase[r.phone]) {
+                        usersDatabase[r.phone].balance += r.totalRequested;
+                        localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+                    }
+                    showToast("Payout request rejected. Error logged & funds returned to user balance.");
+                }
+            });
+            localStorage.setItem('systemWithdrawalRequests', JSON.stringify(systemWithdrawalRequests));
+            updateAllInterfaceMetrics();
         }
-    </script>
-</body>
-</html>
+
+        function createAdminPromoBonus() {
+            let code = document.getElementById('adm-new-promo-code').value.trim();
+            if(!code) return showToast("Input string value.");
+            globalCreatedBonusVouchers.push(code);
+            showToast(`Global Promo Code
