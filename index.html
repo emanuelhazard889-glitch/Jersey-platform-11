@@ -378,11 +378,63 @@
             gap: 8px;
             margin-top: 10px;
         }
+
+        /* Custom Modern Page-Integrated Modal Moduled System */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            padding: 20px;
+        }
+        .custom-modal {
+            background: rgba(30, 41, 59, 0.98);
+            border: 1px solid #334155;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        .modal-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+        }
+        .modal-body {
+            color: var(--text-main);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
 
     <div class="toast" id="appToast"></div>
+
+    <div class="custom-modal-overlay" id="customModalSystem">
+        <div class="custom-modal">
+            <div class="modal-title" id="modalTitleText">Notification</div>
+            <div class="modal-body" id="modalBodyContainer"></div>
+            <div class="modal-btns">
+                <button class="btn-premium" id="modalActionBtn" style="display: none;">Confirm</button>
+                <button class="btn-premium" style="background: #334155; box-shadow: none;" onclick="closeModalLayout()">Close</button>
+            </div>
+        </div>
+    </div>
 
     <div class="phone-wrapper">
         <div class="app-header">
@@ -770,6 +822,25 @@
             setTimeout(() => { t.style.display = 'none'; }, 3500);
         }
 
+        // Custom Layout Modal Controller Logic
+        function openModalLayout(title, contentHtml, showActionBtn, actionBtnText, onActionClick) {
+            document.getElementById('modalTitleText').innerText = title;
+            document.getElementById('modalBodyContainer').innerHTML = contentHtml;
+            let actionBtn = document.getElementById('modalActionBtn');
+            if (showActionBtn) {
+                actionBtn.style.display = 'block';
+                actionBtn.innerText = actionBtnText;
+                actionBtn.onclick = onActionClick;
+            } else {
+                actionBtn.style.display = 'none';
+            }
+            document.getElementById('customModalSystem').style.display = 'flex';
+        }
+
+        function closeModalLayout() {
+            document.getElementById('customModalSystem').style.display = 'none';
+        }
+
         function switchAuthTab(type) {
             let tabLogin = document.querySelectorAll('.auth-tab')[0];
             let tabReg = document.querySelectorAll('.auth-tab')[1];
@@ -888,8 +959,34 @@
             updateAllInterfaceMetrics();
         }
 
+        // Automated Fleet Production Core Parser (Every 24 Hours Verification Engine)
+        function checkAndApplyFleetEarnings() {
+            if (!currentActiveUser || !currentActiveUser.products) return;
+            let now = Date.now();
+            let updated = false;
+            
+            currentActiveUser.products.forEach(p => {
+                if (!p.lastCollectedTimestamp) p.lastCollectedTimestamp = p.boughtAt;
+                
+                let msPassed = now - p.lastCollectedTimestamp;
+                let continuousCycles = Math.floor(msPassed / (24 * 60 * 60 * 1000));
+                
+                if (continuousCycles > 0) {
+                    currentActiveUser.balance += (continuousCycles * p.dailyYield);
+                    p.lastCollectedTimestamp += (continuousCycles * 24 * 60 * 60 * 1000);
+                    updated = true;
+                }
+            });
+            
+            if (updated) {
+                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+            }
+        }
+
         function updateAllInterfaceMetrics() {
             if (!currentActiveUser) return;
+
+            checkAndApplyFleetEarnings();
 
             document.getElementById('user-balance-view').innerText = currentActiveUser.balance.toFixed(2);
             document.getElementById('profile-phone-display').innerText = "+251 " + currentActiveUser.phone.substring(1);
@@ -920,6 +1017,7 @@
                 document.getElementById('withdraw-active-state').style.display = 'block';
             } else {
                 document.getElementById('withdraw-locked-state').style.display = 'block';
+                document.getElementById('withdraw-active-state').style.none = 'none';
                 document.getElementById('withdraw-active-state').style.display = 'none';
             }
 
@@ -1098,13 +1196,7 @@
             });
 
             localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-
             showToast(`VIP ${vipLvl} Fleet Asset unit acquired successfully! Engine engaged.`);
-            
-            setInterval(() => {
-                currentActiveUser.balance += (dailyReturn / 86400);
-            }, 1000);
-
             switchScreen('profile');
         }
 
@@ -1112,11 +1204,19 @@
             if(!currentActiveUser || currentActiveUser.products.length === 0) {
                 return showToast("No active operations recorded inside your terminal.");
             }
-            let text = "Your Fleet Units:\n";
+            let htmlStr = '<div style="display:flex; flex-direction:column; gap:10px; max-height: 280px; overflow-y: auto; padding-right:5px;">';
             currentActiveUser.products.forEach((p, idx) => {
-                text += `${idx+1}. VIP ${p.vip} Asset - Yield: ${p.dailyYield} ETB/Day\n`;
+                let dateStr = new Date(p.boughtAt).toLocaleString();
+                htmlStr += `
+                    <div style="background:rgba(15,23,42,0.6); padding:12px; border-radius:10px; border:1px solid #334155;">
+                        <strong style="color:var(--primary-red); font-size:14px;">#${idx+1} VIP ${p.vip} Asset Module</strong><br>
+                        <small style="color:var(--text-muted); display:block; margin-top:2px;">Daily Yield: ${p.dailyYield} ETB / 24h</small>
+                        <small style="color:#818cf8; display:block; margin-top:4px;"><i class="fa-solid fa-clock"></i> Bought At: ${dateStr}</small>
+                    </div>
+                `;
             });
-            alert(text);
+            htmlStr += '</div>';
+            openModalLayout("Your Investment Fleet Terminal", htmlStr, false);
         }
 
         function triggerCheckIn() {
@@ -1152,24 +1252,53 @@
         }
 
         function openPasswordChange() {
-            let p = prompt("Enter new security system password string:");
-            if(p && p.trim().length > 3) {
-                currentActiveUser.pass = p.trim();
-                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-                showToast("Terminal system password registry mutated successfully.");
-            }
+            let inputHtml = `
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">Enter new security system password string below:</p>
+                <div class="input-group">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="text" id="modal-new-pass" placeholder="Minimum 4 characters">
+                </div>
+            `;
+            openModalLayout("Change Security Password", inputHtml, true, "MUTATE REGISTRY", function() {
+                let p = document.getElementById('modal-new-pass').value.trim();
+                if(p && p.length > 3) {
+                    currentActiveUser.pass = p;
+                    localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+                    showToast("Terminal system password registry mutated successfully.");
+                    closeModalLayout();
+                    updateAllInterfaceMetrics();
+                } else {
+                    showToast("Execution Failure: Pass value must exceed 3 characters.");
+                }
+            });
         }
 
         function openBankCardChange() {
-            let acc = prompt("Input your target Telebirr Phone Account Number (09...):");
-            let name = prompt("Input matching Telebirr registered legal identity name:");
-            if (acc && name) {
-                currentActiveUser.telebirrAcc = acc.trim();
-                currentActiveUser.telebirrName = name.trim();
-                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-                showToast("Payout receiving credentials bound successfully.");
-                updateAllInterfaceMetrics();
-            }
+            let fieldsHtml = `
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">Input your payout destination Telebirr system parameters:</p>
+                <div class="input-group">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="tel" id="modal-bank-acc" placeholder="Account Number (09...)">
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="modal-bank-name" placeholder="Matching Registered Legal Name">
+                </div>
+            `;
+            openModalLayout("Bind Payout Telebirr Card", fieldsHtml, true, "BIND CREDENTIALS", function() {
+                let acc = document.getElementById('modal-bank-acc').value.trim();
+                let name = document.getElementById('modal-bank-name').value.trim();
+                if (acc && name) {
+                    currentActiveUser.telebirrAcc = acc;
+                    currentActiveUser.telebirrName = name;
+                    localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+                    showToast("Payout receiving credentials bound successfully.");
+                    closeModalLayout();
+                    updateAllInterfaceMetrics();
+                } else {
+                    showToast("Validation Error: Blank entries are restricted inside ecosystem routing.");
+                }
+            });
         }
 
         function refreshHistoryLogs() {
