@@ -25,8 +25,8 @@
         }
 
         body {
-            /* ፎቶውን ሙሉ ገፅ (Full Page) ለማድረግ እዚህ ላይ ተተክሏል */
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.95) 100%), 
+            /* የጀርባ ፎቶው በግልጽ እንዲታይ የጥላው ከለር ቀለል ተደርጓል */
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.75) 100%), 
                         url('46444.png') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-main);
@@ -37,19 +37,18 @@
             overflow-x: hidden;
         }
 
-        /* Responsive Phone Container with Full Screen Background Blur */
+        /* Responsive Phone Container */
         .phone-wrapper {
             width: 100%;
             max-width: 480px;
-            /* ጀርባው የሙሉ ገፁን ፎቶ እንዲያሳይ መስታወት መሰል ዲዛይን ተሰጥቶታል */
-            background: rgba(30, 41, 59, 0.45);
+            background: rgba(30, 41, 59, 0.55);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 75px;
+            padding-bottom: 90px; /* የበተኖቹ መረገጫ ቦታ ክፍት እንዲሆን */
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
@@ -166,7 +165,7 @@
         }
         .btn-premium:active { transform: scale(0.98); }
 
-        /* Bottom Navigation Bar */
+        /* Bottom Navigation Bar - ከስክሪኑ ጋር ሁሌም ቋሚ እንዲሆን ተስተካክሏል */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -178,9 +177,9 @@
             border-top: 1px solid #334155;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            z-index: 999;
-            backdrop-filter: blur(5px);
+            padding: 12px 0;
+            z-index: 99999; /* ከማንኛውም ገጽ በላይ እንዲሆን */
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
         }
         .nav-item {
             text-align: center;
@@ -439,6 +438,7 @@
         </div>
     </div>
 
+    <!-- Main Wrapper Container -->
     <div class="phone-wrapper">
         <div class="app-header">
             <h1 id="headerTitle">ORS PLATFORM</h1>
@@ -765,20 +765,21 @@
             <p style="font-size: 13px; font-weight: bold; margin-bottom: 10px;">📋 Withdrawal Validation Queue</p>
             <div id="admin-payout-queue-container"></div>
         </div>
+    </div> <!-- /phone-wrapper -->
 
-        <div class="bottom-nav" id="appBottomNav" style="display: none;">
-            <div class="nav-item" id="nav-home" onclick="switchScreen('home')">
-                <i class="fa-solid fa-house"></i>Home
-            </div>
-            <div class="nav-item" id="nav-product" onclick="switchScreen('product')">
-                <i class="fa-solid fa-car"></i>Products
-            </div>
-            <div class="nav-item" id="nav-referal" onclick="switchScreen('referal')">
-                <i class="fa-solid fa-share-nodes"></i>Referral
-            </div>
-            <div class="nav-item" id="nav-profile" onclick="switchScreen('profile')">
-                <i class="fa-solid fa-user"></i>Profile
-            </div>
+    <!-- Pinned Bottom Navigation - ከዋናው ኮንቴይነር ውጪ በመደረጉ ሁሌም ከስር ቋሚ ሆኗል -->
+    <div class="bottom-nav" id="appBottomNav" style="display: none;">
+        <div class="nav-item" id="nav-home" onclick="switchScreen('home')">
+            <i class="fa-solid fa-house"></i>Home
+        </div>
+        <div class="nav-item" id="nav-product" onclick="switchScreen('product')">
+            <i class="fa-solid fa-car"></i>Products
+        </div>
+        <div class="nav-item" id="nav-referal" onclick="switchScreen('referal')">
+            <i class="fa-solid fa-share-nodes"></i>Referral
+        </div>
+        <div class="nav-item" id="nav-profile" onclick="switchScreen('profile')">
+            <i class="fa-solid fa-user"></i>Profile
         </div>
     </div>
 
@@ -804,7 +805,6 @@
             document.getElementById('adm-support-link').value = targetSupportLink;
             document.getElementById('adm-channel-link').value = targetTelegramChannel;
 
-            // ሪፍሬሽ ሲደረግ መጀመሪያ ሎግኢን ታብ እንዲሆን ያደርጋል (ቀጥታ Auto-Login እንዳይሆን ተወግዷል)
             switchAuthTab('login');
 
             const urlParams = new URLSearchParams(window.location.search);
@@ -959,7 +959,6 @@
             updateAllInterfaceMetrics();
         }
 
-        // Automated Fleet Production Core Parser (Every 24 Hours Verification Engine)
         function checkAndApplyFleetEarnings() {
             if (!currentActiveUser || !currentActiveUser.products) return;
             let now = Date.now();
@@ -1017,7 +1016,6 @@
                 document.getElementById('withdraw-active-state').style.display = 'block';
             } else {
                 document.getElementById('withdraw-locked-state').style.display = 'block';
-                document.getElementById('withdraw-active-state').style.none = 'none';
                 document.getElementById('withdraw-active-state').style.display = 'none';
             }
 
@@ -1495,7 +1493,6 @@
             localStorage.removeItem('activeUserPhone'); 
             document.getElementById('appBottomNav').style.display = 'none';
             switchScreen('auth');
-            // ሲወጡ በቀጥታ ወደ ሎግኢን (Log In) ገፅ እንዲመለስ ተደርጓል
             switchAuthTab('login');
             showToast("Secure context token destroyed. Signed out.");
         }
