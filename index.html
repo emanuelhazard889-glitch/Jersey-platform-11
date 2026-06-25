@@ -25,7 +25,10 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            /* ፎቶውን ሙሉ ገፅ (Full Page) ለማድረግ እዚህ ላይ ተተክሏል */
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.95) 100%), 
+                        url('46444.png') no-repeat center center fixed;
+            background-size: cover;
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -34,14 +37,14 @@
             overflow-x: hidden;
         }
 
-        /* Responsive Phone Container with Full Screen Background */
+        /* Responsive Phone Container with Full Screen Background Blur */
         .phone-wrapper {
             width: 100%;
             max-width: 480px;
-            background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%), 
-                        url('46444.png') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
+            /* ጀርባው የሙሉ ገፁን ፎቶ እንዲያሳይ መስታወት መሰል ዲዛይን ተሰጥቶታል */
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -801,17 +804,14 @@
             document.getElementById('adm-support-link').value = targetSupportLink;
             document.getElementById('adm-channel-link').value = targetTelegramChannel;
 
+            // ሪፍሬሽ ሲደረግ መጀመሪያ ሎግኢን ታብ እንዲሆን ያደርጋል (ቀጥታ Auto-Login እንዳይሆን ተወግዷል)
+            switchAuthTab('login');
+
             const urlParams = new URLSearchParams(window.location.search);
             const refCode = urlParams.get('ref');
             if (refCode) {
                 document.getElementById('auth-promo').value = refCode;
                 switchAuthTab('register');
-            }
-
-            const savedUserPhone = localStorage.getItem('activeUserPhone');
-            if (savedUserPhone && usersDatabase[savedUserPhone]) {
-                currentActiveUser = usersDatabase[savedUserPhone];
-                bootAuthenticatedUI(currentActiveUser.phone === "0905295422");
             }
         };
 
@@ -1495,7 +1495,8 @@
             localStorage.removeItem('activeUserPhone'); 
             document.getElementById('appBottomNav').style.display = 'none';
             switchScreen('auth');
-            switchAuthTab('register');
+            // ሲወጡ በቀጥታ ወደ ሎግኢን (Log In) ገፅ እንዲመለስ ተደርጓል
+            switchAuthTab('login');
             showToast("Secure context token destroyed. Signed out.");
         }
     </script>
