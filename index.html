@@ -135,7 +135,6 @@
             transform: translateY(-50%);
             color: var(--primary-red);
         }
-        /* የአይን ምልክት በቀኝ በኩል ለመቀመጥ እንዲመችና ፅሁፉ እንዳይሸፈን padding-right ተጨምሯል */
         .input-group input {
             width: 100%;
             padding: 14px 40px 14px 45px;
@@ -149,7 +148,6 @@
         }
         .input-group input:focus { border-color: var(--primary-red); }
 
-        /* የአይን ምልክት ስታይል */
         .input-group .toggle-password {
             left: auto;
             right: 15px;
@@ -521,11 +519,15 @@
                 </div>
             </div>
 
+            <!-- Partners Area: ምስሉ ባይመጣ እንኳ ቆንጆ fallback እንዲያሳይ ተስተካክሏል -->
             <div style="margin-top: 15px; background: var(--card-bg); border-radius: 12px; padding: 15px; border: 1px solid #334155; backdrop-filter: blur(5px);">
                 <p style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
                     <i class="fa-solid fa-handshake" style="color: var(--primary-red);"></i> Global Telecom Partners
                 </p>
-                <img src="49265.jpg" alt="Global Telecom Partners" style="width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+                <img src="49265.jpg" alt="Global Telecom Partners" onerror="this.style.display='none'; document.getElementById('partner-text-fallback').style.display='block';" style="width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+                <div id="partner-text-fallback" style="display: none; text-align: center; padding: 15px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; color: var(--text-muted); font-size: 13px; font-style: italic;">
+                    <i class="fa-solid fa-network-wired" style="color: var(--accent-gold); margin-right: 5px;"></i> Telebirr, Safaricom & Banking Networks Secured
+                </div>
             </div>
         </div>
 
@@ -833,7 +835,6 @@
             }
         };
 
-        /* የአይን ምልክቱን ለመቆጣጠር የተጨመረ አዲስ ፈንክሽን */
         function togglePasswordVisibility(inputId, icon) {
             let input = document.getElementById(inputId);
             if (input.type === "password") {
@@ -1090,7 +1091,7 @@
         function processDepositVerification() {
             let selectedAmt = parseFloat(document.getElementById('deposit-amount').value);
             let rawSms = document.getElementById('telebirr-sms').value.trim();
-            let openedTime = document.getElementById('screen-deposit').getAttribute('data-opened-time');
+            let openedTime = document.getElementById('screen-deposit').setAttribute('data-opened-time');
 
             if (!rawSms) return showToast("Error: Please input or paste the text notification record.");
 
