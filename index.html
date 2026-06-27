@@ -25,7 +25,6 @@
         }
 
         body {
-            /* የጀርባ ፎቶው በግልጽ እንዲታይ የጥላው ከለር ቀለል ተደርጓል */
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.75) 100%), 
                         url('46444.png') no-repeat center center fixed;
             background-size: cover;
@@ -48,7 +47,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 90px; /* የበተኖቹ መረገጫ ቦታ ክፍት እንዲሆን */
+            padding-bottom: 90px;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
@@ -136,9 +135,10 @@
             transform: translateY(-50%);
             color: var(--primary-red);
         }
+        /* የአይን ምልክት በቀኝ በኩል ለመቀመጥ እንዲመችና ፅሁፉ እንዳይሸፈን padding-right ተጨምሯል */
         .input-group input {
             width: 100%;
-            padding: 14px 15px 14px 45px;
+            padding: 14px 40px 14px 45px;
             background: rgba(15, 23, 42, 0.8);
             border: 1px solid #334155;
             border-radius: 8px;
@@ -148,6 +148,18 @@
             transition: 0.3s;
         }
         .input-group input:focus { border-color: var(--primary-red); }
+
+        /* የአይን ምልክት ስታይል */
+        .input-group .toggle-password {
+            left: auto;
+            right: 15px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .input-group .toggle-password:hover {
+            color: var(--primary-red);
+        }
 
         /* General Buttons */
         .btn-premium {
@@ -165,7 +177,7 @@
         }
         .btn-premium:active { transform: scale(0.98); }
 
-        /* Bottom Navigation Bar - ከስክሪኑ ጋር ሁሌም ቋሚ እንዲሆን ተስተካክሏል */
+        /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -178,7 +190,7 @@
             display: flex;
             justify-content: space-around;
             padding: 12px 0;
-            z-index: 99999; /* ከማንኛውም ገጽ በላይ እንዲሆን */
+            z-index: 99999;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
         }
         .nav-item {
@@ -460,11 +472,13 @@
                     <div class="input-group">
                         <i class="fa-solid fa-lock"></i>
                         <input type="password" id="auth-pass" placeholder="Password">
+                        <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('auth-pass', this)"></i>
                     </div>
                     <div id="register-only-fields" style="display: block;">
                         <div class="input-group">
                             <i class="fa-solid fa-lock"></i>
                             <input type="password" id="auth-pass2" placeholder="Confirm Password">
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('auth-pass2', this)"></i>
                         </div>
                         <div class="input-group">
                             <i class="fa-solid fa-user-plus"></i>
@@ -509,56 +523,56 @@
 
             <div style="margin-top: 15px; background: var(--card-bg); border-radius: 12px; padding: 15px; border: 1px solid #334155; backdrop-filter: blur(5px);">
                 <p style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-handshake" style="color: var(--primary-red);"></i> Global Fleet Partners
+                    <i class="fa-solid fa-handshake" style="color: var(--primary-red);"></i> Global Telecom Partners
                 </p>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Toyota Group</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Ethio Telecom</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Suzuki Corp</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Safaricom</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Mercedes-Benz</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">MTN Group</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Tesla Inc</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Orange Telecom</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Porsche AG</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Vodafone</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">BMW Group</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Airtel</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Audi AG</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">T-Mobile</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Hyundai Motor</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">AT&T Wireless</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Honda Group</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Verizon</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Nissan Corp</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Zain Group</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Ford Logistics</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Etisalat</span>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 8px; padding: 10px; text-align: center;">
-                        <i class="fa-solid fa-car-side" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
-                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">Chevrolet AG</span>
+                        <i class="fa-solid fa-tower-cell" style="color: var(--primary-red); font-size: 20px; margin-bottom: 5px;"></i>
+                        <span style="font-size: 11px; display: block; color: var(--text-main); font-weight: 500;">STC Group</span>
                     </div>
                 </div>
             </div>
@@ -820,7 +834,9 @@
             <p style="font-size: 13px; font-weight: bold; margin-bottom: 10px;">📋 Withdrawal Validation Queue</p>
             <div id="admin-payout-queue-container"></div>
         </div>
-    </div> <div class="bottom-nav" id="appBottomNav" style="display: none;">
+    </div> 
+    
+    <div class="bottom-nav" id="appBottomNav" style="display: none;">
         <div class="nav-item" id="nav-home" onclick="switchScreen('home')">
             <i class="fa-solid fa-house"></i>Home
         </div>
@@ -836,7 +852,6 @@
     </div>
 
     <script>
-        // Global Default Dynamic Data Store Modules
         let savedDB = localStorage.getItem('usersDatabase');
         let usersDatabase = savedDB ? JSON.parse(savedDB) : {
             "0905295422": { phone: "0905295422", pass: "406976", balance: 30000.00, inviteCode: "ADMIN0", refCodeUsed: "", products: [], lastCheckIn: null, isBanned: false, validInvestor: true, telebirrAcc: "0905295422", telebirrName: "Amanuel Admin" }
@@ -867,6 +882,20 @@
             }
         };
 
+        /* የአይን ምልክቱን ለመቆጣጠር የተጨመረ አዲስ ፈንክሽን */
+        function togglePasswordVisibility(inputId, icon) {
+            let input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
         function showToast(msg) {
             let t = document.getElementById('appToast');
             t.innerText = msg;
@@ -874,7 +903,6 @@
             setTimeout(() => { t.style.display = 'none'; }, 3500);
         }
 
-        // Custom Layout Modal Controller Logic
         function openModalLayout(title, contentHtml, showActionBtn, actionBtnText, onActionClick) {
             document.getElementById('modalTitleText').innerText = title;
             document.getElementById('modalBodyContainer').innerHTML = contentHtml;
