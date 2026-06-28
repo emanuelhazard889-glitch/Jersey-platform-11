@@ -800,7 +800,6 @@
         
         let globalCreatedBonusVouchers = ["WELCOME77"]; 
 
-        // -- አዲሶቹ ሊንኮች እዚህ ተቀይረዋል --
         let targetTelegramChannel = "https://t.me/ors_fleet_platform";
         let targetSupportLink = "https://t.me/Ors_fleet_agent";
 
@@ -1118,35 +1117,28 @@
             switchScreen('profile');
         }
 
-        function executeReferralRewardsCommission(uplineCode, baseAmount) {
-            if(!uplineCode) return;
-            for (let k1 in usersDatabase) {
-                if (usersDatabase[k1].inviteCode === uplineCode) {
-                    let lvl1Bonus = baseAmount * 0.20;
-                    usersDatabase[k1].balance += lvl1Bonus;
-                    
-                    let parentCode = usersDatabase[k1].refCodeUsed;
-                    if (parentCode) {
-                        for (let k2 in usersDatabase) {
-                            if (usersDatabase[k2].inviteCode === parentCode) {
-                                let lvl2Bonus = baseAmount * 0.02;
-                                usersDatabase[k2].balance += lvl2Bonus;
+        // Optimized Referral System
+        function executeReferralRewardsCommission(uplineCode, amount) {
+            if (!uplineCode) return;
 
-                                let grandParentCode = usersDatabase[k2].refCodeUsed;
-                                if (grandParentCode) {
-                                    for (let k3 in usersDatabase) {
-                                        if (usersDatabase[k3].inviteCode === grandParentCode) {
-                                            usersDatabase[k3].balance += (baseAmount * 0.01);
-                                            break;
-                                        }
-                                    }
-                                }
-                                break;
+            let lvl1 = Object.values(usersDatabase).find(u => u.inviteCode === uplineCode);
+            if (lvl1) {
+                lvl1.balance += (amount * 0.20); // Level 1 (20%)
+
+                if (lvl1.refCodeUsed) {
+                    let lvl2 = Object.values(usersDatabase).find(u => u.inviteCode === lvl1.refCodeUsed);
+                    if (lvl2) {
+                        lvl2.balance += (amount * 0.02); // Level 2 (2%)
+
+                        if (lvl2.refCodeUsed) {
+                            let lvl3 = Object.values(usersDatabase).find(u => u.inviteCode === lvl2.refCodeUsed);
+                            if (lvl3) {
+                                lvl3.balance += (amount * 0.01); // Level 3 (1%)
                             }
                         }
                     }
-                    break;
                 }
+                localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
             }
         }
 
