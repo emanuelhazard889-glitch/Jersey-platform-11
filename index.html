@@ -817,8 +817,9 @@
         
         let globalCreatedBonusVouchers = ["WELCOME77"]; 
 
-        let targetTelegramChannel = "https://t.me/your_channel";
-        let targetSupportLink = "https://t.me/your_support";
+        // Persistence Logic
+        let targetTelegramChannel = localStorage.getItem('targetTelegramChannel') || "https://t.me/your_channel";
+        let targetSupportLink = localStorage.getItem('targetSupportLink') || "https://t.me/your_support";
 
         window.onload = function() {
             document.getElementById('adm-support-link').value = targetSupportLink;
@@ -1090,7 +1091,7 @@
         function processDepositVerification() {
             let selectedAmt = parseFloat(document.getElementById('deposit-amount').value);
             let rawSms = document.getElementById('telebirr-sms').value.trim();
-            let openedTime = document.getElementById('screen-deposit').setAttribute('data-opened-time');
+            let openedTime = document.getElementById('screen-deposit').getAttribute('data-opened-time');
 
             if (!rawSms) return showToast("Error: Please input or paste the text notification record.");
 
@@ -1454,7 +1455,12 @@
         function saveAdminRoutingLinks() {
             targetSupportLink = document.getElementById('adm-support-link').value.trim();
             targetTelegramChannel = document.getElementById('adm-channel-link').value.trim();
-            showToast("System routing links configuration updated.");
+            
+            // Saving to localStorage
+            localStorage.setItem('targetSupportLink', targetSupportLink);
+            localStorage.setItem('targetTelegramChannel', targetTelegramChannel);
+            
+            showToast("System routing links configuration updated permanently.");
         }
 
         function searchUserDatabase() {
@@ -1485,48 +1491,4 @@
                 document.getElementById('res-products').style.color = "var(--success-green)";
             } else {
                 document.getElementById('res-products').innerText = "None (No Investment)";
-                document.getElementById('res-products').style.color = "var(--primary-red)";
-            }
-
-            resNode.setAttribute('data-active-search-key', query);
-        }
-
-        function executeAdminBalanceAdjustment() {
-            let key = document.getElementById('search-result-node').getAttribute('data-active-search-key');
-            let amt = parseFloat(document.getElementById('adm-modify-balance-val').value);
-            if(!amt || !usersDatabase[key]) return showToast("Invalid operation.");
-
-            usersDatabase[key].balance += amt;
-            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-            
-            showToast(`Added ${amt} ETB balance override modification directly.`);
-            document.getElementById('adm-modify-balance-val').value = "";
-            searchUserDatabase();
-            updateAllInterfaceMetrics();
-        }
-
-        function toggleUserBanState(shouldBan) {
-            let key = document.getElementById('search-result-node').getAttribute('data-active-search-key');
-            if(!usersDatabase[key]) return;
-
-            usersDatabase[key].isBanned = shouldBan;
-            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-
-            showToast(shouldBan ? "Account structural Node suspended/banned." : "Account ban status revoked.");
-            searchUserDatabase();
-        }
-
-        function openSupportLink() { window.open(targetSupportLink, '_blank'); }
-        function openOfficialChannel() { window.open(targetTelegramChannel, '_blank'); }
-        
-        function performLogout() {
-            currentActiveUser = null;
-            localStorage.removeItem('activeUserPhone'); 
-            document.getElementById('appBottomNav').style.display = 'none';
-            switchScreen('auth');
-            switchAuthTab('login');
-            showToast("Secure context token destroyed. Signed out.");
-        }
-    </script>
-</body>
-</html>
+                document.getElementById('res-products').style.color = "var
