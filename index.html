@@ -36,7 +36,6 @@
             overflow-x: hidden;
         }
 
-        /* Responsive Phone Container */
         .phone-wrapper {
             width: 100%;
             max-width: 480px;
@@ -51,7 +50,6 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* Premium Header */
         .app-header {
             background: linear-gradient(90deg, var(--primary-red) 0%, rgba(30, 41, 59, 0.9) 100%);
             padding: 20px;
@@ -74,7 +72,6 @@
             margin-top: 2px;
         }
 
-        /* Screens Base */
         .screen {
             display: none;
             padding: 15px;
@@ -87,7 +84,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Auth Screen Styling */
         .auth-container {
             padding: 30px 20px;
             text-align: center;
@@ -159,7 +155,6 @@
             color: var(--primary-red);
         }
 
-        /* General Buttons */
         .btn-premium {
             width: 100%;
             padding: 14px;
@@ -175,7 +170,6 @@
         }
         .btn-premium:active { transform: scale(0.98); }
 
-        /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -201,7 +195,6 @@
         .nav-item i { font-size: 20px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--primary-red); }
 
-        /* Grid Action Hub Menu */
         .grid-menu {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -221,7 +214,6 @@
         .grid-item i { font-size: 24px; color: var(--primary-red); margin-bottom: 8px; }
         .grid-item span { font-size: 12px; font-weight: 600; display: block; }
 
-        /* Slider Banner Placeholders */
         .promo-banner {
             width: 100%;
             height: 170px;
@@ -233,7 +225,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
-        /* VIP Vehicle Cards */
         .vehicle-card {
             background: var(--card-bg);
             border-radius: 15px;
@@ -272,7 +263,6 @@
         .stat-val { font-weight: bold; color: #fff; }
         .stat-val.green { color: var(--success-green); }
 
-        /* Profile Block */
         .profile-card {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
             padding: 20px;
@@ -297,7 +287,6 @@
         .balance-title { font-size: 13px; color: var(--text-muted); margin-top: 10px; }
         .balance-amount { font-size: 32px; font-weight: 800; color: var(--success-green); margin-bottom: 5px; }
 
-        /* Sub matrix for Profile Info rows */
         .matrix-list {
             background: var(--card-bg);
             border-radius: 12px;
@@ -317,7 +306,6 @@
         .matrix-left { display: flex; align-items: center; gap: 12px; font-size: 14px; }
         .matrix-left i { color: var(--primary-red); width: 20px; text-align: center;}
 
-        /* Telebirr Verification Framework Box */
         .telebirr-box {
             background: rgba(51, 65, 85, 0.8);
             border: 2px dashed var(--accent-gold);
@@ -328,7 +316,6 @@
         }
         .telebirr-box strong { color: #818cf8; font-size: 15px; }
 
-        /* History Table Log entries */
         .log-item {
             background: rgba(15, 23, 42, 0.8);
             padding: 12px;
@@ -350,7 +337,6 @@
         .status-success { background: #38a169; color: #fff; }
         .status-rejected { background: #e53935; color: #fff; }
 
-        /* Quick modal or alert fallback banner */
         .toast {
             position: fixed;
             top: 20px;
@@ -367,7 +353,6 @@
             text-align: center;
         }
 
-        /* Admin Layout Elements */
         .admin-stat-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -384,14 +369,12 @@
         }
         .admin-card div { font-size: 18px; font-weight: bold; margin-top: 5px; color: var(--success-green); }
         
-        /* Queue Management Toggles */
         .admin-btn-group {
             display: flex;
             gap: 8px;
             margin-top: 10px;
         }
 
-        /* Custom Modern Page-Integrated Modal Moduled System */
         .custom-modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -817,9 +800,9 @@
         
         let globalCreatedBonusVouchers = ["WELCOME77"]; 
 
-        // Persistence Logic
-        let targetTelegramChannel = localStorage.getItem('targetTelegramChannel') || "https://t.me/your_channel";
-        let targetSupportLink = localStorage.getItem('targetSupportLink') || "https://t.me/your_support";
+        // -- አዲሶቹ ሊንኮች እዚህ ተቀይረዋል --
+        let targetTelegramChannel = "https://t.me/ors_fleet_platform";
+        let targetSupportLink = "https://t.me/Ors_fleet_agent";
 
         window.onload = function() {
             document.getElementById('adm-support-link').value = targetSupportLink;
@@ -1455,12 +1438,7 @@
         function saveAdminRoutingLinks() {
             targetSupportLink = document.getElementById('adm-support-link').value.trim();
             targetTelegramChannel = document.getElementById('adm-channel-link').value.trim();
-            
-            // Saving to localStorage
-            localStorage.setItem('targetSupportLink', targetSupportLink);
-            localStorage.setItem('targetTelegramChannel', targetTelegramChannel);
-            
-            showToast("System routing links configuration updated permanently.");
+            showToast("System routing links configuration updated.");
         }
 
         function searchUserDatabase() {
@@ -1491,4 +1469,48 @@
                 document.getElementById('res-products').style.color = "var(--success-green)";
             } else {
                 document.getElementById('res-products').innerText = "None (No Investment)";
-                document.getElementById('res-products').style.color = "var
+                document.getElementById('res-products').style.color = "var(--primary-red)";
+            }
+
+            resNode.setAttribute('data-active-search-key', query);
+        }
+
+        function executeAdminBalanceAdjustment() {
+            let key = document.getElementById('search-result-node').getAttribute('data-active-search-key');
+            let amt = parseFloat(document.getElementById('adm-modify-balance-val').value);
+            if(!amt || !usersDatabase[key]) return showToast("Invalid operation.");
+
+            usersDatabase[key].balance += amt;
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+            
+            showToast(`Added ${amt} ETB balance override modification directly.`);
+            document.getElementById('adm-modify-balance-val').value = "";
+            searchUserDatabase();
+            updateAllInterfaceMetrics();
+        }
+
+        function toggleUserBanState(shouldBan) {
+            let key = document.getElementById('search-result-node').getAttribute('data-active-search-key');
+            if(!usersDatabase[key]) return;
+
+            usersDatabase[key].isBanned = shouldBan;
+            localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
+
+            showToast(shouldBan ? "Account structural Node suspended/banned." : "Account ban status revoked.");
+            searchUserDatabase();
+        }
+
+        function openSupportLink() { window.open(targetSupportLink, '_blank'); }
+        function openOfficialChannel() { window.open(targetTelegramChannel, '_blank'); }
+        
+        function performLogout() {
+            currentActiveUser = null;
+            localStorage.removeItem('activeUserPhone'); 
+            document.getElementById('appBottomNav').style.display = 'none';
+            switchScreen('auth');
+            switchAuthTab('login');
+            showToast("Secure context token destroyed. Signed out.");
+        }
+    </script>
+</body>
+</html>
