@@ -629,8 +629,9 @@
             </div>
 
             <div class="admin-stat-grid">
-                <div class="admin-card">Total Network<div><span id="ref-count">0</span> Users</div></div>
-                <div class="admin-card">Valid Investors<div><span id="ref-valid-count">0</span> Paid</div></div>
+                <div class="admin-card">Total Platform Members<div><span id="global-member-count">0</span> Users</div></div>
+                <div class="admin-card">Your Network<div><span id="ref-count">0</span> Users</div></div>
+                <div class="admin-card" style="grid-column: span 2;">Your Valid Investors<div><span id="ref-valid-count">0</span> Paid</div></div>
             </div>
 
             <div class="matrix-list">
@@ -1007,6 +1008,10 @@
 
             let baseUrl = window.location.href.split('?')[0];
             document.getElementById('share-link-input').value = baseUrl + "?ref=" + currentActiveUser.inviteCode;
+
+            // Updated calculations for Referral screen
+            let globalCount = Object.keys(usersDatabase).length;
+            document.getElementById('global-member-count').innerText = globalCount;
 
             let tNetwork = 0; let vNetwork = 0;
             for (let k in usersDatabase) {
